@@ -157,7 +157,7 @@ dataframeResultado = dd.sql(consultaSQL).df()
 #FIN EJERCICIO B
 #%%===========================================================================
 #EJERCICIO C
-#-?PUNTO a: Devolver un listado con los nombres de los departamentos que no tienen
+#PUNTO a: Devolver un listado con los nombres de los departamentos que no tienen
 #ningún caso asociado.
 
 
@@ -280,45 +280,43 @@ consultaSQL = """
 dataframeResultado = dd.sql(consultaSQL).df()
 #%%===========================================================================
 #EJERCICIO D
-#-??PUNTO g: Listar el promedio de cantidad de casos por provincia y año.
+#PUNTO g: Listar el promedio de cantidad de casos por provincia y año.
 
-suma_casos = dd.sql("""
-               SELECT provincia.descripcion AS prov, anio, SUM(cantidad) AS casos_anuales
+consultaSQL = """
+               SELECT provincia.descripcion AS prov, anio, AVG(cantidad) AS promedio_semanal
                FROM casos
                INNER JOIN departamento
                ON id_depto = departamento.id
                INNER JOIN provincia
                ON provincia.id = departamento.id_provincia
                GROUP BY provincia.descripcion, anio
-              """).df()
-
-consultaSQL = """
-               SELECT prov, AVG(casos_anuales) AS promedio_anual
-               FROM suma_casos
-               GROUP BY prov
               """
 
 dataframeResultado = dd.sql(consultaSQL).df()
 #%%===========================================================================
 #EJERCICIO D
-#???PUNTO h: Listar, para cada provincia y año, cuáles fueron los departamentos que más
+#PUNTO h: Listar, para cada provincia y año, cuáles fueron los departamentos que más
 #cantidad de casos tuvieron.
 
 
 casos_depto_anio = dd.sql("""
-               SELECT anio, provincia.descripcion AS prov, provincia.id AS prov_id, departamento.descripcion AS depto, departamento.id as depto_id, SUM(cantidad) AS cantidad_casos
+               SELECT anio, provincia.descripcion AS prov, provincia.id AS prov_id, departamento.descripcion AS depto, departamento.id as depto_id, SUM(cantidad) AS cant
                FROM departamento
                INNER JOIN provincia
                ON provincia.id = id_provincia
                INNER JOIN casos
                ON casos.id_depto = departamento.id
-               GROUP BY anio, provincia.id, provincia.descripcion, departamento.descripcion, departamento.id
+               GROUP BY departamento.id, anio, prov, prov_id, depto, depto_id
               """).df()
               
 consultaSQL = """
-               SELECT anio,prov, prov_id, depto,  MAX(cantidad_casos) AS maximos_casos
-               FROM casos_depto_anio
-               GROUP BY anio, prov, prov_id, depto_id,depto
+               SELECT c1.*,
+               FROM casos_depto_anio AS c1
+               WHERE c1.cant = (
+                       SELECT MAX(cant)
+                       FROM casos_depto_anio AS c2
+                       WHERE c1.prov_id = c2.prov_id AND c1.anio = c2.anio
+                   )
               """
 
 dataframeResultado = dd.sql(consultaSQL).df()
@@ -419,3 +417,360 @@ consultaSQL = """
                """
 
 dataframeResultado = dd.sql(consultaSQL).df()
+#%%===========================================================================
+#FIN EJ D
+#%%===========================================================================
+#EJERCICIO E
+#PUNTO a: Devolver el departamento que tuvo la mayor cantidad de casos sin hacer uso
+#de MAX, ORDER BY ni LIMIT.
+
+casos_depto_anio = dd.sql("""
+               SELECT anio, provincia.descripcion AS prov, provincia.id AS prov_id, departamento.descripcion AS depto, departamento.id as depto_id, SUM(cantidad) AS cant
+               FROM departamento
+               INNER JOIN provincia
+               ON provincia.id = id_provincia
+               INNER JOIN casos
+               ON casos.id_depto = departamento.id
+               GROUP BY departamento.id, anio, prov, prov_id, depto, depto_id
+              """).df()
+
+consultaSQL = """
+               SELECT prov, depto
+               FROM casos_depto_anio AS c1
+               WHERE c1.cant >= ALL (
+                   SELECT cant 
+                   FROM casos_depto_anio AS c2
+                   )
+               """
+dataframeResultado = dd.sql(consultaSQL).df()
+#%%===========================================================================
+#EJERCICIO E
+#PUNTO b: Devolver los tipo de evento que tienen casos asociados. (Utilizando ALL o
+#ANY).
+
+consultaSQL = """
+               SELECT DISTINCT tipoevento.descripcion
+               FROM casos AS c1
+               INNER JOIN tipoevento
+               ON tipoevento.id = id_tipoevento
+               WHERE id_tipOevento = ANY (
+                   SELECT DISTINCT id_tipoevento
+                   FROM casos
+                   )
+               """
+dataframeResultado = dd.sql(consultaSQL).df()
+#%%===========================================================================
+#FIN EJERCICIO E
+#%%===========================================================================
+#EJERCICIO F
+#PUNTO a:Devolver los tipo de evento que tienen casos asociados (Utilizando IN, NOT
+#IN).
+
+consultaSQL = """
+               SELECT t.descripcion
+               FROM tipoevento AS t
+               WHERE t.id IN (
+                   SELECT DISTINCT id_tipoevento
+                   FROM casos
+                   )
+               """
+dataframeResultado = dd.sql(consultaSQL).df()
+
+#%%===========================================================================
+#EJERCICIO F
+#PUNTO b:Devolver los tipo de evento que NO tienen casos asociados (Utilizando IN,
+#NOT IN)
+
+consultaSQL = """
+               SELECT t.descripcion
+               FROM tipoevento AS t
+               WHERE t.id NOT IN (
+                   SELECT DISTINCT id_tipoevento
+                   FROM casos
+                   )
+               """
+dataframeResultado = dd.sql(consultaSQL).df()
+#%%===========================================================================
+#FIN EJERCICIO F
+#%%===========================================================================
+#EJERCICIO G
+#PUNTO a: Devolver los tipo de evento que tienen casos asociados (Utilizando EXISTS,
+#NOT EXISTS).
+
+
+consultaSQL = """
+               SELECT t.descripcion
+               FROM tipoevento AS t
+               WHERE EXISTS (
+                   SELECT *
+                   FROM casos AS c
+                   WHERE t.id = c.id_tipoevento
+                   )
+               """
+dataframeResultado = dd.sql(consultaSQL).df()
+#%%===========================================================================
+#EJERCICIO G
+#PUNTO a: Devolver los tipo de evento que tienen casos asociados (Utilizando EXISTS,
+#NOT EXISTS).
+
+
+consultaSQL = """
+               SELECT t.descripcion
+               FROM tipoevento AS t
+               WHERE NOT EXISTS (
+                   SELECT *
+                   FROM casos AS c
+                   WHERE t.id = c.id_tipoevento
+                   )
+               """
+dataframeResultado = dd.sql(consultaSQL).df()
+#%%===========================================================================
+#FIN EJERCICIO G
+#%%===========================================================================
+#EJERCICIO H
+#PUNTO a: Listar las provincias que tienen una cantidad total de casos mayor al
+#promedio de casos del país. Hacer el listado agrupado por año.
+
+casos_prov_anio = dd.sql("""
+               SELECT anio, provincia.descripcion AS prov, provincia.id AS prov_id, SUM(cantidad) AS cant
+               FROM departamento
+               INNER JOIN provincia
+               ON provincia.id = id_provincia
+               INNER JOIN casos
+               ON casos.id_depto = departamento.id
+               GROUP BY  anio, prov, prov_id
+              """).df()
+
+consultaSQL = """
+               SELECT anio, prov
+               FROM casos_prov_anio AS cp1
+               WHERE cp1.cant > (
+                   SELECT AVG(cant)
+                   FROM casos_prov_anio AS cp2
+                   WHERE cp1.anio = cp2.anio
+                   )
+               """
+dataframeResultado = dd.sql(consultaSQL).df()
+#%%===========================================================================
+#EJERCICIO H
+#PUNTO b: Por cada año, listar las provincias que tuvieron una cantidad total de casos
+#mayor a la cantidad total de casos que la provincia de Corrientes.
+
+casos_prov_anio = dd.sql("""
+               SELECT anio, provincia.descripcion AS prov, provincia.id AS prov_id, SUM(cantidad) AS cant
+               FROM departamento
+               INNER JOIN provincia
+               ON provincia.id = id_provincia
+               INNER JOIN casos
+               ON casos.id_depto = departamento.id
+               GROUP BY  anio, prov, prov_id
+              """).df()
+
+consultaSQL = """
+               SELECT anio, prov
+               FROM casos_prov_anio AS cp1
+               WHERE cp1.cant > (
+                   SELECT cant
+                   FROM casos_prov_anio AS cp2
+                   WHERE cp1.anio = cp2.anio AND cp2.prov = 'Corrientes'
+                   )
+               OR NOT EXISTS (
+                   SELECT cant
+                   FROM casos_prov_anio AS cp2
+                   WHERE cp1.anio = cp2.anio AND cp2.prov = 'Corrientes'
+                   )
+               """
+dataframeResultado = dd.sql(consultaSQL).df()
+#%%===========================================================================
+#FIN EJERCICIO H
+#%%===========================================================================
+#EJERCICIO I
+#PUNTO a:Listar los códigos de departamento y sus nombres, ordenados por estos
+#últimos (sus nombres) de manera descendentes (de la Z a la A). En caso de
+#empate, desempatar por código de departamento de manera ascendente.
+
+
+consultaSQL = """
+               SELECT id AS codigo, descripcion AS nombre
+               FROM departamento AS d
+               ORDER BY nombre DESC, codigo ASC ;
+                """
+dataframeResultado = dd.sql(consultaSQL).df()
+#%%===========================================================================
+#EJERCICIO I
+#PUNTO b: Listar los registros de la tabla provincia cuyos nombres comiencen con la
+#letra M.
+
+
+consultaSQL = """
+               SELECT *
+               FROM provincia AS p
+               WHERE p.descripcion LIKE 'M%'
+                """
+dataframeResultado = dd.sql(consultaSQL).df()
+#%%===========================================================================
+#EJERCICIO I
+#PUNTO c: Listar los registros de la tabla provincia cuyos nombres comiencen con la
+#letra S y su quinta letra sea una letra A.
+
+
+consultaSQL = """
+               SELECT *
+               FROM provincia AS p
+               WHERE p.descripcion LIKE 'S___a%'
+                """
+dataframeResultado = dd.sql(consultaSQL).df()
+#%%===========================================================================
+#EJERCICIO I
+#PUNTO d:  Listar los registros de la tabla provincia cuyos nombres terminan con la
+#letra A
+
+consultaSQL = """
+               SELECT *
+               FROM provincia AS p
+               WHERE p.descripcion LIKE '%a'
+                """
+dataframeResultado = dd.sql(consultaSQL).df()
+#%%===========================================================================
+#EJERCICIO I
+#PUNTO e:  Listar los registros de la tabla provincia cuyos nombres tengan
+#exactamente 5 letras.
+
+
+consultaSQL = """
+               SELECT *
+               FROM provincia AS p
+               WHERE p.descripcion LIKE '_____'
+                """
+dataframeResultado = dd.sql(consultaSQL).df()
+#%%===========================================================================
+#EJERCICIO I
+#PUNTO f: Listar los registros de la tabla provincia cuyos nombres tengan ”do” en
+#alguna parte de su nombre
+
+
+consultaSQL = """
+               SELECT *
+               FROM provincia AS p
+               WHERE p.descripcion LIKE '%do%'
+                """
+dataframeResultado = dd.sql(consultaSQL).df()
+#%%===========================================================================
+#EJERCICIO I
+#PUNTO g: Listar los registros de la tabla provincia cuyos nombres tengan ”do” en
+#alguna parte de su nombre y su código sea menor a 30.
+
+
+consultaSQL = """
+               SELECT *
+               FROM provincia AS p
+               WHERE p.descripcion LIKE '%do%'
+               AND p.id < 30
+                """
+dataframeResultado = dd.sql(consultaSQL).df()
+#%%===========================================================================
+#EJERCICIO I
+#PUNTO h: Listar los registros de la tabla departamento cuyos nombres tengan ”san”
+#en alguna parte de su nombre. Listar sólo id y descripcion. Utilizar los
+#siguientes alias para las columnas: codigo_depto y nombre_depto,
+#respectivamente. El resultado debe estar ordenado por sus nombres de
+#manera descendentes (de la Z a la A).
+
+consultaSQL = """
+               SELECT id AS codigo_depto, descripcion AS nombre_depto
+               FROM departamento AS d
+               WHERE d.descripcion LIKE '%San%'
+               ORDER BY descripcion DESC;
+                """
+dataframeResultado = dd.sql(consultaSQL).df()
+#%%===========================================================================
+#EJERCICIO I
+#PUNTO i: Devolver aquellos casos de las provincias cuyo nombre terminen con la letra
+#a y el campo cantidad supere 10. Mostrar: nombre de provincia, nombre de
+#departamento, año, semana epidemiológica, descripción de grupo etario y
+#cantidad. Ordenar el resultado por la cantidad (descendente), luego por el
+#nombre de la provincia (ascendente), nombre del departamento
+#(ascendente), año (ascendente) y la descripción del grupo etario
+#(ascendente).
+
+consultaSQL = """
+               SELECT p.descripcion AS prov, d.descripcion AS depto, anio, semana_epidemiologica, g.descripcion AS grupo_etario, cantidad
+               FROM casos AS c
+               INNER JOIN departamento AS d 
+               ON d.id = c.id_depto
+               INNER JOIN provincia AS p
+               ON p.id = d.id_provincia
+               INNER JOIN grupoetario as g
+               ON g.id = c.id_grupoetario
+               WHERE p.descripcion LIKE '%a'
+               AND cantidad > 10
+               ORDER BY cantidad DESC, p.descripcion ASC, d.descripcion ASC, anio ASC, g.descripcion ASC;
+               """
+dataframeResultado = dd.sql(consultaSQL).df()
+#%%===========================================================================
+#EJERCICIO I
+#PUNTO j:Ídem anterior, pero devolver sólo aquellas tuplas que tienen el máximo en el
+#campo cantidad.
+
+
+casos_i = dd.sql("""
+               SELECT p.descripcion AS prov, d.descripcion AS depto, anio, semana_epidemiologica, g.descripcion AS grupo_etario, cantidad
+               FROM casos AS c
+               INNER JOIN departamento AS d 
+               ON d.id = c.id_depto
+               INNER JOIN provincia AS p
+               ON p.id = d.id_provincia
+               INNER JOIN grupoetario as g
+               ON g.id = c.id_grupoetario
+               WHERE p.descripcion LIKE '%a'
+               AND cantidad > 10
+               ORDER BY cantidad DESC, p.descripcion ASC, d.descripcion ASC, anio ASC, g.descripcion ASC;
+               """).df()
+              
+consultaSQL = """
+                SELECT *
+                FROM casos_i as c1
+                WHERE c1.cantidad = (
+                    SELECT MAX(cantidad)
+                    FROM casos_i AS c2
+                    WHERE c1.prov = c2.prov AND c1.depto = c2.depto AND c1.anio = c2.anio
+                    )
+              """
+dataframeResultado = dd.sql(consultaSQL).df()
+#%%===========================================================================
+#FIN EJERCICIO I 
+#%%===========================================================================
+#EJERCICIO J
+#PUNTO a: Listar los id y descripción de los departamentos. Estos últimos sin tildes y en
+#orden alfabético.
+              
+consultaSQL = """
+                SELECT d.id, REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
+                    d.descripcion, 'á', 'a'), 
+                                   'é', 'e'), 
+                                   'í', 'i'), 
+                                   'ó', 'o'), 
+                                   'ú', 'u')
+                                   AS descripcion
+                FROM departamento AS d
+                ORDER BY descripcion
+              """
+dataframeResultado = dd.sql(consultaSQL).df()
+#%%===========================================================================
+#EJERCICIO J
+#PUNTO b: Listar los nombres de provincia en mayúscula, sin tildes y en orden
+#alfabético
+              
+consultaSQL = """
+                SELECT p.id, UPPER(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
+                    p.descripcion, 'á', 'a'), 
+                                   'é', 'e'), 
+                                   'í', 'i'), 
+                                   'ó', 'o'), 
+                                   'ú', 'u'))
+                                   AS descripcion
+                FROM provincia AS p
+                ORDER BY descripcion
+              """
+dataframeResultado = dd.sql(consultaSQL).df()
+
