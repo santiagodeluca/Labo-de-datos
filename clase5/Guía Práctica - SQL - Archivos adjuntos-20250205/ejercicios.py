@@ -300,7 +300,10 @@ dataframeResultado = dd.sql(consultaSQL).df()
 
 
 casos_depto_anio = dd.sql("""
-               SELECT anio, provincia.descripcion AS prov, provincia.id AS prov_id, departamento.descripcion AS depto, departamento.id as depto_id, SUM(cantidad) AS cant
+               SELECT  anio, provincia.descripcion AS prov, 
+                       provincia.id AS prov_id, 
+                       departamento.descripcion AS depto, 
+                       departamento.id as depto_id, SUM(cantidad) AS cant
                FROM departamento
                INNER JOIN provincia
                ON provincia.id = id_provincia
