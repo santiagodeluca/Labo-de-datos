@@ -1,7 +1,7 @@
 import pandas as pd
 import duckdb as dd
 
-#%% Nombramos columnas y agregamos i_depto
+#%% Nombramos columnas y agregamos id_depto
 df = pd.read_csv('TablasOriginales/padron_poblacion.xlsX - Output.csv', skiprows=12)
 df = df.drop('Unnamed: 0', axis=1)
 
