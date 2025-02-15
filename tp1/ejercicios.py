@@ -1,14 +1,56 @@
 import pandas as pd
 import duckdb as dd
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-#%% Nombramos columnas y agregamos id_depto
+#%% ARMAMOS ESTABLECIMIENTO_EDUCATIVO
+def establecimiento_educativo():
+    e = pd.read_excel("tp1/TablasOriginales/2022_padron_oficial_establecimientos_educativos.xlsx",skiprows=5)
+
+    cueanexo = e["Unnamed: 1"]
+    jardin_1 = e["Común"]
+    jardin_2 = e["Unnamed: 21"]
+    primaria_1 = e["Unnamed: 22"]
+    secu_1= e["Unnamed: 23"]
+    secu_2= e["Unnamed: 24"]
+    secu_3= e["Unnamed: 25"]
+    secu_4= e["Unnamed: 26"]
+    codigo_depto = e["Unnamed: 9"]
+
+    establecimiento_educativo_data = []
+
+    for i in range(1,len(jardin_1)):
+        linea = []    
+        linea.append(cueanexo[i])
+        linea.append(str(codigo_depto[i])[:5])
+        if jardin_1[i] != " " or jardin_2[i] != " ":
+            linea.append("1")
+        else: 
+            linea.append("0")
+        if secu_1[i] != " " or secu_2[i] != " " or secu_3[i] != " " or secu_4[i] != " ":
+            linea.append("1")
+        else: 
+            linea.append("0")
+        if primaria_1[i] != " ":
+            linea.append("1")
+        else: 
+            linea.append("0")
+        establecimiento_educativo_data.append(linea)
+
+    encabezado_establecimiento_educativo = ["id","id_depto","jardines","primarias","secundarias"]
+    df_establecimiento_educativo = pd.DataFrame(establecimiento_educativo_data, columns=encabezado_establecimiento_educativo)
+    return(df_establecimiento_educativo)
+
+establecimiento_educativo = establecimiento_educativo()
+#%% ARMAMOS PADRON
+#Nombramos columnas y agregamos id_depto
 df = pd.read_csv('tp1/TablasOriginales/padron_poblacion.xlsX - Output.csv', skiprows=12)
 df = df.drop('Unnamed: 0', axis=1)
 
 df.columns = df.iloc[2]
 
 df['id_depto'] = '00'
-#%% Agregamos el codigo del departamento a cada fila y eliminamos los nombres de areas de filas
+# Agregamos el codigo del departamento a cada fila y eliminamos los nombres de areas de filas
 
 area = ''
 
@@ -16,7 +58,6 @@ for index, e in df.iterrows():
     if isinstance(e['Edad'], str) and e['Edad'].startswith('A'):
         area = e['Edad'][7:12]
     elif isinstance(e['Edad'], str) and e['Edad'].isnumeric():
-        asdf = 1
         df.loc[index, 'id_depto'] = area
 
 df = df.dropna()
@@ -24,7 +65,7 @@ df = df[df['id_depto'] != '00']
 df = df.drop(['%', 'Acumulado %'], axis=1)
 df['Edad'] = df['Edad'].astype(int)
 df['Casos'] =  df['Casos'].str.replace(' ', '').astype(int)
-#%% Renombramos y agrupamos por grupos etarios
+# Renombramos y agrupamos por grupos etarios
 df = df.rename(columns={"Edad": "edad", "Casos": "habitantes"})
 padron = dd.sql("""
                 SELECT id_depto,
@@ -40,6 +81,19 @@ padron = dd.sql("""
                 GROUP BY id_depto, grupo_etario;
                 """).df()
 #padron.to_csv('TablasModelo') para agregar el archivo a la carpeta
+#%% ARMAMOS PROVINCIA Y DEPARTAMENTO
+df = pd.read_csv('tp1/TablasOriginales/centros_culturales.csv')
+provincia = dd.sql("""
+                   SELECT DISTINCT ID_PROV AS id, Provincia AS nombre
+                   FROM df
+                   """).df()
+
+departamento = dd.sql("""
+                   SELECT DISTINCT ID_DEPTO as id_depto, 
+                                   Departamento AS nombre_depto,
+                                   ID_PROV AS id_prov
+                   FROM df 
+                   """).df()
 #%% Analisis de datos
 #ej i)
 # A cada depto le agregamos provincia y total de ee
@@ -81,16 +135,22 @@ pob_secundaria = dd.sql("""
                       WHERE grupo_etario = '12-18';
                       """).df()
 poblaciones = dd.sql("""
-                      SELECT id_depto, poblacion_jardin, poblacion_primaria, poblacion_secundaria
+                      SELECT id_depto, poblacion_jardin, 
+                                       poblacion_primaria, 
+                                       poblacion_secundaria
                       FROM pob_jardin
                       NATURAL JOIN pob_primaria 
                       NATURAL JOIN pob_secundaria;
                       """).df()
 #%% Armamos la ultima tabla
 ee_poblacion_por_depto_y_prov = dd.sql("""
-                      SELECT prov_nombre, depto_nombre, jardines, poblacion_jardin, 
-                                                        primarias, poblacion_primaria,
-                                                        secundarias, poblacion_secundaria
+                      SELECT prov_nombre, depto_nombre, 
+                                          jardines AS Jardines, 
+                                          poblacion_jardin AS "Poblacion jardin", 
+                                          primarias AS Primarias, 
+                                          poblacion_primaria AS "Poblacion primaria",
+                                          secundarias AS Secundarias, 
+                                          poblacion_secundaria AS "Poblacion secundaria"
                       FROM ee_por_depto_niveles_y_prov AS ee
                       INNER JOIN poblaciones AS p
                       ON ee.id_depto = p.id_depto
@@ -169,3 +229,56 @@ dominio_mas_frecuente_depto_y_prov = dd.sql("""
                       FROM depto_y_prov 
                       NATURAL JOIN dominio_mas_frecuente;
                       """).df()
+#%% Visualizacion de datos
+#ej i)
+#DUDAS
+cc_por_prov = dd.sql("""
+                      SELECT prov_nombre AS prov, SUM(Cant_CC) AS cant
+                      FROM prov_depto_ee_cc_pob 
+                      GROUP BY prov_nombre
+                      ORDER BY cant DESC;
+                      """).df()
+
+fig, ax = plt.subplots()
+ax.bar(cc_por_prov['prov'], cc_por_prov['cant'], color='skyblue')
+
+ax.set_xlabel("Provincias")
+ax.set_ylabel("Cantidad de centros culturales")
+ax.set_title("Cantidad de centros culturales por provincia (Ordenado)")
+#ej ii)
+fig, ax = plt.subplots()
+
+ax.scatter(ee_poblacion_por_depto_y_prov['Poblacion jardin'], 
+           ee_poblacion_por_depto_y_prov['Jardines'], 
+           color='#A6CEE3', label='Jardines')
+ax.scatter(ee_poblacion_por_depto_y_prov['Poblacion primaria'], 
+           ee_poblacion_por_depto_y_prov['Primarias'], 
+           color='#1F78B4', label='Primarias')
+ax.scatter(ee_poblacion_por_depto_y_prov['Poblacion secundaria'], 
+           ee_poblacion_por_depto_y_prov['Secundarias'], 
+           color='#08306B', label='Secundarias')
+
+ax.set_xlabel("Población")
+ax.set_ylabel("Cantidad establecimientos educativos de tipo común")
+ax.set_title("Cantidad de establecimientos educativos por población")
+#ej iii)
+#tal vez se puede sacar id_depto de aca
+prov_depto_ee = dd.sql("""
+                          SELECT d.id_depto, prov_nombre, Cant_EE AS cant
+                          FROM depto_y_prov AS 
+                          NATURAL JOIN ee_por_depto
+                       """).df()
+                       
+medianas = prov_depto_ee.groupby('prov_nombre')['cant'].median()
+provs_ordenadas = medianas.sort_values().index
+
+fig, ax = plt.subplots()
+prov_depto_ee.boxplot(by='prov_nombre', column='cant', ax=ax, 
+                      order=provs_ordenadas)
+"""
+nombres_provincias = dd.sql(
+                            SELECT DISTINCT nombre
+                            FROM provincia
+                            ).df()
+for indice, valor in nombres_provincias['nombre'].iteritems():
+"""
