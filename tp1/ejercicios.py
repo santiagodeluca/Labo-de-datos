@@ -39,6 +39,10 @@ def establecimiento_educativo():
 
     encabezado_establecimiento_educativo = ["id","id_depto","jardines","primarias","secundarias"]
     df_establecimiento_educativo = pd.DataFrame(establecimiento_educativo_data, columns=encabezado_establecimiento_educativo)
+    df_establecimiento_educativo['jardines'] = df_establecimiento_educativo['jardines'].astype(int)
+    df_establecimiento_educativo['primarias'] = df_establecimiento_educativo['primarias'].astype(int)
+    df_establecimiento_educativo['secundarias'] = df_establecimiento_educativo['secundarias'].astype(int)
+
     return(df_establecimiento_educativo)
 
 establecimiento_educativo = establecimiento_educativo()
@@ -50,6 +54,8 @@ df = df.drop('Unnamed: 0', axis=1)
 df.columns = df.iloc[2]
 
 df['id_depto'] = '00'
+# Eliminamos el resumen final de la tabla
+df = df.iloc[:-119]
 # Agregamos el codigo del departamento a cada fila y eliminamos los nombres de areas de filas
 
 area = ''
@@ -82,7 +88,8 @@ padron = dd.sql("""
                 """).df()
 #padron.to_csv('TablasModelo') para agregar el archivo a la carpeta
 #%% ARMAMOS PROVINCIA Y DEPARTAMENTO
-df = pd.read_csv('tp1/TablasOriginales/centros_culturales.csv')
+df = pd.read_csv('tp1/TablasOriginales/centros_culturales.csv', dtype={'ID_PROV': str, 
+                                                                       'ID_DEPTO': str})
 provincia = dd.sql("""
                    SELECT DISTINCT ID_PROV AS id, Provincia AS nombre
                    FROM df
@@ -99,7 +106,7 @@ departamento = dd.sql("""
 # A cada depto le agregamos provincia y total de ee
 # El siguiente dataframe (depto_y_prov) es utilizado varias veces en otros puntos tambien
 depto_y_prov = dd.sql("""
-                      SELECT id_depto, p.nombre AS prov_nombre, d.nombre AS depto_nombre
+                      SELECT id_depto, p.nombre AS prov_nombre, d.nombre_depto AS depto_nombre
                       FROM departamento AS d
                       INNER JOIN provincia AS p
                       ON p.id = d.id_prov;
@@ -113,7 +120,7 @@ ee_por_depto_niveles = dd.sql("""
                       GROUP BY id_depto;
                       """).df()
 ee_por_depto_niveles_y_prov = dd.sql("""
-                      SELECT id_depto, prov_nombre, depto_nombre, jardines, primarias, secundarias
+                      SELECT d.id_depto, prov_nombre, depto_nombre, jardines, primarias, secundarias
                       FROM depto_y_prov AS d
                       INNER JOIN ee_por_depto_niveles AS ee
                       ON d.id_depto=ee.id_depto;
@@ -144,17 +151,17 @@ poblaciones = dd.sql("""
                       """).df()
 #%% Armamos la ultima tabla
 ee_poblacion_por_depto_y_prov = dd.sql("""
-                      SELECT prov_nombre, depto_nombre, 
-                                          jardines AS Jardines, 
-                                          poblacion_jardin AS "Poblacion jardin", 
-                                          primarias AS Primarias, 
-                                          poblacion_primaria AS "Poblacion primaria",
-                                          secundarias AS Secundarias, 
-                                          poblacion_secundaria AS "Poblacion secundaria"
+                      SELECT prov_nombre AS Provincia, depto_nombre AS Departamento, 
+                             jardines AS Jardines, 
+                             poblacion_jardin AS "Poblacion jardin", 
+                             primarias AS Primarias, 
+                             poblacion_primaria AS "Poblacion primaria",
+                             secundarias AS Secundarias, 
+                             poblacion_secundaria AS "Poblacion secundaria"
                       FROM ee_por_depto_niveles_y_prov AS ee
                       INNER JOIN poblaciones AS p
                       ON ee.id_depto = p.id_depto
-                      ORDER BY prov_nombre, poblacion_primaria DESC;
+                      ORDER BY prov_nombre, primarias DESC;
                       """).df()    
 #%% ej ii)
 cc_cap100 = dd.sql("""
@@ -245,23 +252,25 @@ ax.bar(cc_por_prov['prov'], cc_por_prov['cant'], color='skyblue')
 ax.set_xlabel("Provincias")
 ax.set_ylabel("Cantidad de centros culturales")
 ax.set_title("Cantidad de centros culturales por provincia (Ordenado)")
-#ej ii)
+#%%ej ii)
 fig, ax = plt.subplots()
 
 ax.scatter(ee_poblacion_por_depto_y_prov['Poblacion jardin'], 
            ee_poblacion_por_depto_y_prov['Jardines'], 
-           color='#A6CEE3', label='Jardines')
+           color='#A6CEE3', label='Jardines', s=10)
 ax.scatter(ee_poblacion_por_depto_y_prov['Poblacion primaria'], 
            ee_poblacion_por_depto_y_prov['Primarias'], 
-           color='#1F78B4', label='Primarias')
+           color='#1F78B4', label='Primarias', s=10)
 ax.scatter(ee_poblacion_por_depto_y_prov['Poblacion secundaria'], 
            ee_poblacion_por_depto_y_prov['Secundarias'], 
-           color='#08306B', label='Secundarias')
+           color='#08306B', label='Secundarias', s=10)
 
 ax.set_xlabel("Población")
 ax.set_ylabel("Cantidad establecimientos educativos de tipo común")
 ax.set_title("Cantidad de establecimientos educativos por población")
-#ej iii)
+ax.set_xlim(0, 150000)
+ax.legend()
+#%%ej iii)
 #tal vez se puede sacar id_depto de aca
 prov_depto_ee = dd.sql("""
                           SELECT d.id_depto, prov_nombre, Cant_EE AS cant
