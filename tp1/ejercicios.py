@@ -268,7 +268,8 @@ ax.scatter(ee_poblacion_por_depto_y_prov['Poblacion secundaria'],
 ax.set_xlabel("Población")
 ax.set_ylabel("Cantidad establecimientos educativos de tipo común")
 ax.set_title("Cantidad de establecimientos educativos por población")
-ax.set_xlim(0, 150000)
+ax.set_xlim(0, 80000)
+ax.set_ylim(0, 270)
 ax.legend()
 #%%ej iii)
 #tal vez se puede sacar id_depto de aca
