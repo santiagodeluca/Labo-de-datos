@@ -6,7 +6,7 @@ import seaborn as sns
 
 #%% ARMAMOS CENTROS_CULTURALES
 def centros_culturales():
-    cc = pd.read_csv("tp1/TablasOriginales/centros_culturales.csv", dtype={'ID_DEPTO': str})
+    cc = pd.read_csv("TablasOriginales/centros_culturales.csv", dtype={'ID_DEPTO': str})
     mail = cc["Mail "]
     capacidad = cc["Capacidad"]
     nombre = cc["Nombre"]
@@ -52,7 +52,7 @@ centro_cultural = centros_culturales()
 #        \n 942
 #%% ARMAMOS ESTABLECIMIENTO_EDUCATIVO
 def establecimiento_educativo():
-    e = pd.read_excel("tp1/TablasOriginales/2022_padron_oficial_establecimientos_educativos.xlsx",skiprows=5)
+    e = pd.read_excel("TablasOriginales/2022_padron_oficial_establecimientos_educativos.xlsx",skiprows=5)
 
     cueanexo = e["Unnamed: 1"]
     jardin_1 = e["Común"]
@@ -96,7 +96,7 @@ def establecimiento_educativo():
 establecimiento_educativo = establecimiento_educativo()
 #%% ARMAMOS PADRON
 #Nombramos columnas y agregamos id_depto
-df = pd.read_csv('tp1/TablasOriginales/padron_poblacion.xlsX - Output.csv', skiprows=12)
+df = pd.read_csv('TablasOriginales/padron_poblacion.xlsX - Output.csv', skiprows=12)
 df = df.drop('Unnamed: 0', axis=1)
 
 df.columns = df.iloc[2]
@@ -140,7 +140,7 @@ padron = dd.sql("""
             
 #padron.to_csv('TablasModelo') para agregar el archivo a la carpeta
 #%% ARMAMOS PROVINCIA Y DEPARTAMENTO
-df = pd.read_csv('tp1/TablasOriginales/centros_culturales.csv', dtype={'ID_PROV': str, 
+df = pd.read_csv('TablasOriginales/centros_culturales.csv', dtype={'ID_PROV': str, 
                                                                        'ID_DEPTO': str})
 provincia = dd.sql("""
                    SELECT DISTINCT ID_PROV AS id, Provincia AS nombre
@@ -253,6 +253,7 @@ poblacion_por_depto = dd.sql("""
                       FROM padron AS p
                       GROUP BY id_depto;
                       """).df()
+#NO ESTA TIERRA DEL FUEGO NO SE POR QUE
 prov_depto_ee_cc_pob = dd.sql("""
                       SELECT prov_nombre, depto_nombre, Cant_EE, Cant_CC, Poblacion
                       FROM depto_y_prov
@@ -262,14 +263,17 @@ prov_depto_ee_cc_pob = dd.sql("""
                       ORDER BY Cant_EE DESC, Cant_CC DESC, prov_nombre ASC, depto_nombre ASC;
                       """).df()
 #%% ej iv)
+# No contamos deptos con dominio NULL y agarramos el primer mail
 dominio_mail_por_depto = dd.sql("""
-                      SELECT id_depto, 
-                             LOWER(SUBSTRING(mail, CHARINDEX('@', mail) + 1, 
-                                       CHARINDEX('.', mail, CHARINDEX('@', mail))
-                                       - CHARINDEX('@', mail) - 1))
-                             AS dominio
-                      FROM centro_cultural;
-                      """).df()
+                                    SELECT id_depto, 
+                                           LOWER(SUBSTRING(
+                                               SUBSTRING(mail FROM POSITION('@' IN mail) + 1) 
+                                               FROM 1 FOR POSITION('.' IN SUBSTRING(
+                                                   mail FROM POSITION('@' IN mail) + 1)) - 1
+                                           )) AS dominio
+                                    FROM centro_cultural
+                                    WHERE dominio IS NOT NULL;
+                                """).df()
 cant_dominio_depto = dd.sql("""
                       SELECT id_depto, dominio, COUNT(*) AS cant
                       FROM dominio_mail_por_depto
@@ -305,6 +309,8 @@ ax.bar(cc_por_prov['prov'], cc_por_prov['cant'], color='skyblue')
 ax.set_xlabel("Provincias")
 ax.set_ylabel("Cantidad de centros culturales")
 ax.set_title("Cantidad de centros culturales por provincia (Ordenado)")
+plt.xticks(rotation=80)
+
 #%%ej ii)
 fig, ax = plt.subplots()
 
@@ -369,7 +375,7 @@ cc_cada_1000 = dd.sql("""
                                  CASE 
                                      WHEN p.Poblacion = 0 THEN 0
                                      ELSE (c.Cant_CC / p.Poblacion)*1000
-                                 AS cant_cc
+                                 END AS cant_cc
                           FROM cc_por_depto AS c
                           NATURAL JOIN poblacion_por_depto AS p;
                        """).df()
@@ -378,12 +384,12 @@ ee_cada_1000 = dd.sql("""
                                  CASE 
                                      WHEN p.Poblacion = 0 THEN 0
                                      ELSE (e.Cant_EE / p.Poblacion)*1000
-                                 AS cant_ee
+                                 END AS cant_ee
                           FROM ee_por_depto AS e
                           NATURAL JOIN poblacion_por_depto AS p;
                        """).df()
 ee_y_cc_cada_1000 = dd.sql("""
-                          SELECT e.id_depto AS id_depto, 
+                          SELECT c.id_depto AS id_depto, 
                                  cant_ee, cant_cc
                           FROM cc_cada_1000 AS c
                           NATURAL JOIN ee_cada_1000;
@@ -392,8 +398,10 @@ ee_y_cc_cada_1000 = dd.sql("""
 fig, ax = plt.subplots()
 ax.scatter(ee_y_cc_cada_1000['cant_ee'], 
            ee_y_cc_cada_1000['cant_cc'], 
-           color='pink', s=10)
+           color='blue', s=10)
 
 ax.set_ylabel("Centros culturales cada 1000 habitantes")
 ax.set_xlabel("Establecimientos educativos cada 1000 habitantes")
 ax.set_title("Centros culturales vs. establecimientos educativos")
+ax.set_xlim(0, 5)
+ax.set_ylim(0, 0.10)
