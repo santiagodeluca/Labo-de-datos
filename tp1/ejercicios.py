@@ -533,7 +533,13 @@ ax.set_xlabel("Establecimientos educativos cada 1000 habitantes")
 ax.set_title("Centros culturales vs. establecimientos educativos")
 ax.set_xlim(0.4, 5)
 ax.set_ylim(0, 0.10)
-
-
+#ESTO ESTA MAL
+prov_ee_cc = dd.sql("""
+                    SELECT p.Provincia, SUM(Cant_EE) AS ee, SUM(Cant_CC) AS cc
+                    FROM prov_depto_ee_cc_pob AS p
+                    GROUP BY p.Provincia;
+                    """).df()
 fig, ax = plt.subplots()
-ax.bar(ee_y_cc_cada_1000['cant_ee'],ee_y_cc_cada_1000['cant_cc'], label='algo', color='skyblue')
+ax.bar(prov_ee_cc['ee'],prov_ee_cc['cc'], label='algo', color='skyblue')
+ax.set_xlim(0, 250)
+ax.set_ylim(0, 20)
