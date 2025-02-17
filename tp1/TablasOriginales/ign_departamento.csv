@@ -1,0 +1,530 @@
+OBJECTID;Entidad;Objeto;FNA;GNA;NAM;SAG;FDC;IN1;SHAPE_STAr;SHAPE_STLe
+4388;0;Departamento;Departamento Islas del Atlántico Sur;Departamento;Islas del Atlántico Sur;IGN;;94021;2,20032256666;113,41474397000
+4389;0;Departamento;Departamento Concordia;Departamento;Concordia;ATER - Direc. de Catastro;;30015;0,31047141860;4,03116273288
+4390;0;Departamento;Departamento Federal;Departamento;Federal;ATER - Direc. de Catastro;;30035;0,49221379659;5,51732451985
+4391;0;Departamento;Departamento Gualeguaychú;Departamento;Gualeguaychú;ATER - Direc. de Catastro;;30056;0,72682084252;5,31842227487
+4392;0;Departamento;Departamento Islas del Ibicuy;Departamento;Islas del Ibicuy;ATER - Direc. de Catastro;;30063;0,47907616923;4,21364089754
+4393;0;Departamento;Departamento Victoria;Departamento;Victoria;ATER - Direc. de Catastro;;30105;0,63906779385;5,55826064592
+4394;0;Departamento;Departamento Diamante;Departamento;Diamante;ATER - Direc. de Catastro;;30021;0,25648508119;3,60882014378
+4395;0;Departamento;Departamento Uruguay;Departamento;Uruguay;ATER - Direc. de Catastro;;30098;0,49368826228;5,24421226771
+4396;0;Departamento;Departamento Paraná;Departamento;Paraná;ATER - Direc. de Catastro;;30084;0,48590838081;4,50932143674
+4397;0;Departamento;Partido de Saladillo;Partido;Saladillo;ARBA - Gerencia de Servicios Catastrales;;06707;0,26944388102;3,10732481649
+4398;0;Departamento;Partido de Las Flores;Partido;Las Flores;ARBA - Gerencia de Servicios Catastrales;;06455;0,33401632483;3,13651102878
+4399;0;Departamento;Partido de Rojas;Partido;Rojas;ARBA - Gerencia de Servicios Catastrales;;06686;0,20151521970;2,30449202195
+4400;0;Departamento;Partido de Escobar;Partido;Escobar;ARBA - Gerencia de Servicios Catastrales;;06252;0,02948564569;1,01252847125
+4401;0;Departamento;Partido de José C. Paz;Partido;José C. Paz;ARBA - Gerencia de Servicios Catastrales;;06412;0,00492511992;0,33555027906
+4402;0;Departamento;Partido de San Antonio de Areco;Partido;San Antonio de Areco;ARBA - Gerencia de Servicios Catastrales;;06735;0,08431610156;1,67451226154
+4403;0;Departamento;Partido de Maipú;Partido;Maipú;ARBA - Gerencia de Servicios Catastrales;;06511;0,26322796204;2,44067400336
+4404;0;Departamento;Departamento O'Higgins;Departamento;O'Higgins;Direc. Pcial. de Catastro y Cartografía;;22112;0,14278245608;1,82476528782
+4405;0;Departamento;Partido de Moreno;Partido;Moreno;ARBA - Gerencia de Servicios Catastrales;;06560;0,01830243098;0,59568090066
+4406;0;Departamento;Partido de La Matanza;Partido;La Matanza;ARBA - Gerencia de Servicios Catastrales;;06427;0,03225569875;1,13456386398
+4407;0;Departamento;Partido de General Paz;Partido;General Paz;ARBA - Gerencia de Servicios Catastrales;;06343;0,11915271233;1,74176605680
+4408;0;Departamento;Partido de General Guido;Partido;General Guido;ARBA - Gerencia de Servicios Catastrales;;06308;0,23449807161;2,69175561464
+4409;0;Departamento;Partido de General Juan Madariaga;Partido;General Juan Madariaga;ARBA - Gerencia de Servicios Catastrales;;06315;0,30250890855;2,79260219485
+4410;0;Departamento;Partido de Tandil;Partido;Tandil;ARBA - Gerencia de Servicios Catastrales;;06791;0,49364372912;3,34275503728
+4411;0;Departamento;Partido de Coronel Suárez;Partido;Coronel Suárez;ARBA - Gerencia de Servicios Catastrales;;06203;0,61003276749;4,50784558907
+4412;0;Departamento;Partido de Adolfo Gonzales Chaves;Partido;Adolfo Gonzales Chaves;ARBA - Gerencia de Servicios Catastrales;;06014;0,38844010924;3,54424486385
+4413;0;Departamento;Partido de Bahía Blanca;Partido;Bahía Blanca;ARBA - Gerencia de Servicios Catastrales;;06056;0,23157570202;2,92723618148
+4414;0;Departamento;Partido de General Alvarado;Partido;General Alvarado;ARBA - Gerencia de Servicios Catastrales;;06280;0,16742576407;1,96472086618
+4415;0;Departamento;Partido de General Pueyrredón;Partido;General Pueyrredón;ARBA - Gerencia de Servicios Catastrales;;06357;0,14992860502;2,04000498032
+4416;0;Departamento;Partido de Mar Chiquita;Partido;Mar Chiquita;ARBA - Gerencia de Servicios Catastrales;;06518;0,31469281118;2,47542879137
+4417;0;Departamento;Partido de Villa Gesell;Partido;Villa Gesell;ARBA - Gerencia de Servicios Catastrales;;06868;0,01672676766;1,08657219862
+4418;0;Departamento;Partido de Pinamar;Partido;Pinamar;ARBA - Gerencia de Servicios Catastrales;;06644;0,00665705211;0,48289712718
+4419;0;Departamento;Partido de General Lavalle;Partido;General Lavalle;ARBA - Gerencia de Servicios Catastrales;;06336;0,27256378636;2,53877739748
+4420;0;Departamento;Partido de La Costa;Partido;La Costa;ARBA - Gerencia de Servicios Catastrales;;06420;0,02358850478;1,81719994828
+4421;0;Departamento;Partido de Magdalena;Partido;Magdalena;ARBA - Gerencia de Servicios Catastrales;;06505;0,18303588425;2,58591077178
+4422;0;Departamento;Partido de Vicente López;Partido;Vicente López;ARBA - Gerencia de Servicios Catastrales;;06861;0,00339377482;0,29321002709
+4423;0;Departamento;Departamento Alberdi;Departamento;Alberdi;Catastro Provinciales;;86014;1,16746555074;5,76492540728
+4424;0;Departamento;Departamento Juan F. Ibarra;Departamento;Juan F. Ibarra;Catastro Provinciales;;86098;0,84883294369;4,98304117031
+4425;0;Departamento;Departamento General Taboada;Departamento;General Taboada;Catastro Provinciales;;86077;0,55863349381;3,67020182491
+4426;0;Departamento;Departamento Rivadavia;Departamento;Rivadavia;Catastro Provinciales;;86154;0,31478036334;2,66480399113
+4427;0;Departamento;Departamento Ojo de Agua;Departamento;Ojo de Agua;Catastro Provinciales;;86126;0,58973155555;4,99402413881
+4428;0;Departamento;Departamento Choya;Departamento;Choya;Catastro Provinciales;;86063;0,57202168783;4,71472599930
+4429;0;Departamento;Departamento Gobernador Dupuy;Departamento;Gobernador Dupuy;Direc. de Geodesia y Catastro;;74042;1,81761024040;6,28060331665
+4430;0;Departamento;Departamento Cachi;Departamento;Cachi;IDE Salta;;66014;0,25467072162;2,79733605744
+4431;0;Departamento;Departamento Chicoana;Departamento;Chicoana;IDE Salta;;66042;0,09432908578;1,94788180230
+4432;0;Departamento;Departamento La Viña;Departamento;La Viña;IDE Salta;;66098;0,17989834256;3,26996011535
+4433;0;Departamento;Partido de Rauch;Partido;Rauch;ARBA - Gerencia de Servicios Catastrales;;06672;0,43420611376;3,39485079005
+4434;0;Departamento;Departamento Metán;Departamento;Metán;IDE Salta;;66112;0,47225015930;4,96714510090
+4435;0;Departamento;Departamento Molinos;Departamento;Molinos;IDE Salta;;66119;0,33387337435;3,74671618648
+4436;0;Departamento;Partido de Salliqueló;Partido;Salliqueló;ARBA - Gerencia de Servicios Catastrales;;06721;0,08027860246;1,21362238722
+4437;0;Departamento;Partido de Berazategui;Partido;Berazategui;ARBA - Gerencia de Servicios Catastrales;;06091;0,02170006593;0,81543856245
+4438;0;Departamento;Departamento General Güemes;Departamento;General Güemes;IDE Salta;;66049;0,19581825781;2,81203206344
+4439;0;Departamento;Departamento San Carlos;Departamento;San Carlos;IDE Salta;;66154;0,49813576449;4,62744940103
+4440;0;Departamento;Departamento Santa Rosa;Departamento;Santa Rosa;IDE Mendoza;;50112;0,85936891917;4,72158886694
+4441;0;Departamento;Departamento Rivadavia;Departamento;Rivadavia;IDE Mendoza;;50084;0,20433644728;2,26405954555
+4442;0;Departamento;Partido de Tornquist;Partido;Tornquist;ARBA - Gerencia de Servicios Catastrales;;06819;0,42821678412;4,51920776304
+4443;0;Departamento;Departamento La Paz;Departamento;La Paz;IDE Mendoza;;50042;0,73294811666;4,66486925773
+4444;0;Departamento;Partido de Coronel Pringles;Partido;Coronel Pringles;ARBA - Gerencia de Servicios Catastrales;;06196;0,54027779867;3,86512079384
+4445;0;Departamento;Partido de Tigre;Partido;Tigre;ARBA - Gerencia de Servicios Catastrales;;06805;0,03746840295;0,97714722468
+4446;0;Departamento;Partido de General Pinto;Partido;General Pinto;ARBA - Gerencia de Servicios Catastrales;;06351;0,25062281286;2,77953328749
+4447;0;Departamento;Partido de San Cayetano;Partido;San Cayetano;ARBA - Gerencia de Servicios Catastrales;;06742;0,30906493870;3,19494127241
+4448;0;Departamento;Partido de Tres Arroyos;Partido;Tres Arroyos;ARBA - Gerencia de Servicios Catastrales;;06833;0,61220462273;4,30240405520
+4449;0;Departamento;Partido de Coronel Dorrego;Partido;Coronel Dorrego;ARBA - Gerencia de Servicios Catastrales;;06189;0,60501478789;3,65314832837
+4450;0;Departamento;Partido de Necochea;Partido;Necochea;ARBA - Gerencia de Servicios Catastrales;;06581;0,46998322098;4,45559344718
+4451;0;Departamento;Departamento Independencia;Departamento;Independencia;IGN;;46105;0,65747699746;3,50939444391
+4452;0;Departamento;Departamento General Ocampo;Departamento;General Ocampo;IGN;;46084;0,35314300998;2,58631821011
+4453;0;Departamento;Departamento Chamical;Departamento;Chamical;IGN;;46035;0,51596845118;2,93878556375
+4454;0;Departamento;Departamento Arauco;Departamento;Arauco;IGN;;46007;0,23281360648;2,16945892047
+4455;0;Departamento;Partido de Lezama;Partido;Lezama;ARBA - Gerencia de Servicios Catastrales;;06466;0,10450107929;2,01772637049
+4456;0;Departamento;Partido de Chascomús;Partido;Chascomús;ARBA - Gerencia de Servicios Catastrales;;06218;0,31429333453;3,65407952958
+4457;0;Departamento;Partido de Punta Indio;Partido;Punta Indio;ARBA - Gerencia de Servicios Catastrales;;06655;0,15933709510;2,79816869217
+4458;0;Departamento;Departamento El Carmen;Departamento;El Carmen;Direc. Grl. de Inmuebles;;38014;0,08092864455;1,74731805448
+4459;0;Departamento;Departamento Santa María;Departamento;Santa María;IDE Catamarca;;10091;0,49983392158;3,94246672812
+4460;0;Departamento;Partido de Campana;Partido;Campana;ARBA - Gerencia de Servicios Catastrales;;06126;0,09640223331;1,93630258336
+4461;0;Departamento;Departamento Santa Rosa;Departamento;Santa Rosa;IDE Catamarca;;10098;0,14587536538;1,97456276432
+4462;0;Departamento;Departamento La Paz;Departamento;La Paz;IDE Catamarca;;10070;0,76992706405;4,28221286030
+4463;0;Departamento;Departamento Magallanes;Departamento;Magallanes;IGN;;78042;2,48953583612;8,82101316224
+4464;0;Departamento;Departamento Corpen Aike;Departamento;Corpen Aike;IGN;;78007;3,28827075340;10,28738378110
+4465;0;Departamento;Departamento Conesa;Departamento;Conesa;IDE Rio Negro;;62028;1,03469512944;4,99755656108
+4466;0;Departamento;Departamento Gaiman;Departamento;Gaiman;IGN;;26042;1,28825669672;5,25689886823
+4467;0;Departamento;Departamento Rawson;Departamento;Rawson;IGN;;26077;0,45752801727;3,63923106452
+4468;0;Departamento;Departamento General Lamadrid;Departamento;General Lamadrid;IGN;;46077;0,56648018844;4,66555674797
+4469;0;Departamento;Departamento Ayacucho;Departamento;Ayacucho;Direc. de Geodesia y Catastro;;74007;0,78170093910;5,46068695428
+4470;0;Departamento;Comuna 6;Comuna;Comuna 6;Direc. de Catastro;;02042;0,00067335235;0,10926067616
+4471;0;Departamento;Departamento 12 de Octubre;Departamento;12 de Octubre;IDE Chaco;;22036;0,25206501675;2,66582700262
+4472;0;Departamento;Departamento Tulumba;Departamento;Tulumba;IDE Cordoba;Catastro;14175;0,91347347065;7,98122970614
+4473;0;Departamento;Departamento Cruz del Eje;Departamento;Cruz del Eje;IDE Cordoba;Catastro;14028;0,64265328859;4,97861228394
+4474;0;Departamento;Departamento Punilla;Departamento;Punilla;IDE Cordoba;Catastro;14091;0,23452817587;3,11923513094
+4475;0;Departamento;Departamento Santa María;Departamento;Santa María;IDE Cordoba;Catastro;14147;0,30947641689;4,68839714602
+4476;0;Departamento;Departamento Minas;Departamento;Minas;IDE Cordoba;Catastro;14070;0,33736474109;2,75787331840
+4477;0;Departamento;Departamento Pocho;Departamento;Pocho;IDE Cordoba;Catastro;14077;0,29098222951;2,85461493921
+4478;0;Departamento;Departamento San Alberto;Departamento;San Alberto;IDE Cordoba;Catastro;14126;0,32251814333;3,40648675030
+4479;0;Departamento;Departamento Río Segundo;Departamento;Río Segundo;IDE Cordoba;Catastro;14119;0,49031549022;4,20519329173
+4480;0;Departamento;Departamento San Justo;Departamento;San Justo;IDE Cordoba;Catastro;14140;1,47262358950;6,65478909976
+4481;0;Departamento;Departamento Unión;Departamento;Unión;IDE Cordoba;Catastro;14182;1,04923271580;6,39853340190
+4482;0;Departamento;Departamento Tercero Arriba;Departamento;Tercero Arriba;IDE Cordoba;Catastro;14161;0,49196936095;4,87376939499
+4483;0;Departamento;Departamento Cerrillos;Departamento;Cerrillos;IDE Salta;;66035;0,04832391380;1,22193111116
+4484;0;Departamento;Departamento Río Cuarto;Departamento;Río Cuarto;IDE Cordoba;Catastro;14098;1,79951323245;7,10561319473
+4485;0;Departamento;Departamento Tupungato;Departamento;Tupungato;IDE Mendoza;;50126;0,23767530391;2,45223503682
+4486;0;Departamento;Departamento Pilagás;Departamento;Pilagás;IGN;;34042;0,30670225163;2,66646969874
+4487;0;Departamento;Departamento Laishí;Departamento;Laishí;IGN;;34021;0,32458295970;3,25493277076
+4488;0;Departamento;Departamento Pirané;Departamento;Pirané;IGN;;34056;0,77650123046;4,42458129307
+4489;0;Departamento;Departamento General Güemes;Departamento;General Güemes;IDE Chaco;;22063;2,30795847842;10,39267408180
+4490;0;Departamento;Departamento Valcheta;Departamento;Valcheta;IDE Rio Negro;;62084;2,26095963680;6,38024135903
+4491;0;Departamento;Departamento San Antonio;Departamento;San Antonio;IDE Rio Negro;;62077;1,53328271756;8,07578688412
+4492;0;Departamento;Departamento 9 de julio;Departamento;9 de julio;IDE Rio Negro;;62049;2,57276935940;6,87695824229
+4493;0;Departamento;Departamento Ñorquinco;Departamento;Ñorquinco;IDE Rio Negro;;62056;0,89218509126;4,61114026086
+4494;0;Departamento;Departamento 25 de Mayo;Departamento;25 de Mayo;IDE Rio Negro;;62091;2,96444169720;7,52534629087
+4495;0;Departamento;Departamento Telsen;Departamento;Telsen;IGN;;26105;2,12694903060;6,60052508498
+4496;0;Departamento;Departamento Pilcaniyeu;Departamento;Pilcaniyeu;IDE Rio Negro;;62070;1,17360267383;6,39637569048
+4497;0;Departamento;Partido de Adolfo Alsina;Partido;Adolfo Alsina;ARBA - Gerencia de Servicios Catastrales;;06007;0,59692714241;3,88358182118
+4498;0;Departamento;Partido de Pellegrini;Partido;Pellegrini;ARBA - Gerencia de Servicios Catastrales;;06616;0,18263266650;2,15371125008
+4499;0;Departamento;Partido de Puán;Partido;Puán;ARBA - Gerencia de Servicios Catastrales;;06651;0,65474009928;4,12690518838
+4500;0;Departamento;Partido de Villarino;Partido;Villarino;ARBA - Gerencia de Servicios Catastrales;;06875;1,05456614824;8,41777479935
+4501;0;Departamento;Departamento Presidente Roque Sáenz Peña;Departamento;Presidente Roque Sáenz Peña;IDE Cordoba;Catastro;14084;0,80585993446;4,42740847431
+4502;0;Departamento;Partido de General Villegas;Partido;General Villegas;ARBA - Gerencia de Servicios Catastrales;;06392;0,71208768737;4,40644144707
+4503;0;Departamento;Departamento General Roca;Departamento;General Roca;IDE Cordoba;Catastro;14035;1,24180547274;5,79912679340
+4504;0;Departamento;Departamento General Alvear;Departamento;General Alvear;IDE Mendoza;;50014;1,45820016885;5,83146650550
+4505;0;Departamento;Departamento La Caldera;Departamento;La Caldera;IDE Salta;;66077;0,09731090793;1,78891746405
+4506;0;Departamento;Departamento San Rafael;Departamento;San Rafael;IDE Mendoza;;50105;3,09667160525;12,04818046660
+4507;0;Departamento;Departamento Anta;Departamento;Anta;IDE Salta;;66007;2,00998299237;8,47797584399
+4508;0;Departamento;Departamento Picún Leufú;Departamento;Picún Leufú;Direc. Pcial. de Catastro e Inf. Territorial;;58098;0,48052746568;3,14198184816
+4509;0;Departamento;Departamento Zapala;Departamento;Zapala;Direc. Pcial. de Catastro e Inf. Territorial;;58112;0,54209708761;3,97458817399
+4510;0;Departamento;Departamento Aluminé;Departamento;Aluminé;Direc. Pcial. de Catastro e Inf. Territorial;;58007;0,49372217244;3,86976359643
+4511;0;Departamento;Departamento Sarmiento;Departamento;Sarmiento;IGN;;26091;1,67017118886;5,17220032230
+4512;0;Departamento;Comuna 1;Comuna;Comuna 1;Direc. de Catastro;;02007;0,00175871264;0,27867241680
+4513;0;Departamento;Comuna 4;Comuna;Comuna 4;Direc. de Catastro;;02028;0,00223080093;0,29769227359
+4514;0;Departamento;Comuna 5;Comuna;Comuna 5;Direc. de Catastro;;02035;0,00065463273;0,11771690202
+4515;0;Departamento;Comuna 7;Comuna;Comuna 7;Direc. de Catastro;;02049;0,00122126783;0,17929037342
+4516;0;Departamento;Comuna 10;Comuna;Comuna 10;Direc. de Catastro;;02070;0,00124322765;0,18318144371
+4517;0;Departamento;Comuna 11;Comuna;Comuna 11;Direc. de Catastro;;02077;0,00138798573;0,20078783007
+4518;0;Departamento;Comuna 12;Comuna;Comuna 12;Direc. de Catastro;;02084;0,00153500007;0,17112378478
+4519;0;Departamento;Departamento Fray Mamerto Esquiú;Departamento;Fray Mamerto Esquiú;IDE Catamarca;;10063;0,01710145366;0,75778413472
+4520;0;Departamento;Departamento San Martín;Departamento;San Martín;Catastro Provinciales;;86175;0,16476603118;2,15231767034
+4521;0;Departamento;Departamento Yavi;Departamento;Yavi;Direc. Grl. de Inmuebles;;38112;0,26341850394;2,54042476612
+4522;0;Departamento;Departamento Santa Catalina;Departamento;Santa Catalina;Direc. Grl. de Inmuebles;;38077;0,25699095937;3,31104669479
+4523;0;Departamento;Departamento San Pedro;Departamento;San Pedro;Direc. Grl. de Inmuebles;;38063;0,18211701036;2,66315306110
+4524;0;Departamento;Departamento Valle Grande;Departamento;Valle Grande;Direc. Grl. de Inmuebles;;38105;0,10713044439;1,63304899531
+4525;0;Departamento;Departamento Patiño;Departamento;Patiño;IGN;;34035;2,34174889808;8,66854229825
+4526;0;Departamento;Departamento Bermejo;Departamento;Bermejo;IGN;;34007;1,23151522001;6,44355147387
+4527;0;Departamento;Departamento Susques;Departamento;Susques;Direc. Grl. de Inmuebles;;38084;0,90194473325;4,16374741204
+4528;0;Departamento;Departamento Iruya;Departamento;Iruya;IDE Salta;;66070;0,31061503008;3,51676658963
+4529;0;Departamento;Departamento Matacos;Departamento;Matacos;IGN;;34028;0,35971262173;2,97784887951
+4530;0;Departamento;Departamento Los Andes;Departamento;Los Andes;IDE Salta;;66105;2,23933276539;8,64179398582
+4532;0;Departamento;Departamento Tilcara;Departamento;Tilcara;Direc. Grl. de Inmuebles;;38094;0,18751261353;2,34749057473
+4533;0;Departamento;Departamento Palpalá;Departamento;Palpalá;Direc. Grl. de Inmuebles;;38042;0,04334159772;1,33287317298
+4534;0;Departamento;Departamento Loventué;Departamento;Loventué;Direc. Grl. de Catastro;;42098;0,91787574841;3,89070158370
+4535;0;Departamento;Departamento Hucal;Departamento;Hucal;Direc. Grl. de Catastro;;42077;0,61662106385;3,36184111983
+4536;0;Departamento;Departamento Caleu Caleu;Departamento;Caleu Caleu;Direc. Grl. de Catastro;;42014;0,94299452062;4,62630041112
+4537;0;Departamento;Departamento Lihuel Calel;Departamento;Lihuel Calel;Direc. Grl. de Catastro;;42084;1,28442921475;4,87073760879
+4538;0;Departamento;Departamento Curacó;Departamento;Curacó;Direc. Grl. de Catastro;;42042;1,38946566997;5,45822891485
+4539;0;Departamento;Departamento Limay Mahuida;Departamento;Limay Mahuida;Direc. Grl. de Catastro;;42091;1,01678303714;4,05872682464
+4540;0;Departamento;Departamento Puelén;Departamento;Puelén;Direc. Grl. de Catastro;;42112;1,33335308075;5,84356454272
+4541;0;Departamento;Departamento Chalileo;Departamento;Chalileo;Direc. Grl. de Catastro;;42049;0,88438629000;3,81821604912
+4542;0;Departamento;Departamento Chical Co;Departamento;Chical Co;Direc. Grl. de Catastro;;42063;0,90419585942;3,93306018386
+4543;0;Departamento;Departamento Quebrachos;Departamento;Quebrachos;Catastro Provinciales;;86140;0,36751044446;4,45501630061
+4544;0;Departamento;Departamento Monte Caseros;Departamento;Monte Caseros;IGN;-2;18112;0,25347105194;3,45460721909
+4545;0;Departamento;Departamento Esquina;Departamento;Esquina;IGN;-2;18049;0,36749763799;3,95454826720
+4546;0;Departamento;Departamento Montecarlo;Departamento;Montecarlo;Ministerio de Ecología;;54084;0,15989682715;2,37516878077
+4547;0;Departamento;Departamento Eldorado;Departamento;Eldorado;Ministerio de Ecología;;54042;0,15581148993;2,74489236266
+4548;0;Departamento;Departamento San Pedro;Departamento;San Pedro;Ministerio de Ecología;;54112;0,36985178674;5,06050859886
+4549;0;Departamento;Departamento Antártida Argentina;Departamento;Antártida Argentina;SCAR;;94028;561,20809419600;615,77454276800
+4550;0;Departamento;Departamento Tapenagá;Departamento;Tapenagá;IDE Chaco;;22161;0,54629886244;3,04745998926
+4551;0;Departamento;Departamento Quitilipi;Departamento;Quitilipi;IDE Chaco;;22133;0,14139931428;2,11072821996
+4552;0;Departamento;Departamento Presidencia de la Plaza;Departamento;Presidencia de la Plaza;IDE Chaco;;22119;0,20431469344;1,99159899985
+4553;0;Departamento;Partido de Pergamino;Partido;Pergamino;ARBA - Gerencia de Servicios Catastrales;;06623;0,29269514343;2,75162178250
+4554;0;Departamento;Departamento Sargento Cabral;Departamento;Sargento Cabral;IDE Chaco;;22154;0,14988516030;2,38688193218
+4555;0;Departamento;Departamento Independencia;Departamento;Independencia;IDE Chaco;;22070;0,17451915465;2,08272864317
+4556;0;Departamento;Departamento Mayor Luis Jorge Fontana;Departamento;Mayor Luis Jorge Fontana;IDE Chaco;;22098;0,33885575383;2,91650880064
+4557;0;Departamento;Departamento Fray Justo Santa María de Oro;Departamento;Fray Justo Santa María de Oro;IDE Chaco;;22043;0,20443206910;2,49720254600
+4558;0;Departamento;Departamento General Belgrano;Departamento;General Belgrano;IGN;;46063;0,26471892487;2,31365923190
+4559;0;Departamento;Departamento Las Colonias;Departamento;Las Colonias;Servicio de Catastro e Información Territorial;;82070;0,59704879995;5,73684575084
+4560;0;Departamento;Departamento San Justo;Departamento;San Justo;Servicio de Catastro e Información Territorial;;82112;0,52749444731;6,56037905189
+4561;0;Departamento;Departamento San Cristóbal;Departamento;San Cristóbal;Servicio de Catastro e Información Territorial;;82091;1,37409882838;7,48086491343
+4562;0;Departamento;Departamento San Javier;Departamento;San Javier;Servicio de Catastro e Información Territorial;;82098;0,62448821376;5,92029679966
+4563;0;Departamento;Departamento General Obligado;Departamento;General Obligado;Servicio de Catastro e Información Territorial;;82049;1,02311811040;6,29822001339
+4564;0;Departamento;Departamento Vera;Departamento;Vera;Servicio de Catastro e Información Territorial;;82133;1,91940721468;8,84841263534
+4565;0;Departamento;Departamento 9 de Julio;Departamento;9 de Julio;Servicio de Catastro e Información Territorial;;82077;1,60010338785;6,07433808236
+4566;0;Departamento;Departamento Chapaleufú;Departamento;Chapaleufú;Direc. Grl. de Catastro;;42056;0,24998723238;2,00959581976
+4567;0;Departamento;Departamento Realicó;Departamento;Realicó;Direc. Grl. de Catastro;;42133;0,24693751147;1,99711770901
+4568;0;Departamento;Departamento Maracó;Departamento;Maracó;Direc. Grl. de Catastro;;42105;0,24957817447;2,00901780648
+4569;0;Departamento;Departamento Trenel;Departamento;Trenel;Direc. Grl. de Catastro;;42147;0,19939036612;1,82635968396
+4570;0;Departamento;Departamento Copo;Departamento;Copo;Catastro Provinciales;;86056;1,17647318191;6,03245796348
+4571;0;Departamento;Departamento Río Hondo;Departamento;Río Hondo;Catastro Provinciales;;86147;0,18691719795;2,29918420268
+4572;0;Departamento;Departamento Vinchina;Departamento;Vinchina;IGN;;46098;1,04910978233;5,50709102799
+4573;0;Departamento;Departamento Capital;Departamento;Capital;IGN;;46014;1,24887825999;5,14533816945
+4574;0;Departamento;Departamento Río Seco;Departamento;Río Seco;IDE Cordoba;Catastro;14112;0,63837964046;5,35954837874
+4575;0;Departamento;Departamento Avellaneda;Departamento;Avellaneda;IDE Rio Negro;;62014;2,07535136201;8,24746996700
+4576;0;Departamento;Departamento General Roca;Departamento;General Roca;IDE Rio Negro;;62042;1,51035416703;6,73637423560
+4577;0;Departamento;Departamento Belgrano;Departamento;Belgrano;Direc. de Geodesia y Catastro;;74014;0,77985717606;4,49765259308
+4578;0;Departamento;Departamento Los Lagos;Departamento;Los Lagos;Direc. Pcial. de Catastro e Inf. Territorial;;58070;0,44940053467;3,87516152604
+4579;0;Departamento;Departamento Lácar;Departamento;Lácar;Direc. Pcial. de Catastro e Inf. Territorial;;58056;0,52677355399;4,13605742500
+4580;0;Departamento;Departamento Belén;Departamento;Belén;IDE Catamarca;;10035;1,15095566657;7,36024327786
+4581;0;Departamento;Departamento Confluencia;Departamento;Confluencia;Direc. Pcial. de Catastro e Inf. Territorial;;58035;0,74721578732;4,43510092828
+4582;0;Departamento;Departamento Picunches;Departamento;Picunches;Direc. Pcial. de Catastro e Inf. Territorial;;58105;0,62481709206;4,97305651737
+4583;0;Departamento;Departamento Añelo;Departamento;Añelo;Direc. Pcial. de Catastro e Inf. Territorial;;58014;1,23898757803;6,02696753280
+4584;0;Departamento;Departamento Loncopué;Departamento;Loncopué;Direc. Pcial. de Catastro e Inf. Territorial;;58063;0,56518741340;4,68160782659
+4585;0;Departamento;Departamento Ñorquín;Departamento;Ñorquín;Direc. Pcial. de Catastro e Inf. Territorial;;58084;0,56704423021;4,07414747462
+4586;0;Departamento;Departamento Capital;Departamento;Capital;IDE Catamarca;;10049;0,03670767979;0,97626352445
+4587;0;Departamento;Departamento Ancasti;Departamento;Ancasti;IDE Catamarca;;10014;0,18184205227;3,13888542064
+4588;0;Departamento;Departamento Pehuenches;Departamento;Pehuenches;Direc. Pcial. de Catastro e Inf. Territorial;;58091;0,84755201404;5,76237525887
+4589;0;Departamento;Departamento Minas;Departamento;Minas;Direc. Pcial. de Catastro e Inf. Territorial;;58077;0,61162102700;4,87909060680
+4590;0;Departamento;Departamento Chos Malal;Departamento;Chos Malal;Direc. Pcial. de Catastro e Inf. Territorial;;58042;0,46274416859;3,74298056138
+4591;0;Departamento;Departamento Cushamen;Departamento;Cushamen;IGN;;26014;1,78090994031;7,66091412520
+4592;0;Departamento;Departamento Lago Buenos Aires;Departamento;Lago Buenos Aires;IGN;;78035;3,36465149037;9,25157855857
+4593;0;Departamento;Comuna 2;Comuna;Comuna 2;Direc. de Catastro;;02014;0,00062124157;0,19323634204
+4594;0;Departamento;Comuna 8;Comuna;Comuna 8;Direc. de Catastro;;02056;0,00220070435;0,20923950166
+4595;0;Departamento;Departamento Pomán;Departamento;Pomán;IDE Catamarca;;10084;0,46077869213;4,06473489489
+4596;0;Departamento;Departamento Sobremonte;Departamento;Sobremonte;IDE Cordoba;Catastro;14154;0,30542860980;2,59131316036
+4597;0;Departamento;Departamento Ushuaia;Departamento;Ushuaia;Gerencia de Catastro Pcial.;;94014;1,07305311913;17,12594644690
+4598;0;Departamento;Departamento Río Grande;Departamento;Río Grande;Gerencia de Catastro Pcial.;;94007;0,89445863904;6,98178408386
+4599;0;Departamento;Comuna 13;Comuna;Comuna 13;Direc. de Catastro;;02091;0,00147210384;0,22320492870
+4600;0;Departamento;Departamento Güer Aike;Departamento;Güer Aike;IGN;;78021;4,34749417629;13,97853094110
+4601;0;Departamento;Departamento Banda;Departamento;Banda;Catastro Provinciales;;86035;0,31591721443;3,24732152739
+4602;0;Departamento;Departamento Paso de Indios;Departamento;Paso de Indios;IGN;;26070;2,49488585851;6,79461955466
+4603;0;Departamento;Departamento Mártires;Departamento;Mártires;IGN;;26063;1,74933868707;6,01580246798
+4604;0;Departamento;Departamento Sarmiento;Departamento;Sarmiento;Catastro Provinciales;;86182;0,15464117819;2,39974495064
+4605;0;Departamento;Departamento Deseado;Departamento;Deseado;IGN;;78014;7,51282940211;15,65215442740
+4606;0;Departamento;Departamento Languiñeo;Departamento;Languiñeo;IGN;;26056;1,64109572694;7,40964357660
+4607;0;Departamento;Departamento Belgrano;Departamento;Belgrano;Catastro Provinciales;;86042;0,30981435418;3,51994136993
+4608;0;Departamento;Departamento Aguirre;Departamento;Aguirre;Catastro Provinciales;;86007;0,38086038058;4,86256460900
+4609;0;Departamento;Departamento Maipú;Departamento;Maipú;IDE Chaco;;22091;0,26352264864;2,25265631799
+4610;0;Departamento;Departamento Guasayán;Departamento;Guasayán;Catastro Provinciales;;86084;0,24430721235;2,49203755360
+4611;0;Departamento;Departamento Capital;Departamento;Capital;IDE Cordoba;Catastro;14014;0,05463375710;0,93771322258
+4612;0;Departamento;Departamento Antofagasta de la Sierra;Departamento;Antofagasta de la Sierra;IDE Catamarca;;10028;2,53313505633;7,96683777682
+4613;0;Departamento;Departamento San Carlos;Departamento;San Carlos;IDE Mendoza;;50091;1,12936003969;6,12973161294
+4614;0;Departamento;Departamento Tunuyán;Departamento;Tunuyán;IDE Mendoza;;50119;0,32857355937;2,67906596324
+4615;0;Departamento;Departamento Cuyo;Departamento;Cuyo;IDE Mendoza;;50063;0,46533900944;4,89845184422
+4616;0;Departamento;Departamento Futaleufú;Departamento;Futaleufú;IGN;;26035;1,01162716042;6,01374828745
+4617;0;Departamento;Departamento Río Chico;Departamento;Río Chico;IGN;;78049;4,11648681364;9,49189198944
+4618;0;Departamento;Departamento Lago Argentino;Departamento;Lago Argentino;IGN;;78028;4,82369348446;11,38944118470
+4619;0;Departamento;Departamento El Cuy;Departamento;El Cuy;IDE Rio Negro;;62035;2,26020716404;8,65457913390
+4620;0;Departamento;Departamento Las Heras;Departamento;Las Heras;IDE Mendoza;;50049;0,85501288062;5,80474955472
+4621;0;Departamento;Departamento Lavalle;Departamento;Lavalle;IDE Mendoza;;50056;0,97030451855;5,62107142058
+4622;0;Departamento;Departamento Malargüe;Departamento;Malargüe;IDE Mendoza;;50077;4,06395189719;10,51632065890
+4623;0;Departamento;Departamento Pichi Mahuida;Departamento;Pichi Mahuida;IDE Rio Negro;;62063;1,63886883252;6,03001517188
+4624;0;Departamento;Departamento Adolfo Alsina;Departamento;Adolfo Alsina;IDE Rio Negro;;62007;0,95508527610;4,87029393182
+4625;0;Departamento;Departamento Río Senguer;Departamento;Río Senguer;IGN;;26084;2,62591933515;9,33188003647
+4626;0;Departamento;Departamento Bariloche;Departamento;Bariloche;IDE Rio Negro;;62021;0,58474447509;4,23465493942
+4627;0;Departamento;Departamento Huiliches;Departamento;Huiliches;Direc. Pcial. de Catastro e Inf. Territorial;;58049;0,42345539005;3,96192136391
+4628;0;Departamento;Departamento Catán Lil;Departamento;Catán Lil;Direc. Pcial. de Catastro e Inf. Territorial;;58021;0,57604567207;4,48719511767
+4629;0;Departamento;Departamento Almirante Brown;Departamento;Almirante Brown;IDE Chaco;;22007;1,59294546505;8,40515346793
+4630;0;Departamento;Departamento Rosario de la Frontera;Departamento;Rosario de la Frontera;IDE Salta;;66140;0,48890671226;3,89019917663
+4631;0;Departamento;Departamento Collón Curá;Departamento;Collón Curá;Direc. Pcial. de Catastro e Inf. Territorial;;58028;0,60871412049;4,34087848238
+4632;0;Departamento;Comuna 3;Comuna;Comuna 3;Direc. de Catastro;;02021;0,00062762353;0,10165654487
+4633;0;Departamento;Departamento Robles;Departamento;Robles;Catastro Provinciales;;86161;0,12416967985;1,79466162586
+4634;0;Departamento;Departamento Capital;Departamento;Capital;Catastro Provinciales;;86049;0,19470907262;2,43893026818
+4635;0;Departamento;Comuna 14;Comuna;Comuna 14;Direc. de Catastro;;02098;0,00155721847;0,20208972864
+4636;0;Departamento;Departamento Loreto;Departamento;Loreto;Catastro Provinciales;;86105;0,28762191537;3,28716871028
+4637;0;Departamento;Departamento Colón;Departamento;Colón;ATER - Direc. de Catastro;;30008;0,26352445243;3,50342675328
+4638;0;Departamento;Departamento Villaguay;Departamento;Villaguay;ATER - Direc. de Catastro;;30113;0,62547405232;5,02119600053
+4639;0;Departamento;Partido de Castelli;Partido;Castelli;ARBA - Gerencia de Servicios Catastrales;;06168;0,21130612684;3,14580987012
+4640;0;Departamento;Departamento San Salvador;Departamento;San Salvador;ATER - Direc. de Catastro;;30088;0,12644281898;2,71510473560
+4641;0;Departamento;Partido de Almirante Brown;Partido;Almirante Brown;ARBA - Gerencia de Servicios Catastrales;;06028;0,01273918891;0,52491464512
+4642;0;Departamento;Departamento Nogoyá;Departamento;Nogoyá;ATER - Direc. de Catastro;;30077;0,41886778559;3,89240497087
+4643;0;Departamento;Departamento Tala;Departamento;Tala;ATER - Direc. de Catastro;;30091;0,25312571749;3,42792579896
+4644;0;Departamento;Departamento Gualeguay;Departamento;Gualeguay;ATER - Direc. de Catastro;;30049;0,63863117303;7,36905217808
+4645;0;Departamento;Departamento Federación;Departamento;Federación;ATER - Direc. de Catastro;;30028;0,35525142469;3,72083564905
+4646;0;Departamento;Departamento La Paz;Departamento;La Paz;ATER - Direc. de Catastro;;30070;0,62657201048;5,36374244380
+4647;0;Departamento;Departamento Feliciano;Departamento;Feliciano;ATER - Direc. de Catastro;;30042;0,29781889370;3,88135086377
+4648;0;Departamento;Partido de Presidente Perón;Partido;Presidente Perón;ARBA - Gerencia de Servicios Catastrales;;06648;0,01203461315;0,65333311153
+4649;0;Departamento;Partido de Brandsen;Partido;Brandsen;ARBA - Gerencia de Servicios Catastrales;;06119;0,11031627430;1,82115913495
+4650;0;Departamento;Partido de Carlos Casares;Partido;Carlos Casares;ARBA - Gerencia de Servicios Catastrales;;06147;0,25227810341;2,43583348948
+4651;0;Departamento;Partido de Carlos Tejedor;Partido;Carlos Tejedor;ARBA - Gerencia de Servicios Catastrales;;06154;0,38807607077;2,95196221095
+4652;0;Departamento;Partido de 25 de Mayo;Partido;25 de Mayo;ARBA - Gerencia de Servicios Catastrales;;06854;0,47590917457;4,34082573124
+4653;0;Departamento;Partido de 9 de Julio;Partido;9 de Julio;ARBA - Gerencia de Servicios Catastrales;;06588;0,42615879113;3,02164725017
+4654;0;Departamento;Partido de Pehuajó;Partido;Pehuajó;ARBA - Gerencia de Servicios Catastrales;;06609;0,45146532079;3,50449541827
+4655;0;Departamento;Partido de Trenque Lauquen;Partido;Trenque Lauquen;ARBA - Gerencia de Servicios Catastrales;;06826;0,54997336228;3,19238184260
+4656;0;Departamento;Partido de General Belgrano;Partido;General Belgrano;ARBA - Gerencia de Servicios Catastrales;;06301;0,18528707629;2,74905511860
+4657;0;Departamento;Departamento Capayán;Departamento;Capayán;IDE Catamarca;;10042;0,40221533034;4,29458449933
+4658;0;Departamento;Partido de Monte;Partido;Monte;ARBA - Gerencia de Servicios Catastrales;;06547;0,18634202581;2,41990955056
+4659;0;Departamento;Partido de Roque Pérez;Partido;Roque Pérez;ARBA - Gerencia de Servicios Catastrales;;06693;0,15455540419;2,70116705217
+4660;0;Departamento;Partido de Olavarría;Partido;Olavarría;ARBA - Gerencia de Servicios Catastrales;;06595;0,77465103816;4,11105242722
+4661;0;Departamento;Partido de Merlo;Partido;Merlo;ARBA - Gerencia de Servicios Catastrales;;06539;0,01712766337;0,63240049997
+4662;0;Departamento;Partido de Esteban Echeverría;Partido;Esteban Echeverría;ARBA - Gerencia de Servicios Catastrales;;06260;0,01195301893;0,52940209042
+4663;0;Departamento;Partido de Arrecifes;Partido;Arrecifes;ARBA - Gerencia de Servicios Catastrales;;06077;0,12138877165;1,70649984137
+4664;0;Departamento;Partido de Capitán Sarmiento;Partido;Capitán Sarmiento;ARBA - Gerencia de Servicios Catastrales;;06140;0,05365920789;1,18765000824
+4665;0;Departamento;Partido de Carmen de Areco;Partido;Carmen de Areco;ARBA - Gerencia de Servicios Catastrales;;06161;0,10407248862;1,52357355204
+4666;0;Departamento;Partido de Salto;Partido;Salto;ARBA - Gerencia de Servicios Catastrales;;06714;0,15771106703;2,08513261412
+4667;0;Departamento;Partido de Exaltación de la Cruz;Partido;Exaltación de la Cruz;ARBA - Gerencia de Servicios Catastrales;;06266;0,06232822662;1,40637458403
+4668;0;Departamento;Partido de San Miguel;Partido;San Miguel;ARBA - Gerencia de Servicios Catastrales;;06760;0,00812802064;0,44835931927
+4669;0;Departamento;Partido de San Andrés de Giles;Partido;San Andrés de Giles;ARBA - Gerencia de Servicios Catastrales;;06728;0,11075833670;1,66151934526
+4670;0;Departamento;Partido de Junín;Partido;Junín;ARBA - Gerencia de Servicios Catastrales;;06413;0,22142809037;2,37408463314
+4671;0;Departamento;Partido de Mercedes;Partido;Mercedes;ARBA - Gerencia de Servicios Catastrales;;06532;0,10325099101;1,65208239652
+4672;0;Departamento;Partido de Pilar;Partido;Pilar;ARBA - Gerencia de Servicios Catastrales;;06638;0,03773729191;1,24143735043
+4673;0;Departamento;Partido de Luján;Partido;Luján;ARBA - Gerencia de Servicios Catastrales;;06497;0,07576601994;1,47665413263
+4674;0;Departamento;Partido de Hurlingham;Partido;Hurlingham;ARBA - Gerencia de Servicios Catastrales;;06408;0,00351566460;0,24553122228
+4675;0;Departamento;Partido de Morón;Partido;Morón;ARBA - Gerencia de Servicios Catastrales;;06568;0,00541457022;0,37274156696
+4676;0;Departamento;Partido de Chacabuco;Partido;Chacabuco;ARBA - Gerencia de Servicios Catastrales;;06210;0,22510173494;2,71919237190
+4677;0;Departamento;Partido de Malvinas Argentinas;Partido;Malvinas Argentinas;ARBA - Gerencia de Servicios Catastrales;;06515;0,00617016880;0,35581165820
+4678;0;Departamento;Partido General San Martín;Partido;General San Martín;ARBA - Gerencia de Servicios Catastrales;;06371;0,00554947932;0,34491309820
+4679;0;Departamento;Partido de Lincoln;Partido;Lincoln;ARBA - Gerencia de Servicios Catastrales;;06469;0,57104221450;3,76983908832
+4680;0;Departamento;Partido de Ituzaingó;Partido;Ituzaingó;ARBA - Gerencia de Servicios Catastrales;;06410;0,00374253462;0,25683938726
+4681;0;Departamento;Partido de General Rodríguez;Partido;General Rodríguez;ARBA - Gerencia de Servicios Catastrales;;06364;0,03603455731;0,91603513563
+4682;0;Departamento;Partido de Suipacha;Partido;Suipacha;ARBA - Gerencia de Servicios Catastrales;;06784;0,09283108689;1,50888876210
+4683;0;Departamento;Partido de Tres de Febrero;Partido;Tres de Febrero;ARBA - Gerencia de Servicios Catastrales;;06840;0,00446371091;0,36718253679
+4684;0;Departamento;Departamento Coronel Felipe Varela;Departamento;Coronel Felipe Varela;IGN;;46028;0,76958709856;4,65555571302
+4685;0;Departamento;Partido de Chivilcoy;Partido;Chivilcoy;ARBA - Gerencia de Servicios Catastrales;;06224;0,20309393456;2,13240600782
+4686;0;Departamento;Partido de Alberti;Partido;Alberti;ARBA - Gerencia de Servicios Catastrales;;06021;0,11089884425;1,79374308533
+4687;0;Departamento;Partido de Bragado;Partido;Bragado;ARBA - Gerencia de Servicios Catastrales;;06112;0,21724108301;2,51641218599
+4688;0;Departamento;Partido de General Las Heras;Partido;General Las Heras;ARBA - Gerencia de Servicios Catastrales;;06329;0,07410116322;1,26243887881
+4689;0;Departamento;Partido de Marcos Paz;Partido;Marcos Paz;ARBA - Gerencia de Servicios Catastrales;;06525;0,04159154269;1,10497793518
+4690;0;Departamento;Partido de General Viamonte;Partido;General Viamonte;ARBA - Gerencia de Servicios Catastrales;;06385;0,21131456027;2,19840096368
+4691;0;Departamento;Partido de Ezeiza;Partido;Ezeiza;ARBA - Gerencia de Servicios Catastrales;;06270;0,02348291571;0,78091195846
+4692;0;Departamento;Partido de Florencio Varela;Partido;Florencio Varela;ARBA - Gerencia de Servicios Catastrales;;06274;0,01868240222;0,76439396823
+4693;0;Departamento;Partido de Navarro;Partido;Navarro;ARBA - Gerencia de Servicios Catastrales;;06574;0,15996562066;2,23795692349
+4694;0;Departamento;Partido de Cañuelas;Partido;Cañuelas;ARBA - Gerencia de Servicios Catastrales;;06134;0,11733186522;1,79903546774
+4695;0;Departamento;Partido de San Vicente;Partido;San Vicente;ARBA - Gerencia de Servicios Catastrales;;06778;0,06530571732;1,25168478476
+4696;0;Departamento;Partido de Lobos;Partido;Lobos;ARBA - Gerencia de Servicios Catastrales;;06483;0,17083067577;2,13242996310
+4697;0;Departamento;Partido de General Alvear;Partido;General Alvear;ARBA - Gerencia de Servicios Catastrales;;06287;0,33663675814;3,23091430023
+4698;0;Departamento;Partido de Quilmes;Partido;Quilmes;ARBA - Gerencia de Servicios Catastrales;;06658;0,00901924506;0,42414149062
+4699;0;Departamento;Partido de Pila;Partido;Pila;ARBA - Gerencia de Servicios Catastrales;;06630;0,34566780599;3,12093761317
+4700;0;Departamento;Partido de General La Madrid;Partido;General La Madrid;ARBA - Gerencia de Servicios Catastrales;;06322;0,48959486141;3,43740558302
+4701;0;Departamento;Partido de Bolívar;Partido;Bolívar;ARBA - Gerencia de Servicios Catastrales;;06105;0,49510831215;3,62176014435
+4702;0;Departamento;Partido de Balcarce;Partido;Balcarce;ARBA - Gerencia de Servicios Catastrales;;06063;0,42096293909;2,96413363318
+4703;0;Departamento;Partido de Tapalqué;Partido;Tapalqué;ARBA - Gerencia de Servicios Catastrales;;06798;0,41848243885;4,69889455297
+4704;0;Departamento;Partido de Hipólito Yrigoyen;Partido;Hipólito Yrigoyen;ARBA - Gerencia de Servicios Catastrales;;06406;0,16499115659;2,20755778243
+4705;0;Departamento;Partido de Dolores;Partido;Dolores;ARBA - Gerencia de Servicios Catastrales;;06238;0,19865594241;2,37538900086
+4706;0;Departamento;Partido de Azul;Partido;Azul;ARBA - Gerencia de Servicios Catastrales;;06049;0,66002214883;4,43245051369
+4707;0;Departamento;Partido de Daireaux;Partido;Daireaux;ARBA - Gerencia de Servicios Catastrales;;06231;0,38520877048;3,55074651842
+4708;0;Departamento;Partido de Tres Lomas;Partido;Tres Lomas;ARBA - Gerencia de Servicios Catastrales;;06847;0,12593210099;1,51467428793
+4709;0;Departamento;Partido de Ayacucho;Partido;Ayacucho;ARBA - Gerencia de Servicios Catastrales;;06042;0,68424860794;4,17954467500
+4710;0;Departamento;Partido de Guaminí;Partido;Guaminí;ARBA - Gerencia de Servicios Catastrales;;06399;0,48768038343;3,29773773131
+4711;0;Departamento;Partido de Ensenada;Partido;Ensenada;ARBA - Gerencia de Servicios Catastrales;;06245;0,01118731212;0,54712348465
+4712;0;Departamento;Partido de Laprida;Partido;Laprida;ARBA - Gerencia de Servicios Catastrales;;06448;0,35140624022;2,90515172112
+4713;0;Departamento;Partido de San Isidro;Partido;San Isidro;ARBA - Gerencia de Servicios Catastrales;;06756;0,00514052150;0,33269098362
+4714;0;Departamento;Partido de Benito Juárez;Partido;Benito Juárez;ARBA - Gerencia de Servicios Catastrales;;06084;0,54432828474;3,95573476404
+4715;0;Departamento;Partido de Colón;Partido;Colón;ARBA - Gerencia de Servicios Catastrales;;06175;0,09707624833;1,66756547085
+4716;0;Departamento;Departamento Figueroa;Departamento;Figueroa;Catastro Provinciales;;86070;0,64886073264;4,35280545097
+4717;0;Departamento;Partido de Saavedra;Partido;Saavedra;ARBA - Gerencia de Servicios Catastrales;;06700;0,36263569315;2,86324095146
+4718;0;Departamento;Partido de Monte Hermoso;Partido;Monte Hermoso;ARBA - Gerencia de Servicios Catastrales;;06553;0,02081749670;0,87186174558
+4719;0;Departamento;Partido de Lobería;Partido;Lobería;ARBA - Gerencia de Servicios Catastrales;;06476;0,48476991170;3,40974425303
+4720;0;Departamento;Partido de Berisso;Partido;Berisso;ARBA - Gerencia de Servicios Catastrales;;06098;0,01424744118;0,58038235877
+4721;0;Departamento;Partido de Tordillo;Partido;Tordillo;ARBA - Gerencia de Servicios Catastrales;;06812;0,13404004879;1,87712685653
+4722;0;Departamento;Partido de San Fernando;Partido;San Fernando;ARBA - Gerencia de Servicios Catastrales;;06749;0,10349513107;1,63365589571
+4723;0;Departamento;Partido de Zárate;Partido;Zárate;ARBA - Gerencia de Servicios Catastrales;;06882;0,11564117472;1,88181759003
+4724;0;Departamento;Partido de Ramallo;Partido;Ramallo;ARBA - Gerencia de Servicios Catastrales;;06665;0,10174762782;1,84102458302
+4725;0;Departamento;Partido de San Nicolás;Partido;San Nicolás;ARBA - Gerencia de Servicios Catastrales;;06763;0,06602559241;1,36620389017
+4726;0;Departamento;Departamento Salavina;Departamento;Salavina;Catastro Provinciales;;86168;0,29347033027;3,09464465589
+4727;0;Departamento;Departamento Pellegrini;Departamento;Pellegrini;Catastro Provinciales;;86133;0,62682836658;4,03339656989
+4728;0;Departamento;Departamento Avellaneda;Departamento;Avellaneda;Catastro Provinciales;;86028;0,35146812201;3,79334726425
+4729;0;Departamento;Departamento Moreno;Departamento;Moreno;Catastro Provinciales;;86119;1,49616030557;5,52823848225
+4730;0;Departamento;Departamento Chacabuco;Departamento;Chacabuco;IDE Chaco;;22028;0,13804945269;2,32548868123
+4731;0;Departamento;Departamento Guaymallén;Departamento;Guaymallén;IDE Mendoza;;50028;0,01563099958;0,58629020455
+4732;0;Departamento;Departamento Juárez Celman;Departamento;Juárez Celman;IDE Cordoba;Catastro;14056;0,76782714252;4,95452189846
+4733;0;Departamento;Departamento Capital;Departamento;Capital;Direc. Grl. de Inmuebles;;66028;0,15332795891;2,48019208781
+4734;0;Departamento;Departamento Silipica;Departamento;Silipica;Catastro Provinciales;;86189;0,11309241487;1,64912436356
+4735;0;Departamento;Departamento La Candelaria;Departamento;La Candelaria;IDE Salta;;66084;0,12156038550;2,33053980941
+4736;0;Departamento;Departamento Maipú;Departamento;Maipú;IDE Mendoza;;50070;0,06010193087;1,22415924031
+4737;0;Departamento;Departamento Guachipas;Departamento;Guachipas;IDE Salta;;66063;0,25089291083;2,91897856765
+4738;0;Departamento;Departamento Capital;Departamento;Capital;IDE Mendoza;;50007;0,00507794593;0,35219393255
+4739;0;Departamento;Departamento Godoy Cruz;Departamento;Godoy Cruz;IDE Mendoza;;50021;0,00764572010;0,41989076761
+4740;0;Departamento;Departamento Cafayate;Departamento;Cafayate;IDE Salta;;66021;0,13997579046;1,97788826590
+4741;0;Departamento;Departamento San Martín;Departamento;San Martín;IDE Mendoza;;50098;0,14526724332;2,00275611192
+4742;0;Departamento;Departamento Junín;Departamento;Junín;IDE Mendoza;;50035;0,02632285953;1,19771486984
+4743;0;Departamento;Departamento Castro Barros;Departamento;Castro Barros;IGN;;46021;0,14127643083;1,53314950231
+4744;0;Departamento;Departamento Sanagasta;Departamento;Sanagasta;IGN;;46126;0,12094384684;1,47854049764
+4745;0;Departamento;Departamento Chilecito;Departamento;Chilecito;IGN;;46042;0,48729949024;2,96959145092
+4746;0;Departamento;Departamento General Ángel V. Peñaloza;Departamento;General  Angel V. Peñaloza;IGN;;46056;0,29325180714;2,61676057340
+4747;0;Departamento;Departamento Colón;Departamento;Colón;IDE Cordoba;Catastro;14021;0,22399877262;2,78043748701
+4748;0;Departamento;Departamento General Juan F. Quiroga;Departamento;General Juan F. Quiroga;IGN;;46070;0,40582901581;3,14529577290
+4749;0;Departamento;Departamento Rosario Vera Peñaloza;Departamento;Rosario Vera Peñaloza;IGN;;46112;0,47123498669;2,90457137002
+4750;0;Departamento;Departamento General San Martín;Departamento;General San Martín;IGN;;46091;0,42598786502;3,55055474420
+4751;0;Departamento;Departamento Famatina;Departamento;Famatina;IGN;;46049;0,38499305925;2,72028775348
+4752;0;Departamento;Departamento San Blas de Los Sauces;Departamento;San Blas de Los Sauces;IGN;;46119;0,13266021984;2,00370062009
+4753;0;Departamento;Departamento San Antonio;Departamento;San Antonio;Direc. Grl. de Inmuebles;;38056;0,06159565550;1,58730605030
+4754;0;Departamento;Departamento Formosa;Departamento;Formosa;IGN;;34014;0,58601572882;3,84326273039
+4755;0;Departamento;Departamento Andalgalá;Departamento;Andalgalá;IDE Catamarca;;10021;0,49693291488;3,68859671396
+4756;0;Departamento;Departamento Ambato;Departamento;Ambato;IDE Catamarca;;10007;0,16690713122;2,49880814165
+4757;0;Departamento;Departamento Paclín;Departamento;Paclín;IDE Catamarca;;10077;0,09039869855;1,93447444351
+4758;0;Departamento;Departamento Pilcomayo;Departamento;Pilcomayo;IGN;;34049;0,47980149313;4,68171657100
+4759;0;Departamento;Departamento El Alto;Departamento;El Alto;IDE Catamarca;;10056;0,17633441259;2,21021607509
+4760;0;Departamento;Departamento Tehuelches;Departamento;Tehuelches;IGN;;26098;1,64332018411;6,82702810413
+4761;0;Departamento;Departamento Escalante;Departamento;Escalante;IGN;;26021;1,63704921735;7,25312727774
+4762;0;Departamento;Departamento Ischilín;Departamento;Ischilín;IDE Cordoba;Catastro;14049;0,47347265465;3,48084880510
+4763;0;Departamento;Departamento Totoral;Departamento;Totoral;IDE Cordoba;Catastro;14168;0,28730849023;3,63133057357
+4764;0;Departamento;Departamento General San Martín;Departamento;General San Martín;Catastro;Catastro;14042;0,47898168946;4,36383081884
+4765;0;Departamento;Departamento San Javier;Departamento;San Javier;IDE Cordoba;Catastro;14133;0,14759146898;2,42262257865
+4766;0;Departamento;Departamento Río Primero;Departamento;Río Primero;IDE Cordoba;Catastro;14105;0,63576690128;4,23964996328
+4767;0;Departamento;Departamento Tinogasta;Departamento;Tinogasta;IDE Catamarca;;10105;2,07204819260;9,93585136732
+4768;0;Departamento;Departamento Marcos Juárez;Departamento;Marcos Juárez;IDE Cordoba;Catastro;14063;0,88713096885;5,69892521733
+4769;0;Departamento;Partido de Leandro N. Alem;Partido;Leandro N. Alem;ARBA - Gerencia de Servicios Catastrales;;06462;0,15745672531;1,94290827627
+4770;0;Departamento;Departamento Libertador General San Martín;Departamento;Libertador General San Martín;IDE Chaco;;22084;0,65112124059;5,97316799777
+4771;0;Departamento;Departamento Gastre;Departamento;Gastre;IGN;;26049;1,75708380713;6,72234952864
+4772;0;Departamento;Partido de General Arenales;Partido;General Arenales;ARBA - Gerencia de Servicios Catastrales;;06294;0,14514302198;2,13423841026
+4773;0;Departamento;Departamento Bermejo;Departamento;Bermejo;IDE Chaco;;22014;0,23243431838;3,08450961339
+4774;0;Departamento;Departamento Calamuchita;Departamento;Calamuchita;IDE Cordoba;Catastro;14007;0,44938217216;3,70596970503
+4775;0;Departamento;Partido de Rivadavia;Partido;Rivadavia;ARBA - Gerencia de Servicios Catastrales;;06679;0,39328561608;2,85136518531
+4776;0;Departamento;Partido de Patagones;Partido;Patagones;ARBA - Gerencia de Servicios Catastrales;;06602;1,42321092612;6,34373744892
+4777;0;Departamento;Departamento Juan Martín de Pueyrredón;Departamento;Juan Martín de Pueyrredón;Direc. de Geodesia y Catastro;;74056;1,32202500337;6,83519805331
+4778;0;Departamento;Departamento General Pedernera;Departamento;General Pedernera;Direc. de Geodesia y Catastro;;74035;1,44015478474;6,35948779830
+4779;0;Departamento;Comuna 9;Comuna;Comuna 9;Direc. de Catastro;;02063;0,00161925217;0,21474111499
+4780;0;Departamento;Departamento Junín;Departamento;Junín;Direc. de Geodesia y Catastro;;74049;0,25361111742;3,44942819484
+4781;0;Departamento;Departamento Mitre;Departamento;Mitre;Catastro Provinciales;;86112;0,31588886797;3,17096577551
+4782;0;Departamento;Departamento Atamisqui;Departamento;Atamisqui;Catastro Provinciales;;86021;0,22301724716;2,34719931145
+4783;0;Departamento;Departamento Jiménez;Departamento;Jiménez;Catastro Provinciales;;86091;0,50687623915;4,43164775150
+4784;0;Departamento;Partido de Coronel de Marina Leonardo Rosales;Partido;Coronel de Marina Leonardo Rosales;ARBA - Gerencia de Servicios Catastrales;;06182;0,13384569382;2,10210493320
+4785;0;Departamento;Partido de Baradero;Partido;Baradero;ARBA - Gerencia de Servicios Catastrales;;06070;0,14915749306;2,41729808762
+4786;0;Departamento;Partido de San Pedro;Partido;San Pedro;ARBA - Gerencia de Servicios Catastrales;;06770;0,13203879777;2,00295432352
+4787;0;Departamento;Departamento Santa Victoria;Departamento;Santa Victoria;IDE Salta;;66161;0,35509653899;3,44027407118
+4788;0;Departamento;Departamento General José de San Martín;Departamento;General José de San Martín;IDE Salta;;66056;1,41588808720;6,21773729785
+4789;0;Departamento;Departamento Rivadavia;Departamento;Rivadavia;IDE Salta;;66133;2,31731742862;9,66663857128
+4790;0;Departamento;Departamento Rosario de Lerma;Departamento;Rosario de Lerma;IDE Salta;;66147;0,45769602559;3,48785679163
+4791;0;Departamento;Departamento Ledesma;Departamento;Ledesma;Direc. Grl. de Inmuebles;;38035;0,26411611534;3,53531835264
+4792;0;Departamento;Departamento Humahuaca;Departamento;Humahuaca;Direc. Grl. de Inmuebles;;38028;0,31118095094;2,75360175491
+4793;0;Departamento;Departamento Cochinoca;Departamento;Cochinoca;Direc. Grl. de Inmuebles;;38007;0,63280121925;4,80012666260
+4794;0;Departamento;Departamento Tumbaya;Departamento;Tumbaya;Direc. Grl. de Inmuebles;;38098;0,29178810221;3,15493341457
+4795;0;Departamento;Departamento Dr. Manuel Belgrano;Departamento;Dr. Manuel Belgrano;Direc. Grl. de Inmuebles;;38021;0,18409256108;2,74855952659
+4796;0;Departamento;Departamento Rinconada;Departamento;Rinconada;Direc. Grl. de Inmuebles;;38049;0,54176027240;3,99244635000
+4797;0;Departamento;Departamento Ramón Lista;Departamento;Ramón Lista;IGN;;34063;0,33827384799;3,39700261025
+4798;0;Departamento;Departamento La Poma;Departamento;La Poma;IDE Salta;;66091;0,35568530654;4,77352022151
+4799;0;Departamento;Departamento Biedma;Departamento;Biedma;IGN;;26007;1,41101750087;8,78824503587
+4800;0;Departamento;Partido de Florentino Ameghino;Partido;Florentino Ameghino;ARBA - Gerencia de Servicios Catastrales;;06277;0,17872399449;2,15010439374
+4801;0;Departamento;Departamento Florentino Ameghino;Departamento;Florentino Ameghino;IGN;;26028;1,79234859698;9,57779291781
+4802;0;Departamento;Departamento La Cocha;Departamento;La Cocha;IDE Tucuman;;90049;0,08785734210;1,55834797464
+4803;0;Departamento;Departamento Graneros;Departamento;Graneros;IDE Tucuman;;90035;0,15480446999;2,20747649991
+4804;0;Departamento;Departamento Juan Bautista Alberdi;Departamento;Juan Bautista Alberdi;IDE Tucuman;;90042;0,06744435608;1,91990778610
+4805;0;Departamento;Departamento Río Chico;Departamento;Río Chico;IDE Tucuman;;90077;0,05589791357;1,44572056013
+4806;0;Departamento;Departamento Simoca;Departamento;Simoca;IDE Tucuman;;90091;0,12214817841;2,38446927416
+4807;0;Departamento;Departamento Chicligasta;Departamento;Chicligasta;IDE Tucuman;;90021;0,11783810492;2,19873597173
+4808;0;Departamento;Departamento Monteros;Departamento;Monteros;IDE Tucuman;;90070;0,10840603908;2,27305380058
+4809;0;Departamento;Departamento Leales;Departamento;Leales;IDE Tucuman;;90056;0,17973962240;2,81925721101
+4810;0;Departamento;Departamento Famaillá;Departamento;Famaillá;IDE Tucuman;;90028;0,04183451604;1,46693308675
+4811;0;Departamento;Departamento Capital;Departamento;Capital;IDE Tucuman;;90084;0,00828161230;0,45578286909
+4812;0;Departamento;Departamento Cruz Alta;Departamento;Cruz Alta;IDE Tucuman;;90014;0,10981348216;1,85413539906
+4813;0;Departamento;Departamento Lules;Departamento;Lules;IDE Tucuman;;90063;0,05607358567;2,12310531161
+4814;0;Departamento;Departamento Yerba Buena;Departamento;Yerba Buena;IDE Tucuman;;90119;0,01355126516;0,75290751488
+4815;0;Departamento;Departamento Tafí Viejo;Departamento;Tafí Viejo;IDE Tucuman;;90105;0,10643538347;2,73578607915
+4816;0;Departamento;Departamento Burruyacú;Departamento;Burruyacú;IDE Tucuman;;90007;0,32890414067;3,06074187386
+4817;0;Departamento;Departamento Trancas;Departamento;Trancas;IDE Tucuman;;90112;0,27268800124;2,86168461304
+4818;0;Departamento;Departamento Tafí del Valle;Departamento;Tafí del Valle;IDE Tucuman;;90098;0,22222087489;3,02355456163
+4819;0;Departamento;Departamento General López;Departamento;General López;Servicio de Catastro e Información Territorial;;82042;1,12168351108;4,47500516375
+4820;0;Departamento;Departamento Constitución;Departamento;Constitución;Servicio de Catastro e Información Territorial;;82028;0,31314713960;3,99028795110
+4821;0;Departamento;Departamento Caseros;Departamento;Caseros;Servicio de Catastro e Información Territorial;;82014;0,33661147683;3,31351118949
+4822;0;Departamento;Departamento Rosario;Departamento;Rosario;Servicio de Catastro e Información Territorial;;82084;0,18032272174;2,26594565963
+4823;0;Departamento;Departamento San Lorenzo;Departamento;San Lorenzo;Servicio de Catastro e Información Territorial;;82119;0,19348166839;3,14650950863
+4824;0;Departamento;Departamento Iriondo;Departamento;Iriondo;Servicio de Catastro e Información Territorial;;82056;0,30970366415;3,02890744366
+4825;0;Departamento;Departamento Belgrano;Departamento;Belgrano;Servicio de Catastro e Información Territorial;;82007;0,23533099006;2,61306688857
+4826;0;Departamento;Departamento San Jerónimo;Departamento;San Jerónimo;Servicio de Catastro e Información Territorial;;82105;0,42377511312;3,20749087352
+4827;0;Departamento;Departamento San Martín;Departamento;San Martín;Servicio de Catastro e Información Territorial;;82126;0,47119637800;3,04660440231
+4828;0;Departamento;Departamento La Capital;Departamento;La Capital;Servicio de Catastro e Información Territorial;;82063;0,28277766178;4,88322797813
+4829;0;Departamento;Departamento Castellanos;Departamento;Castellanos;Servicio de Catastro e Información Territorial;;82021;0,63695158889;3,49803155557
+4830;0;Departamento;Departamento Garay;Departamento;Garay;Servicio de Catastro e Información Territorial;;82035;0,38315917641;3,31701568277
+4831;0;Departamento;Departamento Quemú Quemú;Departamento;Quemú Quemú;Direc. Grl. de Catastro;;42119;0,25096550863;2,01483838040
+4832;0;Departamento;Departamento Rancul;Departamento;Rancul;Direc. Grl. de Catastro;;42126;0,50753772241;2,87143023846
+4833;0;Departamento;Departamento Conhelo;Departamento;Conhelo;Direc. Grl. de Catastro;;42035;0,51271416193;3,26120123898
+4834;0;Departamento;Departamento Capital;Departamento;Capital;Direc. Grl. de Catastro;;42021;0,25530319101;2,15907483023
+4835;0;Departamento;Departamento Catriló;Departamento;Catriló;Direc. Grl. de Catastro;;42028;0,25231484692;2,31864815328
+4836;0;Departamento;Departamento Atreucó;Departamento;Atreucó;Direc. Grl. de Catastro;;42007;0,35505417889;2,47610925701
+4837;0;Departamento;Departamento Guatraché;Departamento;Guatraché;Direc. Grl. de Catastro;;42070;0,35706376109;2,48553436942
+4838;0;Departamento;Departamento Toay;Departamento;Toay;Direc. Grl. de Catastro;;42140;0,51300774305;3,19758169346
+4839;0;Departamento;Departamento Utracán;Departamento;Utracán;Direc. Grl. de Catastro;;42154;1,30967207006;5,09753584018
+4840;0;Departamento;Departamento Sauce;Departamento;Sauce;IGN;-2;18175;0,23306663754;3,18630880090
+4841;0;Departamento;Departamento Curuzú Cuatiá;Departamento;Curuzú Cuatiá;IGN;-2;18035;1,67795195353;9,31743455360
+4842;0;Departamento;Departamento San Martín;Departamento;San Martín;IGN;-2;18147;0,61506357702;5,27795848220
+4843;0;Departamento;Departamento Paso de los Libres;Departamento;Paso de los Libres;IGN;-2;18119;0,45568917329;4,57480045921
+4844;0;Departamento;Departamento Goya;Departamento;Goya;IGN;-2;18070;0,44629638374;3,73716723265
+4845;0;Departamento;Departamento Lavalle;Departamento;Lavalle;IGN;-2;18091;0,13918197762;2,43553996205
+4846;0;Departamento;Departamento San Roque;Departamento;San Roque;IGN;-2;18161;0,22419971765;3,12095362296
+4847;0;Departamento;Departamento General Alvear;Departamento;General Alvear;IGN;-2;18056;0,18003252623;2,92072259064
+4848;0;Departamento;Departamento Concepción;Departamento;Concepción;IGN;-2;18028;0,48634894226;3,39975920276
+4849;0;Departamento;Departamento Bella Vista;Departamento;Bella Vista;IGN;-2;18007;0,16457673195;2,51547039576
+4850;0;Departamento;Departamento Santo Tomé;Departamento;Santo Tomé;IGN;-2;18168;0,64412282702;5,02671281971
+4851;0;Departamento;Departamento Saladas;Departamento;Saladas;IGN;-2;18126;0,17644555507;2,69746326224
+4852;0;Departamento;Departamento General Paz;Departamento;General Paz;IGN;-2;18063;0,23879015124;3,27294376863
+4853;0;Departamento;Departamento Mburucuyá;Departamento;Mburucuyá;IGN;-2;18098;0,09161998007;1,68554148806
+4854;0;Departamento;Departamento San Miguel;Departamento;San Miguel;IGN;-2;18154;0,28054638369;3,01502751766
+4855;0;Departamento;Departamento Empedrado;Departamento;Empedrado;IGN;-2;18042;0,17987125877;3,20580788506
+4856;0;Departamento;Departamento Ituzaingó;Departamento;Ituzaingó;IGN;-2;18084;0,88691106347;8,64049510282
+4857;0;Departamento;Departamento Capital;Departamento;Capital;IGN;-2;18021;0,05074877697;1,05560392143
+4858;0;Departamento;Departamento San Luis del Palmar;Departamento;San Luis del Palmar;IGN;-2;18140;0,23559339101;3,00367869726
+4859;0;Departamento;Departamento San Cosme;Departamento;San Cosme;IGN;-2;18133;0,05404937091;1,45958781193
+4860;0;Departamento;Departamento Itatí;Departamento;Itatí;IGN;-2;18077;0,07946904694;3,12378147808
+4861;0;Departamento;Departamento Berón de Astrada;Departamento;Berón de Astrada;IGN;-2;18014;0,07778063661;2,19786920045
+4862;0;Departamento;Departamento Río Grande;Departamento;Tolhuin;Gerencia de Catastro Pcial.;;94011;0,89168357649;6,26263526288
+4863;0;Departamento;Departamento Capital;Departamento;Capital;Ministerio de Ecología;;54028;0,08884392948;1,85643003959
+4864;0;Departamento;Departamento Candelaria;Departamento;Candelaria;Ministerio de Ecología;;54021;0,08394295270;1,91591967095
+4865;0;Departamento;Departamento Cainguás;Departamento;Cainguás;Ministerio de Ecología;;54014;0,14099424015;3,04933723482
+4866;0;Departamento;Departamento Libertador General San Martín;Departamento;Libertador General San Martín;Ministerio de Ecología;;54077;0,13284482649;2,14483344169
+4867;0;Departamento;Departamento General Manuel Belgrano;Departamento;General Manuel Belgrano;Ministerio de Ecología;;54049;0,26963187378;4,04604399854
+4868;0;Departamento;Departamento Guaraní;Departamento;Guaraní;Ministerio de Ecología;;54056;0,29808284631;4,02116566082
+4869;0;Departamento;Departamento Iguazú;Departamento;Iguazú;Ministerio de Ecología;;54063;0,24686930258;3,07380412948
+4870;0;Departamento;Departamento 25de Mayo;Departamento;25de Mayo;Ministerio de Ecología;;54119;0,15082446288;3,22247036864
+4871;0;Departamento;Departamento Oberá;Departamento;Oberá;Ministerio de Ecología;;54091;0,14350868095;2,50984842193
+4872;0;Departamento;Departamento San Ignacio;Departamento;San Ignacio;Ministerio de Ecología;;54098;0,15209873889;2,45278888086
+4873;0;Departamento;Departamento Leandro N. Alem;Departamento;Leandro N. Alem;Ministerio de Ecología;;54070;0,09771838093;1,63850892215
+4874;0;Departamento;Departamento San Javier;Departamento;San Javier;Ministerio de Ecología;;54105;0,05936753415;1,43130221085
+4875;0;Departamento;Departamento Concepción;Departamento;Concepción;Ministerio de Ecología;;54035;0,07126780801;1,32378846120
+4876;0;Departamento;Departamento Apóstoles;Departamento;Apóstoles;Ministerio de Ecología;;54007;0,09501525380;1,82113808024
+4877;0;Departamento;Departamento 1ro. de Mayo;Departamento;1ro. de Mayo;IDE Chaco;;22126;0,11683008167;2,29567771300
+4878;0;Departamento;Departamento 9 de Julio;Departamento;9 de Julio;IDE Chaco;;22105;0,19681223582;2,75394557687
+4879;0;Departamento;Departamento San Fernando;Departamento;San Fernando;IDE Chaco;;22140;0,32517494587;2,54456205908
+4880;0;Departamento;Departamento Valle viejo;Departamento;Valle viejo;IDE Catamarca;;10112;0,05630454043;1,38771928555
+4881;0;Departamento;Departamento San Lorenzo;Departamento;San Lorenzo;IDE Chaco;;22147;0,19603952926;2,07989538162
+4882;0;Departamento;Departamento 2 de Abril;Departamento;2 de Abril;IDE Chaco;;22039;0,14595070563;1,73235092394
+4883;0;Departamento;Partido de Lanús;Partido;Lanús;ARBA - Gerencia de Servicios Catastrales;;06434;0,00504857874;0,31149354090
+4884;0;Departamento;Partido de Lomas de Zamora;Partido;Lomas de Zamora;ARBA - Gerencia de Servicios Catastrales;;06490;0,00863243257;0,47969034581
+4885;0;Departamento;Partido de Avellaneda;Partido;Avellaneda;ARBA - Gerencia de Servicios Catastrales;;06035;0,00553438447;0,34742270164
+4886;0;Departamento;Departamento 25 de Mayo;Departamento;25 de Mayo;IDE Chaco;;22168;0,21567475538;2,71543713681
+4887;0;Departamento;Departamento Libertad;Departamento;Libertad;IDE Chaco;;22077;0,09489688918;1,85447322640
+4888;0;Departamento;Departamento Comandante Fernández;Departamento;Comandante Fernández;IDE Chaco;;22021;0,13642224481;1,51497612821
+4889;0;Departamento;Departamento General Belgrano;Departamento;General Belgrano;IDE Chaco;;22049;0,11820103483;1,86404150312
+4890;0;Departamento;Departamento General Donovan;Departamento;General Donovan;IDE Chaco;;22056;0,13829963098;1,81222188377
+4891;0;Departamento;Departamento Libertador General San Martín;Departamento;Libertador General San Martín;Direc. de Geodesia y Catastro;;74063;0,33382349720;3,21720761700
+4892;0;Departamento;Departamento Coronel Pringles;Departamento;Coronel Pringles;Direc. de Geodesia y Catastro;;74021;0,37230415982;3,80211425043
+4893;0;Departamento;Departamento Chacabuco;Departamento;Chacabuco;Direc. de Geodesia y Catastro;;74028;0,23247273925;2,62019703577
+4894;0;Departamento;Comuna 15;Comuna;Comuna 15;Direc. de Catastro;;02105;0,00140730852;0,18574026527
+4895;0;Departamento;Departamento Capital;Departamento;Capital;Direc. de Catastro;;70028;0,00253521762;0,23702337815
+4896;0;Departamento;Departamento Rivadavia;Departamento;Rivadavia;Direc. de Catastro;;70084;0,01143873966;0,61982354149
+4897;0;Departamento;Departamento Santa Lucía;Departamento;Santa Lucía;Direc. de Catastro;;70098;0,00514145787;0,30987304684
+4898;0;Departamento;Departamento Rawson;Departamento;Rawson;Direc. de Catastro;;70077;0,02717170547;1,06992010612
+4899;0;Departamento;Departamento Pocito;Departamento;Pocito;Direc. de Catastro;;70070;0,05461877422;1,15179159276
+4900;0;Departamento;Departamento Zonda;Departamento;Zonda;Direc. de Catastro;;70133;0,22998679862;2,56826871001
+4901;0;Departamento;Departamento Ullum;Departamento;Ullum;Direc. de Catastro;;70112;0,42333212162;3,32407999189
+4902;0;Departamento;Departamento Chimbas;Departamento;Chimbas;Direc. de Catastro;;70042;0,00635380799;0,47426208853
+4903;0;Departamento;Departamento 9 de Julio;Departamento;9 de Julio;Direc. de Catastro;;70063;0,01459976003;0,84200349827
+4904;0;Departamento;Departamento Albardón;Departamento;Albardón;Direc. de Catastro;;70007;0,09599302657;1,57999901283
+4905;0;Departamento;Departamento Angaco;Departamento;Angaco;Direc. de Catastro;;70014;0,24183087003;2,27235484751
+4906;0;Departamento;Departamento San Martín;Departamento;San Martín;Direc. de Catastro;;70091;0,05233493730;1,20359800442
+4907;0;Departamento;Departamento Caucete;Departamento;Caucete;Direc. de Catastro;;70035;0,71838009179;5,23356901398
+4908;0;Departamento;Departamento 25 de Mayo;Departamento;25 de Mayo;Direc. de Catastro;;70126;0,40206967475;4,28298609906
+4909;0;Departamento;Departamento Sarmiento;Departamento;Sarmiento;Direc. de Catastro;;70105;0,26970826971;2,62438483063
+4910;0;Departamento;Departamento Calingasta;Departamento;Calingasta;Direc. de Catastro;;70021;2,15386807545;8,61122169745
+4911;0;Departamento;Departamento Iglesia;Departamento;Iglesia;Direc. de Catastro;;70049;1,78389012239;7,86834162490
+4912;0;Departamento;Departamento Jachal;Departamento;Jachal;Direc. de Catastro;;70056;1,34541574214;5,94439628989
+4913;0;Departamento;Departamento Valle Fértil;Departamento;Valle Fértil;Direc. de Catastro;;70119;0,49659710485;5,44129160083
+4914;0;Departamento;Partido de La Plata;Partido;La Plata;ARBA - Gerencia de Servicios Catastrales;ARBA - Gerencia de Servicios Catastrales;60441;0,08815816844;1,72937551935
+4915;0;Departamento;Departamento Mercedes;Departamento;Mercedes;IGN;-2;18105;0,00000254404;0,00868949658
+4916;0;Departamento;Departamento Santa Bárbara;Departamento;Santa Bárbara;Direc. Grl. de Inmuebles;;38070;0,38970702526;3,46331848774
+4531;0;Departamento;Departamento Orán;Departamento;Orán;IDE Salta;;66126;1,02916505931;7,86420035099
