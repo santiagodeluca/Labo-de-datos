@@ -40,9 +40,8 @@ def centros_culturales():
         linea = []
         linea.append(i)
         linea.append(nombre[i])
-        if np.isnan(capacidad[i]) or capacidad[i]==0:
-            # cuando no hay datos de capacidad, asignamos 0 
-            linea.append(0)
+        if np.isnan(capacidad[i]):
+            linea.append(np.nan)
         else:
             linea.append(int(capacidad[i]))
         if mail[i] == "s/d" or mail[i] == "-" or type(mail[i])==float:
@@ -69,11 +68,6 @@ def centros_culturales():
     return(df_cc)
 
 centro_cultural = centros_culturales()
-
-#        distintos nulls 147,162, 213, 317, 319, 324,325,327,328,332,333,334,338,343,348,351,360, 369...372, 
-#        dos mails 169, 175, 183, 203, 246, 252, 277, 287, 321
-#        no valida 373
-#        \n 942
 #%% Armamos padron
 #Nombramos columnas y agregamos id_depto
 df = pd.read_csv('TablasOriginales/padron_poblacion.xlsX - Output.csv', skiprows=12)
@@ -117,7 +111,6 @@ padron = dd.sql("""
                 GROUP BY id_depto, grupo_etario;
                 """).df()
                 
-            
 #padron.to_csv('TablasModelo') para agregar el archivo a la carpeta
 #%% Armamos establecimiento_educativo y departamento
 def establecimiento_educativo():
@@ -214,34 +207,7 @@ provincia = dd.sql("""
 #%%HAY QUE DECIDIR CUANTOS DEPTOS TIENE DEPARTAMENTO, POR AHORA ME QUEDO CON 514 DE EE
 
 
-departamento = dd.sql("""
-                   SELECT DISTINCT id_depto, 
-                                   Departamento AS nombre_depto,
-                                   ID_PROV AS id_prov
-                   FROM df 
-                   """).df()
-deptocc = dd.sql("""
-                   SELECT DISTINCT id_depto, 
-                   FROM centro_cultural 
-                   """).df() #TIENE 189
-deptoee = dd.sql("""
-                   SELECT DISTINCT id_depto, 
-                   FROM establecimiento_educativo 
-                   """).df() #TIENE 514
-enEEnoenP = dd.sql("""
-                   SELECT DISTINCT id_depto, 
-                   FROM deptoee AS e
-                   WHERE e.id_depto NOT IN (SELECT *
-                                            FROM deptopadron)
-                   """).df() #SON 3
-enPnoenEE = dd.sql("""
-                   SELECT DISTINCT id_depto, 
-                   FROM deptopadron AS p
-                   WHERE p.id_depto NOT IN (SELECT *
-                                            FROM deptoee)
-                   """).df() #SON 2
-d = pd.read_csv('TablasOriginales/ign_departamento.csv', sep=';',dtype={'IN1': str})
-                   
+
 #%% # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
  # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -318,12 +284,14 @@ ee_poblacion_por_depto_y_prov = dd.sql("""
                       ON ee.id_depto = p.id_depto
                       ORDER BY prov_nombre, primarias DESC;
                       """).df()    
+ee_poblacion_por_depto_y_prov.to_csv('/home/Estudiante/Labo-de-datos/tp1/nombre.csv') 
+
 #%% ej ii)
 #CON ESTA SOLUCION NO APARECEN LOS DEPTOS QUE NO TIENEN NINGUN CC CON CAP > 100
 cc_cap_mayor_100 = dd.sql("""
                       SELECT *
                       FROM centro_cultural AS cc
-                      WHERE capacidad > 100;
+                      WHERE capacidad IS NOT NULL AND capacidad > 100;
                       """).df()    
 cc_cap_mayor_100_por_depto = dd.sql("""
                       SELECT id_depto, COUNT(*) AS cant
@@ -356,8 +324,7 @@ poblacion_por_depto = dd.sql("""
                       GROUP BY id_depto;
                       """).df()
 # Unimos las tres tablas (con outer join para que no se eliminen departamentos)
-# VER QUE HACER CON LOS NULLS
-# EN EL EJEMPLO NO ESTA POBLACION 
+# VER QUE HACER CON LOS NULLS. LE PREGUNTAMOS AL PROFE Y ES DECISION, ESCRIBIR LA DECISION
 prov_depto_ee_cc_pob = dd.sql("""
                       SELECT prov_nombre AS Provincia, depto_nombre AS Departamento, Cant_EE, Cant_CC, Poblacion
                       FROM depto_y_prov AS d
@@ -405,7 +372,6 @@ dominio_mas_frecuente_depto_y_prov = dd.sql("""
 # VISUALIZACION DE DATOS
 #=============================================================================
 #%%ej i)
-#DUDAS: agrupe por nombre de provincia
 cc_por_prov = dd.sql("""
                       SELECT Provincia AS prov_nombre, SUM(Cant_CC) AS cant
                       FROM prov_depto_ee_cc_pob 
@@ -426,7 +392,6 @@ cc_por_prov.loc[
 
 fig, ax = plt.subplots()
 ax.bar(cc_por_prov['prov_nombre'], cc_por_prov['cant'], color='skyblue')
-
 ax.set_xlabel("Provincias")
 ax.set_ylabel("Cantidad de centros culturales")
 ax.set_title("Cantidad de centros culturales por provincia (Ordenado)")
@@ -466,11 +431,15 @@ prov_depto_ee.loc[
 prov_depto_ee.loc[
     prov_depto_ee['prov_nombre'] == 'Santiago del Estero',
     'prov_nombre'] = 'Sant. del Est.' 
+"""prov_depto_ee.loc[
+    prov_depto_ee['prov_nombre'] == 'Ciudad Autónoma de Buenos Aires',
+    'prov_nombre'] = 'CABA' 
+"""
 #Eliminamos CABA
 prov_depto_ee = prov_depto_ee[prov_depto_ee['prov_nombre'] != 'Ciudad Autónoma de Buenos Aires']
+#prov_depto_ee = prov_depto_ee[prov_depto_ee['prov_nombre'] != 'Ciudad Autónoma de Buenos Aires']
                       
 # Calculamos medianas y ordenamos 
-#DUDA : no vimos group by...
 medianas = prov_depto_ee.groupby('prov_nombre')['cant'].median()
 provs_ordenadas = medianas.sort_values().index
 
@@ -533,7 +502,7 @@ ax.set_xlabel("Establecimientos educativos cada 1000 habitantes")
 ax.set_title("Centros culturales vs. establecimientos educativos")
 ax.set_xlim(0.4, 5)
 ax.set_ylim(0, 0.10)
-#ESTO ESTA MAL
+#ESTO ESTA MAL 
 prov_ee_cc = dd.sql("""
                     SELECT p.Provincia, SUM(Cant_EE) AS ee, SUM(Cant_CC) AS cc
                     FROM prov_depto_ee_cc_pob AS p
@@ -543,3 +512,12 @@ fig, ax = plt.subplots()
 ax.bar(prov_ee_cc['ee'],prov_ee_cc['cc'], label='algo', color='skyblue')
 ax.set_xlim(0, 250)
 ax.set_ylim(0, 20)
+#%% # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+ # #                                                                     # #
+# #                     CALCULO DE METRICAS DE GQM                        # #
+ # #                                                                     # # 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
