@@ -48,6 +48,7 @@ df.dropna(thresh=2) # solo si tiene muy pocos campos (trhesh) no-nan
 
 df.dropna(subset=['nombre', 'apellido'])
 
+
 df.dropna(subset=['nota1', 'apellido'])
 
 df.fillna(0)
