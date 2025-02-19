@@ -111,6 +111,7 @@ padron = dd.sql("""
                 GROUP BY id_depto, grupo_etario;
                 """).df()
                 
+del(df, area, e, index)
 #padron.to_csv('TablasModelo') para agregar el archivo a la carpeta
 #%% Armamos establecimiento_educativo y departamento
 def establecimiento_educativo():
@@ -153,12 +154,12 @@ def establecimiento_educativo():
         depto_id_nombre.append(d)
         
     encabezado_depto = ['id_depto', 'nombre_depto']
-    encabezado_establecimiento_educativo = ["id","id_depto","jardines","primarias","secundarias"]
+    encabezado_establecimiento_educativo = ["id","id_depto","jardin","primaria","secundaria"]
     departamento = pd.DataFrame(depto_id_nombre, columns=encabezado_depto)
     df_establecimiento_educativo = pd.DataFrame(establecimiento_educativo_data, columns=encabezado_establecimiento_educativo)
-    df_establecimiento_educativo['jardines'] = df_establecimiento_educativo['jardines'].astype(int)
-    df_establecimiento_educativo['primarias'] = df_establecimiento_educativo['primarias'].astype(int)
-    df_establecimiento_educativo['secundarias'] = df_establecimiento_educativo['secundarias'].astype(int)
+    df_establecimiento_educativo['jardin'] = df_establecimiento_educativo['jardin'].astype(int)
+    df_establecimiento_educativo['primaria'] = df_establecimiento_educativo['primaria'].astype(int)
+    df_establecimiento_educativo['secundaria'] = df_establecimiento_educativo['secundaria'].astype(int)
 
     df_establecimiento_educativo.loc[df_establecimiento_educativo['id_depto'].str.startswith('02'), 'id_depto'] = '02000'
     return(df_establecimiento_educativo, departamento)
@@ -173,13 +174,13 @@ departamento = dd.sql("""
                       """).df()
 
 #Agregamos los dos unicos departamentos que estan en padron pero no en establecimiento educativo:
-deptopadron = dd.sql("""
+depto_padron = dd.sql("""
                    SELECT DISTINCT id_depto, 
                    FROM padron 
                    """).df() #513
 en_P_no_en_EE = dd.sql("""
                    SELECT DISTINCT id_depto, 
-                   FROM deptopadron AS p
+                   FROM depto_padron AS p
                    WHERE p.id_depto NOT IN (SELECT id_depto
                                             FROM departamento)
                    ORDER BY id_depto DESC;
@@ -195,7 +196,7 @@ en_CC_no_en_EE = dd.sql("""
                    WHERE c.id_depto NOT IN (SELECT id_depto
                                             FROM departamento)
                    """).df() # VACIO
-
+del(departamento_repetidos, en_P_no_en_EE, en_CC_no_en_EE, depto_padron)
 #%% Armamos provincia
 cc = pd.read_csv('TablasOriginales/centros_culturales.csv', dtype={'ID_PROV': str, 
                                                                        'ID_DEPTO': str})
@@ -203,11 +204,7 @@ provincia = dd.sql("""
                    SELECT DISTINCT ID_PROV AS id, Provincia AS nombre
                    FROM cc
                    """).df()
-                   
-#%%HAY QUE DECIDIR CUANTOS DEPTOS TIENE DEPARTAMENTO, POR AHORA ME QUEDO CON 514 DE EE
-
-
-
+del(cc)
 #%% # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
  # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -232,9 +229,9 @@ depto_y_prov = dd.sql("""
                       """).df()
 
 ee_por_depto_niveles = dd.sql("""
-                      SELECT id_depto, SUM(jardines) AS jardines,
-                                       SUM(primarias) AS primarias,
-                                       SUM(secundarias) AS secundarias
+                      SELECT id_depto, SUM(jardin) AS jardines,
+                                       SUM(primaria) AS primarias,
+                                       SUM(secundaria) AS secundarias
                       FROM establecimiento_educativo AS ee
                       GROUP BY id_depto;
                       """).df()
@@ -284,8 +281,8 @@ ee_poblacion_por_depto_y_prov = dd.sql("""
                       ON ee.id_depto = p.id_depto
                       ORDER BY prov_nombre, primarias DESC;
                       """).df()    
-ee_poblacion_por_depto_y_prov.to_csv('/home/Estudiante/Labo-de-datos/tp1/nombre.csv') 
-
+#ee_poblacion_por_depto_y_prov.to_csv('/home/Estudiante/Labo-de-datos/tp1/nombre.csv') 
+del(ee_por_depto_niveles,ee_por_depto_niveles_y_prov,pob_jardin,pob_secundaria,poblaciones,pob_primaria)
 #%% ej ii)
 #CON ESTA SOLUCION NO APARECEN LOS DEPTOS QUE NO TIENEN NINGUN CC CON CAP > 100
 cc_cap_mayor_100 = dd.sql("""
@@ -304,7 +301,7 @@ cc_cap_mayor_100_por_depto_y_prov = dd.sql("""
                       NATURAL JOIN cc_cap_mayor_100_por_depto AS cc
                       ORDER BY prov_nombre, cant DESC;
                       """).df()    
-
+del(cc_cap_mayor_100,cc_cap_mayor_100_por_depto)
 #%% ej iii)
 # Buscamos cantidad de CC, EE y poblacion por departamento
 cc_por_depto = dd.sql("""
@@ -368,6 +365,7 @@ dominio_mas_frecuente_depto_y_prov = dd.sql("""
                       FROM depto_y_prov 
                       NATURAL JOIN dominio_mas_frecuente;
                       """).df()
+del(dominio_mail_por_depto,cant_dominio_depto,dominio_mas_frecuente)
 #%%===========================================================================
 # VISUALIZACION DE DATOS
 #=============================================================================
@@ -397,7 +395,7 @@ ax.set_ylabel("Cantidad de centros culturales")
 ax.set_title("Cantidad de centros culturales por provincia (Ordenado)")
 plt.xticks(rotation=80)
 plt.yticks([0, 25, 50, 75, 100, 125, 150, 175, 200, 225, 250, 275, 300, 325, 350 ])
-
+del(cc_por_prov)
 #%%ej ii)
 fig, ax = plt.subplots()
 
@@ -451,6 +449,7 @@ ax.set_ylabel("Cantidad establecimientos educativos(tipo común)")
 ax.set_title("Establecimientos educativos por departamento")
 ax.set_ylim(0, 600)
 plt.xticks(rotation=80)
+del(prov_depto_ee)
 #%%ej iv)
 # Aprovechamos consultas hechas en iii)
 # Dividimos para conseguir CC y EE cada 1000 personas
@@ -502,6 +501,16 @@ ax.set_xlabel("Establecimientos educativos cada 1000 habitantes")
 ax.set_title("Centros culturales vs. establecimientos educativos")
 ax.set_xlim(0.4, 5)
 ax.set_ylim(0, 0.10)
+#%% REGRESION LINEAL
+fig, ax = plt.subplots()
+sns.regplot(x=ee_y_cc_cada_1000['cant_ee'], y=ee_y_cc_cada_1000['cant_cc'], data=ee_y_cc_cada_1000, scatter_kws={'s': 10, 'color':'blue'}, line_kws={'color': 'red'})
+
+
+ax.set_ylabel("Centros culturales cada 1000 habitantes")
+ax.set_xlabel("Establecimientos educativos cada 1000 habitantes")
+ax.set_title("Centros culturales vs. establecimientos educativos")
+ax.set_xlim(0.4, 5)
+ax.set_ylim(0, 0.10)
 #ESTO ESTA MAL 
 prov_ee_cc = dd.sql("""
                     SELECT p.Provincia, SUM(Cant_EE) AS ee, SUM(Cant_CC) AS cc
@@ -516,8 +525,147 @@ ax.set_ylim(0, 20)
  # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
  # #                                                                     # #
-# #                     CALCULO DE METRICAS DE GQM                        # #
+# #                     CALCULO DE MEDIDAS DE GQM                         # #
  # #                                                                     # # 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
  # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+#%% Metrica sobre Centros culturales: proporcion de nulls en codigo area
+cc = pd.read_csv('TablasOriginales/centros_culturales.csv')
+total_cc = dd.sql("""
+                  SELECT COUNT(*)
+                  FROM cc
+                  """).df()
+                  
+cant_nulls = dd.sql("""
+                  SELECT COUNT(*)
+                  FROM cc
+                  WHERE cod_area IS NULL
+                  OR cod_area = 's/d'
+                  OR cod_area = 'S/N'
+                  OR cod_area = 'S/I'
+                  OR cod_area = '0'
+                  OR cod_area = '00'
+                  OR cod_area = 0
+                  """).df()
+prop_df = cant_nulls / total_cc
+proporcion = prop_df.loc[0, 'count_star()'] # es 0.4554826616682287
+del(cc, total_cc, cant_nulls, prop_df, proporcion)
+#%% # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+ # #                                                                     # #
+# #                RECORTE DE TABLAS PARA EL INFORME                      # #
+ # #                                                                     # # 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+#%% Primeras filas de la tabla resultante de la consulta i
+
+# Acortamos nombres para mejorar la visualizacion
+ee_poblacion_por_depto_y_prov.loc[
+    ee_poblacion_por_depto_y_prov['Departamento'] == 'LOMAS DE ZAMORA',
+    'Departamento'] = 'LOMAS DE Z.' 
+ee_poblacion_por_depto_y_prov.loc[
+    ee_poblacion_por_depto_y_prov['Departamento'] == 'GENERAL PUEYRREDON',
+    'Departamento'] = 'GRAL. PUEY.' 
+
+ejercicio_1 = ee_poblacion_por_depto_y_prov.iloc[:5]
+
+fig, ax = plt.subplots(figsize=(10, 6)) 
+ax.axis('tight')
+ax.axis('off')
+
+tabla = ax.table(cellText=ejercicio_1.values, colLabels=ejercicio_1.columns, cellLoc='center', loc='center')
+tabla.auto_set_font_size(False)  
+tabla.set_fontsize(20)  
+tabla.scale(3, 3) 
+
+columnas_a_achicar = [2,4]
+for row in range(len(ejercicio_1) + 1): 
+    for c in columnas_a_achicar:
+        cell = tabla[row, c]  
+        cell.set_width(0.17)  
+    cell = tabla[row, 0]  
+    cell.set_width(0.24)  
+    cell = tabla[row, 1]  
+    cell.set_width(0.29)  
+    cell = tabla[row, 6]  
+    cell.set_width(0.23)  
+    cell = tabla[row, 3]  
+    cell.set_width(0.3)  
+    cell = tabla[row, 7]  
+    cell.set_width(0.4)  
+
+
+fig.text(0.5, 0.15, "Consulta (i): Ordenada provincia(des) y primarias(des)", ha='center', fontsize=28)
+
+#plt.savefig("ej1.png", bbox_inches='tight', dpi=300)
+#%% Primeras filas de la tabla resultante de la consulta ii
+ejercicio_2 = cc_cap_mayor_100_por_depto_y_prov.iloc[:5]
+
+fig, ax = plt.subplots(figsize=(7, 6))  
+ax.axis('tight')
+ax.axis('off')
+
+
+tabla = ax.table(cellText=ejercicio_2.values, colLabels=ejercicio_2.columns, cellLoc='center', loc='center')
+tabla.auto_set_font_size(False)  
+tabla.set_fontsize(25)  
+tabla.scale(3, 3) 
+
+for row in range(len(ejercicio_2) + 1): 
+    cell = tabla[row, 0]  
+    cell.set_width(0.43)  
+    cell = tabla[row, 1]  
+    cell.set_width(0.78)  
+
+fig.text(0.5, 0.15, "Consulta (ii): Ordenada provincia(des) y CC(des)", ha='center', fontsize=28)
+
+#plt.savefig("ej2.png", bbox_inches='tight', dpi=300)
+#%% Primeras filas de la tabla resultante de la consulta iii
+# Acortamos nombres para mejorar la visualizacion
+prov_depto_ee_cc_pob.loc[
+    prov_depto_ee_cc_pob['Provincia'] == 'Ciudad Autónoma de Buenos Aires',
+    'Provincia'] = 'CABA' 
+prov_depto_ee_cc_pob.loc[
+    prov_depto_ee_cc_pob['Departamento'] == 'CIUDAD AUTONOMA DE BUENOS AIRES',
+    'Departamento'] = 'CABA' 
+
+ejercicio_3 = prov_depto_ee_cc_pob.iloc[:5]
+
+fig, ax = plt.subplots(figsize=(6, 6))  
+ax.axis('tight')
+ax.axis('off')
+
+tabla = ax.table(cellText=ejercicio_3.values, colLabels=ejercicio_3.columns, cellLoc='center', loc='center')
+tabla.auto_set_font_size(False)  
+tabla.set_fontsize(25)  
+tabla.scale(3, 3) 
+
+fig.text(0.5, 0.15, "Consulta (iii): Ordenada por EE (des), CC (des), prov. (asc) y depto. (asc).", ha='center', fontsize=28)
+
+#plt.savefig("ej3.png", bbox_inches='tight', dpi=300)
+#%% Primeras filas de la tabla resultante de la consulta iv
+
+ejercicio_4 = dominio_mas_frecuente_depto_y_prov.iloc[:5]
+
+fig, ax = plt.subplots(figsize=(6, 6))  
+ax.axis('tight')
+ax.axis('off')
+
+tabla = ax.table(cellText=ejercicio_4.values, colLabels=ejercicio_4.columns, cellLoc='center', loc='center')
+tabla.auto_set_font_size(False)  
+tabla.set_fontsize(25)  
+tabla.scale(3, 3) 
+
+for row in range(len(ejercicio_3) + 1): 
+    cell = tabla[row, 2]  
+    cell.set_width(1.17)  
+    cell = tabla[row, 0]  
+    cell.set_width(0.5)  
+
+
+fig.text(0.5, 0.15, "Consulta (iv).", ha='center', fontsize=28)
+
+#plt.savefig("ej4.png", bbox_inches='tight', dpi=300)
