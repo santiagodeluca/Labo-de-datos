@@ -491,16 +491,141 @@ ax.set_title("Centros culturales vs. establecimientos educativos")
 ax.set_xlim(0.4, 5)
 ax.set_ylim(0, 0.10)
 
-#%% REGRESION LINEAL
-fig, ax = plt.subplots()
-sns.regplot(x=ee_y_cc_cada_1000['cant_ee'], y=ee_y_cc_cada_1000['cant_cc'], data=ee_y_cc_cada_1000, scatter_kws={'s': 10, 'color':'blue'}, line_kws={'color': 'red'})
+#%% Regiones
+prov_deptoid_ee_cc_pob = dd.sql("""
+                      SELECT prov_nombre AS Provincia, d.id_depto AS id_depto, Cant_EE, Cant_CC, Poblacion
+                      FROM depto_y_prov AS d
+                      LEFT OUTER JOIN cc_por_depto AS c
+                      ON d.id_depto=c.id_depto
+                      LEFT OUTER JOIN ee_por_depto AS e
+                      ON d.id_depto=e.id_depto
+                      LEFT JOIN poblacion_por_depto AS p
+                      ON d.id_depto=p.id_depto
+                      ORDER BY Cant_EE DESC, Cant_CC DESC, prov_nombre ASC, depto_nombre ASC;
+                      """).df() 
+f, s = plt.subplots()
+plt.suptitle('Relación CC y EE cada 1000 en la región pampeana', size = 'large')
 
 
+pampeana = dd.sql("""
+                  SELECT id_depto,                                 
+                      CASE 
+                            WHEN Poblacion = 0 THEN 0
+                            ELSE (Cant_CC / Poblacion)*1000
+                      END AS cant_cc,
+                      CASE 
+                            WHEN Poblacion = 0 THEN 0
+                            ELSE (Cant_EE / Poblacion)*1000
+                      END AS cant_ee
+                  FROM prov_deptoid_ee_cc_pob
+                  WHERE Provincia = 'Buenos Aires'
+                  OR Provincia = 'La Pampa'
+                  OR Provincia = 'Entre Ríos'
+                  OR Provincia = 'Santa Fe'
+                  OR Provincia = 'Ciudad Autónoma de Buenos Aires'
+                  OR Provincia = 'Córdoba';
+                  """).df()  
+s.scatter(pampeana['cant_ee'], pampeana['cant_cc'], color='blue', s=10)
+s.set_title("Pampeana")
+
+f, s = plt.subplots(2,2, figsize=(10, 10))
+plt.suptitle('Relación CC y EE cada 1000 por regiones', size =20)
+
+cuyo = dd.sql("""
+                  SELECT id_depto,                                 
+                      CASE 
+                            WHEN Poblacion = 0 THEN 0
+                            ELSE (Cant_CC / Poblacion)*1000
+                      END AS cant_cc,
+                      CASE 
+                            WHEN Poblacion = 0 THEN 0
+                            ELSE (Cant_EE / Poblacion)*1000
+                      END AS cant_ee
+                  FROM prov_deptoid_ee_cc_pob
+                  WHERE Provincia = 'San Luis'
+                  OR Provincia = 'Mendoza'
+                  OR Provincia = 'San Juan'
+                  OR Provincia = 'La Rioja'
+                  """).df()
+                  
+s[0,0].scatter(cuyo['cant_ee'], cuyo['cant_cc'], color='orange', s=40)
+s[0,0].set_title("Cuyo", size = 17)
+
+patagonia = dd.sql("""
+                  SELECT id_depto,                                 
+                      CASE 
+                            WHEN Poblacion = 0 THEN 0
+                            ELSE (Cant_CC / Poblacion)*1000
+                      END AS cant_cc,
+                      CASE 
+                            WHEN Poblacion = 0 THEN 0
+                            ELSE (Cant_EE / Poblacion)*1000
+                      END AS cant_ee
+                  FROM prov_deptoid_ee_cc_pob
+                  WHERE Provincia = 'Neuquén'
+                  OR Provincia = 'Río Negro'
+                  OR Provincia = 'Chubut'
+                  OR Provincia = 'Tierra del Fuego, Antártida e Islas del Atlántico Sur'
+                  """).df()
+                  
+s[1,0].scatter(patagonia['cant_ee'], patagonia['cant_cc'], color='purple', s=40)
+s[1,0].set_title("Patagonia", size = 17)
+
+
+
+nea = dd.sql("""
+                  SELECT id_depto,                                 
+                      CASE 
+                            WHEN Poblacion = 0 THEN 0
+                            ELSE (Cant_CC / Poblacion)*1000
+                      END AS cant_cc,
+                      CASE 
+                            WHEN Poblacion = 0 THEN 0
+                            ELSE (Cant_EE / Poblacion)*1000
+                      END AS cant_ee
+                  FROM prov_deptoid_ee_cc_pob
+                  WHERE Provincia = 'Chaco'
+                  OR Provincia = 'Formosa'
+                  OR Provincia = 'Corrientes'
+                  OR Provincia = 'Misiones'
+                  """).df()  
+s[0,1].scatter(nea['cant_ee'], nea['cant_cc'], color='red', s=40)
+s[0,1].set_title("NEA", size = 17)
+
+noa = dd.sql("""
+                  SELECT id_depto,                                 
+                      CASE 
+                            WHEN Poblacion = 0 THEN 0
+                            ELSE (Cant_CC / Poblacion)*1000
+                      END AS cant_cc,
+                      CASE 
+                            WHEN Poblacion = 0 THEN 0
+                            ELSE (Cant_EE / Poblacion)*1000
+                      END AS cant_ee
+                  FROM prov_deptoid_ee_cc_pob
+                  WHERE Provincia = 'Catamarca'
+                  OR Provincia = 'Salta'
+                  OR Provincia = 'Tucumán'
+                  OR Provincia = 'Santiago del Estero'
+                  """).df()  
+s[1,1].scatter(noa['cant_ee'], noa['cant_cc'], color='black', s=40)
+s[1,1].set_title("NOA", size = 17)
+ax.set_ylabel("Centros culturales cada 1000 habitantes")
+ax.set_xlabel("Establecimientos educativos cada 1000 habitantes")
+
+f, s = plt.subplots()
+
+s.scatter(pampeana['cant_ee'], pampeana['cant_cc'], color='blue', s=10)
+s.scatter(noa['cant_ee'], noa['cant_cc'], color='black', s=10)
+s.scatter(cuyo['cant_ee'], cuyo['cant_cc'], color='orange', s=10)
+s.set_title("Superposición de regiones con relación clara (Pampeana, NOA, Cuyo)", wrap=True, size = 17)
+
+"""
 ax.set_ylabel("Centros culturales cada 1000 habitantes")
 ax.set_xlabel("Establecimientos educativos cada 1000 habitantes")
 ax.set_title("Centros culturales vs. establecimientos educativos")
 ax.set_xlim(0.4, 5)
-ax.set_ylim(0, 0.10)
+ax.set_ylim(0, 0.10)"""
 #%% REGRESION LINEAL
 fig, ax = plt.subplots()
 sns.regplot(x=ee_y_cc_cada_1000['cant_ee'], y=ee_y_cc_cada_1000['cant_cc'], data=ee_y_cc_cada_1000, scatter_kws={'s': 10, 'color':'blue'}, line_kws={'color': 'red'})
