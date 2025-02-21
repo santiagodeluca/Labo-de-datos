@@ -162,6 +162,12 @@ def establecimiento_educativo():
     df_establecimiento_educativo['secundaria'] = df_establecimiento_educativo['secundaria'].astype(int)
 
     df_establecimiento_educativo.loc[df_establecimiento_educativo['id_depto'].str.startswith('02'), 'id_depto'] = '02000'
+    df_establecimiento_educativo = df_establecimiento_educativo[
+    (df_establecimiento_educativo['jardin'] != 0) | 
+    (df_establecimiento_educativo['primaria'] != 0) |
+    (df_establecimiento_educativo['secundaria'] != 0)
+]
+
     return(df_establecimiento_educativo, departamento)
 
 establecimiento_educativo, departamento_repetidos = establecimiento_educativo()
@@ -365,6 +371,15 @@ dominio_mas_frecuente_depto_y_prov = dd.sql("""
                       FROM depto_y_prov 
                       NATURAL JOIN dominio_mas_frecuente;
                       """).df()
+
+#Agrupamos por dominio y contamos para profundizar el análisis
+dominio_totales = dd.sql("""
+                      SELECT DISTINCT "Dominio más frecuente en CC" AS Dominio, COUNT(*) AS Cantidad
+                      FROM dominio_mas_frecuente_depto_y_prov 
+                      GROUP BY Dominio
+                      ORDER BY Cantidad DESC;
+                      """).df()
+
 del(dominio_mail_por_depto,cant_dominio_depto,dominio_mas_frecuente)
 #%%===========================================================================
 # VISUALIZACION DE DATOS
@@ -392,7 +407,7 @@ fig, ax = plt.subplots()
 ax.bar(cc_por_prov['prov_nombre'], cc_por_prov['cant'], color='skyblue')
 ax.set_xlabel("Provincias")
 ax.set_ylabel("Cantidad de centros culturales")
-ax.set_title("Cantidad de centros culturales por provincia (Ordenado)")
+ax.set_title("Centros culturales por provincia (Ordenado)")
 plt.xticks(rotation=80)
 plt.yticks([0, 25, 50, 75, 100, 125, 150, 175, 200, 225, 250, 275, 300, 325, 350 ])
 del(cc_por_prov)
@@ -408,6 +423,19 @@ ax.scatter(ee_poblacion_por_depto_y_prov['Poblacion primaria'],
 ax.scatter(ee_poblacion_por_depto_y_prov['Poblacion secundaria'], 
            ee_poblacion_por_depto_y_prov['Secundarias'], 
            color='#2CA02C', label='Secundarias', s=12)
+
+x1=ee_poblacion_por_depto_y_prov['Poblacion jardin']
+x2=ee_poblacion_por_depto_y_prov['Poblacion primaria']
+x3=ee_poblacion_por_depto_y_prov['Poblacion secundaria']
+
+y1=ee_poblacion_por_depto_y_prov['Jardines']
+y2=ee_poblacion_por_depto_y_prov['Primarias']
+y3= ee_poblacion_por_depto_y_prov['Secundarias']
+
+b,a = np.polyfit(list(x1)+list(x2)+list(x3),list(y1)+list(y2)+list(y3), deg=1)
+X=np.linspace(0, 80000)
+Y=X*b+a
+ax.plot(X,Y,'r')
 
 ax.set_xlabel("Población")
 ax.set_ylabel("Establecimientos educativos(tipo común)")
@@ -446,7 +474,7 @@ sns.boxplot(x='prov_nombre', y='cant', data=prov_depto_ee, order=provs_ordenadas
 
 ax.set_xlabel("Provincia")
 ax.set_ylabel("Cantidad establecimientos educativos(tipo común)")
-ax.set_title("Establecimientos educativos por departamento")
+ax.set_title("Establecimientos educativos por departamento en provincias")
 ax.set_ylim(0, 600)
 plt.xticks(rotation=80)
 del(prov_depto_ee)
@@ -487,9 +515,16 @@ ax.scatter(ee_y_cc_cada_1000['cant_ee'],
 
 ax.set_ylabel("Centros culturales cada 1000 habitantes")
 ax.set_xlabel("Establecimientos educativos cada 1000 habitantes")
-ax.set_title("Centros culturales vs. establecimientos educativos")
+ax.set_title("Centros culturales vs. establecimientos educativos por departamento")
 ax.set_xlim(0.4, 5)
 ax.set_ylim(0, 0.10)
+
+x1 = ee_y_cc_cada_1000['cant_ee']
+y1 = ee_y_cc_cada_1000['cant_cc']
+b,a = np.polyfit(x1,y1,deg=1)
+X=np.linspace(0, 5)
+Y=X*b+a
+ax.plot(X,Y,'r')
 
 #%% Regiones
 prov_deptoid_ee_cc_pob = dd.sql("""
@@ -503,8 +538,8 @@ prov_deptoid_ee_cc_pob = dd.sql("""
                       ON d.id_depto=p.id_depto
                       ORDER BY Cant_EE DESC, Cant_CC DESC, prov_nombre ASC, depto_nombre ASC;
                       """).df() 
-f, s = plt.subplots()
-plt.suptitle('Relación CC y EE cada 1000 en la región pampeana', size = 'large')
+f, s = plt.subplots(2,3, figsize=(14.4, 9.7))
+plt.suptitle('Relación CC y EE cada 1000 por regiones', size =20, y = 0.94)
 
 
 pampeana = dd.sql("""
@@ -525,11 +560,13 @@ pampeana = dd.sql("""
                   OR Provincia = 'Ciudad Autónoma de Buenos Aires'
                   OR Provincia = 'Córdoba';
                   """).df()  
-s.scatter(pampeana['cant_ee'], pampeana['cant_cc'], color='blue', s=10)
-s.set_title("Pampeana")
+s[0,2].scatter(pampeana['cant_ee'], pampeana['cant_cc'], color='green', s=10)
+s[0,2].set_title("Pampeana", size = 17)
+s[0,2].set_xlim(0,6)
+s[0,2].set_ylim(0, 0.17)
+s[0,2].set_ylabel("Centros culturales cada 1000 habitantes")
+s[0,2].set_xlabel("Establecimientos educativos cada 1000 habitantes")
 
-f, s = plt.subplots(2,2, figsize=(10, 10))
-plt.suptitle('Relación CC y EE cada 1000 por regiones', size =20)
 
 cuyo = dd.sql("""
                   SELECT id_depto,                                 
@@ -550,6 +587,11 @@ cuyo = dd.sql("""
                   
 s[0,0].scatter(cuyo['cant_ee'], cuyo['cant_cc'], color='orange', s=40)
 s[0,0].set_title("Cuyo", size = 17)
+s[0,0].set_xlim(0,6)
+s[0,0].set_ylim(0, 0.17)
+s[0,0].set_ylabel("Centros culturales cada 1000 habitantes")
+s[0,0].set_xlabel("Establecimientos educativos cada 1000 habitantes")
+
 
 patagonia = dd.sql("""
                   SELECT id_depto,                                 
@@ -570,6 +612,11 @@ patagonia = dd.sql("""
                   
 s[1,0].scatter(patagonia['cant_ee'], patagonia['cant_cc'], color='purple', s=40)
 s[1,0].set_title("Patagonia", size = 17)
+s[1,0].set_xlim(0,6)
+s[1,0].set_ylim(0, 0.17)
+s[1,0].set_ylabel("Centros culturales cada 1000 habitantes")
+s[1,0].set_xlabel("Establecimientos educativos cada 1000 habitantes")
+
 
 
 
@@ -591,6 +638,11 @@ nea = dd.sql("""
                   """).df()  
 s[0,1].scatter(nea['cant_ee'], nea['cant_cc'], color='red', s=40)
 s[0,1].set_title("NEA", size = 17)
+s[0,1].set_xlim(0,6)
+s[0,1].set_ylim(0, 0.17)
+s[0,1].set_ylabel("Centros culturales cada 1000 habitantes")
+s[0,1].set_xlabel("Establecimientos educativos cada 1000 habitantes")
+
 
 noa = dd.sql("""
                   SELECT id_depto,                                 
@@ -610,15 +662,50 @@ noa = dd.sql("""
                   """).df()  
 s[1,1].scatter(noa['cant_ee'], noa['cant_cc'], color='black', s=40)
 s[1,1].set_title("NOA", size = 17)
+s[1,1].set_xlim(0,6)
+s[1,1].set_ylim(0, 0.17)
+s[1,1].set_ylabel("Centros culturales cada 1000 habitantes")
+s[1,1].set_xlabel("Establecimientos educativos cada 1000 habitantes")
+
+
+s[1,2].scatter(pampeana['cant_ee'], pampeana['cant_cc'], color='green', s=10, label='Pampeana')
+s[1,2].scatter(noa['cant_ee'], noa['cant_cc'], color='black', s=10, label='NOA')
+s[1,2].scatter(cuyo['cant_ee'], cuyo['cant_cc'], color='orange', s=10,  label='Cuyo')
+s[1,2].scatter(nea['cant_ee'], nea['cant_cc'], color='red', s=10,  label='NEA')
+s[1,2].scatter(patagonia['cant_ee'], patagonia['cant_cc'], color='purple', s=10,  label='Patagonia')
+s[1,2].set_xlim(0,6)
+s[1,2].set_ylim(0, 0.17)
+s[1,2].set_ylabel("Centros culturales cada 1000 habitantes")
+s[1,2].set_xlabel("Establecimientos educativos cada 1000 habitantes")
+
+s[1,2].legend()
+s[1,2].set_title("País", size = 17)
+
+
 ax.set_ylabel("Centros culturales cada 1000 habitantes")
 ax.set_xlabel("Establecimientos educativos cada 1000 habitantes")
+f, s = plt.subplots(1,2, figsize=(11, 5))
 
-f, s = plt.subplots()
 
-s.scatter(pampeana['cant_ee'], pampeana['cant_cc'], color='blue', s=10)
-s.scatter(noa['cant_ee'], noa['cant_cc'], color='black', s=10)
-s.scatter(cuyo['cant_ee'], cuyo['cant_cc'], color='orange', s=10)
-s.set_title("Superposición de regiones con relación clara (Pampeana, NOA, Cuyo)", wrap=True, size = 17)
+s[0].scatter(pampeana['cant_ee'], pampeana['cant_cc'], color='green', s=10, label='Pampeana')
+s[0].scatter(noa['cant_ee'], noa['cant_cc'], color='black', s=10, label='NOA')
+s[0].scatter(cuyo['cant_ee'], cuyo['cant_cc'], color='orange', s=10,  label='Cuyo')
+s[0].set_title("Relación clara", wrap=True, size = 12)
+s[0].set_ylabel("Centros culturales cada 1000 habitantes")
+s[0].set_xlabel("Establecimientos educativos cada 1000 habitantes")
+s[0].legend()
+
+
+
+s[1].scatter(nea['cant_ee'], nea['cant_cc'], color='red', s=10,  label='NEA')
+s[1].scatter(patagonia['cant_ee'], patagonia['cant_cc'], color='purple', s=10,  label='Patagonia')
+s[1].set_title("Sin relación clara", wrap=True, size = 12)
+s[1].set_ylabel("Centros culturales cada 1000 habitantes")
+s[1].set_xlabel("Establecimientos educativos cada 1000 habitantes")
+
+s[1].legend()
+plt.suptitle('Regiones agrupadas por claridad de relación', size =15)
+
 
 """
 ax.set_ylabel("Centros culturales cada 1000 habitantes")
@@ -636,16 +723,6 @@ ax.set_xlabel("Establecimientos educativos cada 1000 habitantes")
 ax.set_title("Centros culturales vs. establecimientos educativos")
 ax.set_xlim(0.4, 5)
 ax.set_ylim(0, 0.10)
-#ESTO ESTA MAL 
-prov_ee_cc = dd.sql("""
-                    SELECT p.Provincia, SUM(Cant_EE) AS ee, SUM(Cant_CC) AS cc
-                    FROM prov_depto_ee_cc_pob AS p
-                    GROUP BY p.Provincia;
-                    """).df()
-fig, ax = plt.subplots()
-ax.bar(prov_ee_cc['ee'],prov_ee_cc['cc'], label='algo', color='skyblue')
-ax.set_xlim(0, 250)
-ax.set_ylim(0, 20)
 #%% # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
  # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -673,6 +750,7 @@ cant_nulls = dd.sql("""
                   OR cod_area = '00'
                   OR cod_area = 0
                   """).df()
+                  
 prop_df = cant_nulls / total_cc
 proporcion = prop_df.loc[0, 'count_star()'] # es 0.4554826616682287
 del(cc, total_cc, cant_nulls, prop_df, proporcion)
@@ -749,7 +827,7 @@ fig.text(0.5, 0.15, "Consulta (ii): Ordenada provincia(des) y CC(des)", ha='cent
 
 #plt.savefig("ej2.png", bbox_inches='tight', dpi=300)
 #%% Primeras filas de la tabla resultante de la consulta iii
-# Acortamos nombres para mejorar la visualizacion
+# Acortamos nombres para mejorar la visualizacioaxn
 prov_depto_ee_cc_pob.loc[
     prov_depto_ee_cc_pob['Provincia'] == 'Ciudad Autónoma de Buenos Aires',
     'Provincia'] = 'CABA' 
