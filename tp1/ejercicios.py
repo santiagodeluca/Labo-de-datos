@@ -11,6 +11,8 @@ import numpy as np
 import duckdb as dd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from sklearn.metrics import r2_score, mean_squared_error
+
 
 #%% # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
  # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
@@ -412,17 +414,17 @@ plt.xticks(rotation=80)
 plt.yticks([0, 25, 50, 75, 100, 125, 150, 175, 200, 225, 250, 275, 300, 325, 350 ])
 del(cc_por_prov)
 #%%ej ii)
-fig, ax = plt.subplots()
+fig, ax = plt.subplots(figsize=(7, 5))
 
 ax.scatter(ee_poblacion_por_depto_y_prov['Poblacion jardin'], 
            ee_poblacion_por_depto_y_prov['Jardines'], 
-           color='#1F77B4', label='Jardines', s=12)
+           color='#1F77B4', label='Jardines', s=20)
 ax.scatter(ee_poblacion_por_depto_y_prov['Poblacion primaria'], 
            ee_poblacion_por_depto_y_prov['Primarias'], 
-           color='#FF7F0E', label='Primarias', s=12)
+           color='#FF7F0E', label='Primarias', s=20)
 ax.scatter(ee_poblacion_por_depto_y_prov['Poblacion secundaria'], 
            ee_poblacion_por_depto_y_prov['Secundarias'], 
-           color='#2CA02C', label='Secundarias', s=12)
+           color='#2CA02C', label='Secundarias', s=20)
 
 x1=ee_poblacion_por_depto_y_prov['Poblacion jardin']
 x2=ee_poblacion_por_depto_y_prov['Poblacion primaria']
@@ -432,10 +434,21 @@ y1=ee_poblacion_por_depto_y_prov['Jardines']
 y2=ee_poblacion_por_depto_y_prov['Primarias']
 y3= ee_poblacion_por_depto_y_prov['Secundarias']
 
-b,a = np.polyfit(list(x1)+list(x2)+list(x3),list(y1)+list(y2)+list(y3), deg=1)
-X=np.linspace(0, 80000)
-Y=X*b+a
-ax.plot(X,Y,'r')
+x_todos = np.array(list(x1) + list(x2) + list(x3))
+y_todos = np.array(list(y1) + list(y2) + list(y3))
+
+a, b = np.polyfit(x_todos, y_todos, deg=1)
+
+X = np.linspace(0, 80000, 100) 
+Y = X * a + b
+ax.plot(X, Y, 'r')
+
+y_pred = x_todos * a + b
+r2 = r2_score(y_todos, y_pred)
+mse = mean_squared_error(y_todos, y_pred)
+rmse = np.sqrt(mse)
+
+fig.text(0.5, 0.005, f"Coeficiente de determinación R^2: {r2:.4f}, MSE: {mse:.3f}, RMSE: {rmse:.3f}", ha='center', fontsize=10)
 
 ax.set_xlabel("Población")
 ax.set_ylabel("Establecimientos educativos(tipo común)")
@@ -507,7 +520,7 @@ ee_y_cc_cada_1000 = dd.sql("""
                           NATURAL JOIN ee_cada_1000;
                        """).df()
                        
-fig, ax = plt.subplots()
+fig, ax = plt.subplots(figsize=(6,5))
 ax.scatter(ee_y_cc_cada_1000['cant_ee'], 
            ee_y_cc_cada_1000['cant_cc'], 
            color='blue', s=10)
@@ -521,10 +534,19 @@ ax.set_ylim(0, 0.10)
 
 x1 = ee_y_cc_cada_1000['cant_ee']
 y1 = ee_y_cc_cada_1000['cant_cc']
-b,a = np.polyfit(x1,y1,deg=1)
+a,b = np.polyfit(x1,y1,deg=1)
 X=np.linspace(0, 5)
-Y=X*b+a
+Y= X * a + b
+
 ax.plot(X,Y,'r')
+
+y_pred = a * x1 + b
+r2 = r2_score(y1, y_pred)
+mse = mean_squared_error(y1, y_pred)
+rmse = np.sqrt(mse)
+
+fig.text(0.5, 0.001, f"Coeficiente de determinación R^2: {r2:.4f}, MSE: {mse:.3f}, RMSE: {rmse:.3f}", 
+         ha='center', fontsize=10)
 
 #%% Regiones
 prov_deptoid_ee_cc_pob = dd.sql("""
