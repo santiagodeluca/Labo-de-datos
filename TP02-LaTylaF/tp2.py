@@ -171,6 +171,10 @@ plt.title("KNN Accuracy Heatmap")
 plt.show()
 """
 #%%
+"""X_promedios = data.groupby('labels').mean()
+variaciones = X_promedios.var()
+cien_mas_importantes = variaciones.nlargest(100).index esto da 0.647
+"""
 X = data.drop('labels', axis=1)
 y = data['labels']
 """variaciones = X.var()
