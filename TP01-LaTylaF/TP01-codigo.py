@@ -2,7 +2,7 @@
 Materia: Laboratorio de datos - FCEyN - UBA
 Trabajo práctico 01
 Alumnos : Santiago De Luca, Federico Borruat, Lautaro Aguilar
-Fecha  : 2025-02-
+Fecha  : 2025-02-23
 Descripcion : Este archivo está dividido en cuatro partes:
               - Procesamientos de datos
               - Análisis de datos (consultas y visualizaciones)
