@@ -130,7 +130,7 @@ diferencia_porcentajes = diferencia_porcentajes.abs()
 n_posibles = list(range(1,31))
 k_posibles = list(range(1,20))
 
-matriz = pd.DataFrame(np.zeros((len(n_posibles), len(k_posibles)), dtype=int), index=n_posibles, columns=k_posibles)
+grid = pd.DataFrame(np.zeros((len(n_posibles), len(k_posibles)), dtype=int), index=n_posibles, columns=k_posibles)
 
 # El siguiente ciclo es MUY costoso computacionalmente
 for n in n_posibles:
@@ -152,18 +152,18 @@ for n in n_posibles:
         y_pred = modelo.predict(X_test)
         
         exactitud = accuracy_score(y_test, y_pred)
-        matriz.loc[n,k] = exactitud
+        grid.loc[n,k] = exactitud
 
 
-max_exactitud = matriz.max().max()
-row_label, col_label = matriz.stack().idxmax()
+max_exactitud = grid.max().max()
+row_label, col_label = grid.stack().idxmax()
 
 print("\nMaxima Exactitud:", max_exactitud) #0.9981957600360848
 print("Mejores (n, k):", (row_label, col_label)) #n=20, k = 3
 
 
 plt.figure(figsize=(18, 6))
-sns.heatmap(matriz.loc[matriz.index > 15, matriz.columns > 1], annot=True, cmap="coolwarm", fmt=".6f", 
+sns.heatmap(grid.loc[grid.index > 15, grid.columns > 1], annot=True, cmap="coolwarm", fmt=".6f", 
             linewidths=0.5, annot_kws={"size": 8})
 plt.xlabel("K values")
 plt.ylabel("Number of Points")
