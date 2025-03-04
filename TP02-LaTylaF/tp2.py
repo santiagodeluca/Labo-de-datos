@@ -161,7 +161,7 @@ row_label, col_label = matriz.stack().idxmax()
 print("\nMaxima Exactitud:", max_exactitud) #0.9981957600360848
 print("Mejores (n, k):", (row_label, col_label)) #n=20, k = 3
 
-"""
+
 plt.figure(figsize=(18, 6))
 sns.heatmap(matriz.loc[matriz.index > 15, matriz.columns > 1], annot=True, cmap="coolwarm", fmt=".6f", 
             linewidths=0.5, annot_kws={"size": 8})
@@ -169,7 +169,7 @@ plt.xlabel("K values")
 plt.ylabel("Number of Points")
 plt.title("KNN Accuracy Heatmap")
 plt.show()
-"""
+
 #%%
 """X_promedios = data.groupby('labels').mean()
 variaciones = X_promedios.var()
@@ -219,13 +219,14 @@ Score promedio del modelo con gini hmax = 9: 0.6491
 Score promedio del modelo con entropia hmax = 10: 0.6756
 """
 #%% entrenamos el modelo final 
-arbol = tree.DecisionTreeClassifier(max_depth = 10, criterion="entropy", random_state=14)
+e = 10
+arbol = tree.DecisionTreeClassifier(max_depth = e, criterion="entropy", random_state=14)
 arbol.fit(X_dev, y_dev)
 pred = arbol.predict(X_held_out)
 score = accuracy_score(y_held_out,pred)
 
 print(f'Score del modelo sobre held out con entropia hmax = {e}: {score:.4f}')
-#0.5401
+# al principio daba 0.5401, pero ahora da 0.6860
 
 
 
