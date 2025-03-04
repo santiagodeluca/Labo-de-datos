@@ -138,14 +138,14 @@ for n in n_posibles:
     n_dif = []
     for x in n_mayor_diferencia:
         n_dif.append(str(x))  
+        
+    X = binario[n_dif]  
+    y = binario['labels']  
+    
+    # NO SE DEJAN FIJO TRAIN Y TEST
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.15, random_state=14)
+    
     for k in k_posibles:
-        
-        X = binario[n_dif]  
-        y = binario['labels']  
-        
-        # NO SE DEJAN FIJO TRAIN Y TEST
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.15, random_state=14)
-        
         modelo = KNeighborsClassifier(n_neighbors=k)
         modelo.fit(X_train, y_train)
         
