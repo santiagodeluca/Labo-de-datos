@@ -332,9 +332,12 @@ veinte_mayor_dif = diferencia_porcentajes.iloc[0].nlargest(n_mejor).index.tolist
 tam_imagen = (28, 28, 3) 
 im = np.ones(tam_imagen, dtype=np.uint8) * 255  
 
-for index in np.array(veinte_mayor_dif, dtype=int):
-    f, c = divmod(index, 28)  
-    im[f, c] = [0,206,209]
+color_base = np.array([0, 206, 209])
+
+for i, indice in enumerate(np.array(veinte_mayor_dif, dtype=int)):
+    f, c = divmod(indice, 28)  
+    intensidad = 0.3 + 0.7 * (1 - i / (n_mejor - 1))
+    im[f, c] = (color_base * intensidad).astype(np.uint8)
     
 fig, ax = plt.subplots(figsize=(7, 7))
 ax.imshow(im, extent=[0, 28, 28, 0])
@@ -345,8 +348,8 @@ ax.set_xticklabels(np.arange(28), fontsize=6, rotation=90)
 ax.set_yticklabels(np.arange(28), fontsize=6)
 
 plt.grid(color="gray", linestyle="--", linewidth=0.5)
-
 plt.title("20 píxeles de mayor variación entre 0 y 1", fontsize=14)
+
 plt.show()
 
 # Graficamos exactitud en función de pixeles
@@ -362,8 +365,8 @@ plt.show()
 
 
 # Graficamos performance en train y test dependiendo de cantidad de píxeles (K = 3)
-grid[3].plot(kind="line", marker="o", figsize=(8, 5), label='test', grid=True, title="Cantidad de píxeles contra exactitud", zorder=3, color='#32CD32')
-grid_train[3].plot(kind="line", marker="o", figsize=(8, 5), label='train', grid=True, title="Cantidad de píxeles contra exactitud", zorder=3, color='red')
+grid[3].plot(kind="line", marker="o", figsize=(7, 5), label='test', grid=True, title="Cantidad de píxeles contra exactitud", zorder=3, color='#32CD32')
+grid_train[3].plot(kind="line", marker="o", figsize=(7, 5), label='train', grid=True, title="Cantidad de píxeles contra exactitud", zorder=3, color='red')
 plt.xlabel("Cantidad de píxeles")
 plt.ylabel("Exactitud")
 plt.axvline(x=20, color='purple',linestyle='--',linewidth=2,label='Cantidad elegida', zorder=2)
@@ -371,12 +374,13 @@ plt.legend()
 plt.show()
 
 # Graficamos performance en train y test dependiendo de cant de píxeles desde 15 hasta 30
-grid[3].plot(kind="line", marker="o", figsize=(8, 5), label='test', grid=True, title="Cantidad de píxeles contra exactitud", zorder=3, color='#32CD32')
-grid_train[3].plot(kind="line", marker="o", figsize=(8, 5), label='train', grid=True, title="Cantidad de píxeles contra exactitud (de 15 a 30)", zorder=3, color='red')
+grid[3].plot(kind="line", marker="o", figsize=(7, 5), label='test', grid=True, title="Cantidad de píxeles contra exactitud", zorder=3, color='#32CD32')
+grid_train[3].plot(kind="line", marker="o", figsize=(7, 5), label='train', grid=True, title="Cantidad de píxeles contra exactitud (de 15 a 30)", zorder=3, color='red')
 plt.xlabel("Cantidad de píxeles")
 plt.ylabel("Exactitud")
 plt.xlim(15, 30)
 plt.ylim(0.994, 1)
+plt.xticks(range(15,31))
 plt.axvline(x=20, color='purple',linestyle='--',linewidth=2,label='Cantidad elegida', zorder=2)
 plt.legend()
 plt.show()
