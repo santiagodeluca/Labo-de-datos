@@ -1,25 +1,39 @@
-#%%
+"""
+Materia: Laboratorio de datos - FCEyN - UBA
+Trabajo práctico 02
+Alumnos : Santiago De Luca, Federico Borruat, Lautaro Aguilar
+Fecha  : 2025-03-
+Descripcion : Este archivo está dividido en cuatro partes:
+              - Procesamientos de datos
+              - Análisis de datos (consultas y visualizaciones)
+              - Cálculo de métricas GQM
+              - Recorte de tablas para el informe
+"""
+
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import duckdb as dd
-import seaborn as sns
-from sklearn.preprocessing import StandardScaler
+#import seaborn as sns
 from sklearn import tree
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import train_test_split, KFold
 from sklearn.metrics import accuracy_score
-#%%
+#%% Lectura de datos
 data = pd.read_csv('mnist_c_fog_tp.csv', index_col=0)
-prueba = data.iloc[:,:-1]
-#%%
-#Plot imagen
-n = 8464
-img = np.array(prueba.iloc[n]).reshape((28,28))
-plt.imshow(img, cmap='gray')
-plt.title('Número de la fila ' + str(n))
-plt.show()
-#%% Clasificación binaria
+#%% # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+ # #                                                                     # #
+# #                     CLASIFICACIÓN BINARIA                            # #
+ # #                                                                     # # 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+#%%===========================================================================
+# Filtrado binario del dataset
+#=============================================================================
 binario = data[(data['labels'] == 0) | (data['labels'] == 1)].reset_index()
 
 cantidad_0 = (binario['labels'] == 0).sum() # 6903
@@ -30,20 +44,22 @@ proporcion = cantidad_0 * 100 / len(binario) # 46,7% son 0
 largo_test = int(len(binario) * 0.15) # Nuestro conjunto de test será el 15% del de desarrollo
 test = binario[:largo_test]
 train = binario[largo_test:].reset_index()
-#%%
-#comparamos los valores de pixeles del centro 
-
-colores = [
-    [255, 0, 0],   
-    [0, 255, 0],   
-    [0, 0, 255]    
-]
+#%%===========================================================================
+# Primeros acercamientos al modelo
+#=============================================================================
+#%% Probamos con tres píxeles del centro a diferentes alturas
 
 alturas_importantes = [7, 13, 19]
 tam_imagen = (28, 28, 3) 
 im = np.ones(tam_imagen, dtype=np.uint8) * 255  
 
 exactitudes = []
+
+colores = [
+    [255, 0, 0],   
+    [0, 255, 0],   
+    [0, 0, 255]    
+]
 
 for indice_trio, i in enumerate(alturas_importantes):  
     pix1 = i * 28 + 12
@@ -69,6 +85,7 @@ for indice_trio, i in enumerate(alturas_importantes):
         y, x = divmod(index, 28)  
         im[y, x] = color  
 
+#%% Graficamos los píxeles elegidos
 fig, ax = plt.subplots(figsize=(7, 7))
 ax.imshow(im, extent=[0, 28, 28, 0])
 
@@ -83,10 +100,9 @@ for indice_trio, color in enumerate(colores):
     ax.scatter([], [], color=np.array(color) / 255, label=exactitudes[indice_trio])
 
 ax.legend(loc='upper right', fontsize=10, title="Exactitud", title_fontsize=12)
-plt.title("Exactitud de KNN en valores del centro (binario)", fontsize=14)
+plt.title("Exactitud de KNN en valores del centro (binario, K=3)", fontsize=14)
 plt.show()
-#%%
-#comparamos con prediccion en valores en los bordes
+#%% Probamos con tres píxeles en distintos bordes
 arriba_centro = ['13','14','15']
 X = binario[arriba_centro]  
 y = binario['labels']  
@@ -148,7 +164,8 @@ y_pred = modelo.predict(X_test)
 exactitud = accuracy_score(y_test, y_pred)
 exactitudes.append(f"{exactitud * 100:.2f}%")
 print(f"Precisión del modelo con primeros píxeles de centro a la derecha: {exactitud * 100:.3f}%")
-#graficamos
+
+#%% Graficamos los píxeles elegidos
 tam_imagen = (28, 28, 3) 
 im = np.ones(tam_imagen, dtype=np.uint8) * 255  
 
@@ -181,12 +198,13 @@ ax.scatter([], [], color=np.array([255,165,0]) / 255, label="Centro izquierda: "
 ax.scatter([], [], color=np.array([165,42,42]) / 255, label="Centro derecha: " + exactitudes[3])
 
 ax.legend(loc='lower right', fontsize=10, title="Exactitud", title_fontsize=12)
-plt.title("Exactitud de KNN en valores de borde (binario)", fontsize=14)
+plt.title("Exactitud de KNN en valores de bordes (binario, K=3)", fontsize=14)
 plt.show()
 
-#%% probamos con la fila central a altura 13
+#%% Probamos con filas enteras
 exactitudes = []
 
+# Fila central
 central = np.arange(13*28, 14*28)
 fila_central = central.astype(str)
 X = binario[fila_central]  
@@ -202,7 +220,8 @@ y_pred = modelo.predict(X_test)
 exactitud = accuracy_score(y_test, y_pred)
 exactitudes.append(f"{exactitud * 100:.2f}%")
 print(f"Precisión del modelo con todos los pixeles de la fila central : {exactitud * 100:.3f}%")
-# problamos con la primera fila
+
+# Primera fila
 primera = np.arange(0, 28)
 primera_fila = primera.astype(str)
 X = binario[primera_fila]  
@@ -218,7 +237,8 @@ y_pred = modelo.predict(X_test)
 exactitud = accuracy_score(y_test, y_pred)
 exactitudes.append(f"{exactitud * 100:.2f}%")
 print(f"Precisión del modelo con todos los pixeles de la primera fila: {exactitud * 100:.3f}%")
-#graficamos
+
+#%% Graficamos las filas elegidas
 tam_imagen = (28, 28, 3) 
 im = np.ones(tam_imagen, dtype=np.uint8) * 255  
 
@@ -245,8 +265,10 @@ ax.scatter([], [], color=np.array([255,165,0]) / 255, label="Primera fila: " + e
 ax.legend(loc='lower right', fontsize=10, title="Exactitud", title_fontsize=12)
 plt.title("Exactitud de KNN en filas enteras (binario)", fontsize=14)
 plt.show()
-
-#%% Comparamos modelos para elegir el mejor
+#%%===========================================================================
+# Modelo definitivo
+#=============================================================================
+#%% Armamos 0 y 1 promedio y calculamos la diferencia
 uno_solo = dd.sql(""" SELECT *
                	FROM data
                	WHERE labels='1'
@@ -264,16 +286,16 @@ cero_solo_porcentaje = cero_solo.mean()
 cero_porcentaje = pd.DataFrame([cero_solo_porcentaje], columns=cero_solo.columns)
 
 diferencia_porcentajes = cero_porcentaje - uno_porcentaje
-
 diferencia_porcentajes = diferencia_porcentajes.abs()
 
+#%% Evaluamos para diferentes K y diferentes cantidad de píxeles con más variación
 n_posibles = list(range(1,31))
 k_posibles = list(range(1,20))
 
 grid = pd.DataFrame(np.zeros((len(n_posibles), len(k_posibles)), dtype=int), index=n_posibles, columns=k_posibles)
 grid_train = pd.DataFrame(np.zeros((len(n_posibles), len(k_posibles)), dtype=int), index=n_posibles, columns=k_posibles)
 
-# El siguiente ciclo es MUY costoso computacionalmente
+# El siguiente ciclo es muy costoso 
 for n in n_posibles:
     n_mayor_diferencia = diferencia_porcentajes.iloc[0].nlargest(n).index.tolist()
     n_dif = []
@@ -297,23 +319,15 @@ for n in n_posibles:
         exactitud_train = accuracy_score(y_train,y_pred_train)
         grid_train.at[n,k] = exactitud_train
 
-
+# Nos quedamos con la mejor combinación
 max_exactitud = grid.max().max()
 n_mejor, k_mejor = grid.stack().idxmax()
 
-print("\nMaxima Exactitud:", max_exactitud) #0.9981957600360848
-print("Mejores (n, k):", (n_mejor, k_mejor)) #n=20, k = 3
+print("\nMaxima Exactitud:", max_exactitud) # 0.9981957600360848
+print("Mejores (n, k):", (n_mejor, k_mejor)) # n = 20, k = 3
 
-#%%graficamos
-"""plt.figure(figsize=(18, 6))
-sns.heatmap(grid.loc[grid.index > 15, grid.columns > 1], annot=True, cmap="coolwarm", fmt=".6f", 
-            linewidths=0.5, annot_kws={"size": 8})
-plt.xlabel("K values")
-plt.ylabel("Number of Points")
-plt.title("KNN Accuracy Heatmap")
-plt.show()"""
-
-#graficamos los pixeles elegidos
+#%%g Graficamos para analizar el modelo
+# Graficamos los píxeles elegidos
 veinte_mayor_dif = diferencia_porcentajes.iloc[0].nlargest(n_mejor).index.tolist()
 tam_imagen = (28, 28, 3) 
 im = np.ones(tam_imagen, dtype=np.uint8) * 255  
@@ -334,12 +348,20 @@ plt.grid(color="gray", linestyle="--", linewidth=0.5)
 
 plt.title("20 píxeles de mayor variación entre 0 y 1", fontsize=14)
 plt.show()
-#graficamos exactitud en funcion de pixeles
-grid[[1,3, 7, 17]].plot(kind="line", marker="o", figsize=(8, 5), grid=True, title="Cantidad de píxeles contra exactitud con diferentes valores de K")
+
+# Graficamos exactitud en función de pixeles
+grid[[1,3, 7, 17]].plot(kind="line", marker="o", 
+                        figsize=(8, 5), grid=True, 
+                        title="Cantidad de píxeles contra exactitud con diferentes valores de K",
+                        color=["orange", "blue", "magenta", "purple"])
 plt.xlabel("Cantidad de píxeles")
 plt.ylabel("Exactitud")
+renombre_labels = [f"K = {k}" for k in [1, 3, 7, 17]]
+plt.legend(renombre_labels)
 plt.show()
 
+
+# Graficamos performance en train y test dependiendo de cantidad de píxeles (K = 3)
 grid[3].plot(kind="line", marker="o", figsize=(8, 5), label='test', grid=True, title="Cantidad de píxeles contra exactitud", zorder=3, color='#32CD32')
 grid_train[3].plot(kind="line", marker="o", figsize=(8, 5), label='train', grid=True, title="Cantidad de píxeles contra exactitud", zorder=3, color='red')
 plt.xlabel("Cantidad de píxeles")
@@ -348,6 +370,18 @@ plt.axvline(x=20, color='purple',linestyle='--',linewidth=2,label='Cantidad eleg
 plt.legend()
 plt.show()
 
+# Graficamos performance en train y test dependiendo de cant de píxeles desde 15 hasta 30
+grid[3].plot(kind="line", marker="o", figsize=(8, 5), label='test', grid=True, title="Cantidad de píxeles contra exactitud", zorder=3, color='#32CD32')
+grid_train[3].plot(kind="line", marker="o", figsize=(8, 5), label='train', grid=True, title="Cantidad de píxeles contra exactitud (de 15 a 30)", zorder=3, color='red')
+plt.xlabel("Cantidad de píxeles")
+plt.ylabel("Exactitud")
+plt.xlim(15, 30)
+plt.ylim(0.994, 1)
+plt.axvline(x=20, color='purple',linestyle='--',linewidth=2,label='Cantidad elegida', zorder=2)
+plt.legend()
+plt.show()
+
+# Graficamos performance en train y test dependiendo de K (20 píxeles)
 veinte_pixeles_test = grid.loc[20]
 veinte_pixeles_train = grid_train.loc[20]
 
@@ -361,20 +395,28 @@ plt.axvline(x=3, color='purple',linestyle='--',label='K elegido', zorder=2)
 plt.legend()
 plt.show()
 
-#%%
+#%% # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+ # #                                                                     # #
+# #                     CLASIFICACIÓN MULTICLASE                          # #
+ # #                                                                     # # 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-"""X_promedios = data.groupby('labels').mean()
-variaciones = X_promedios.var()
-cien_mas_importantes = variaciones.nlargest(100).index esto da 0.647
-"""
+#%%===========================================================================
+# Separación de Held-out
+#=============================================================================
+
 X = data.drop('labels', axis=1)
 y = data['labels']
-"""variaciones = X.var()
-treinta_mas_importantes = variaciones.nlargest(100).index 
-X_seleccionados = X[treinta_mas_importantes] da 0.63"""
 X_dev, X_held_out, y_dev, y_held_out = train_test_split(X,y,test_size=0.15, random_state = 14)
 
-#%%
+#%%===========================================================================
+# Elección del modelo
+#=============================================================================
+# Probamos con alturas de 2 a 10 con dos criterios distintos
 alturas = list(range(2,11))
 nsplits = 5
 kf = KFold(n_splits=nsplits)
@@ -383,6 +425,7 @@ resultados_gini = np.zeros((nsplits, len(alturas)))
 resultados_entropia = np.zeros((nsplits, len(alturas)))
 res_train_entropia = np.zeros((nsplits, len(alturas)))
 
+# El siguiente ciclo es muy costoso 
 for i, (train_index, test_index) in enumerate(kf.split(X_dev)):
 
     kf_X_train, kf_X_test = X_dev.iloc[train_index], X_dev.iloc[test_index]
@@ -410,21 +453,28 @@ scores_promedio_train_entropia = res_train_entropia.mean(axis = 0)
 for i,e in enumerate(alturas):
     print(f'Score promedio del modelo con gini hmax = {e}: {scores_promedio_gini[i]:.4f}')
     print(f'Score promedio del modelo con entropia hmax = {e}: {scores_promedio_entropia[i]:.4f}')
-    
+
+# Nos quedamos con la mejor combinación
+mejor_altura_gini = alturas[scores_promedio_gini.idmax()] 
+mejor_exact_gini = scores_promedio_gini.max()
+mejor_altura_entropia = alturas[scores_promedio_entropia.idmax()] 
+mejor_exact_entropia = scores_promedio_entropia.max()
+
+mejor_altura = max((mejor_exact_gini, mejor_altura_gini),(mejor_exact_entropia, mejor_altura_entropia))[1]
+mejor_criterio = max((mejor_exact_gini, mejor_altura_gini),(mejor_exact_entropia, mejor_altura_entropia))[0]
 """
 Score promedio del modelo con entropia hmax = 9: 0.6491
 Score promedio del modelo con entropia hmax = 10: 0.6756
 """
-#%% entrenamos el modelo final 
-e = 10
-arbol = tree.DecisionTreeClassifier(max_depth = e, criterion="entropy", random_state=14)
+#%% Entrenamos el modelo sobre el held-out y reportamos performance
+arbol = tree.DecisionTreeClassifier(max_depth = mejor_altura, criterion=mejor_criterio, random_state=14)
 arbol.fit(X_dev, y_dev)
 pred = arbol.predict(X_held_out)
-score = accuracy_score(y_held_out,pred)
+score = accuracy_score(y_held_out,pred) # 0.6860
 
-print(f'Score del modelo sobre held out con entropia hmax = {e}: {score:.4f}')
-# al principio daba 0.5401, pero ahora da 0.6860
-#%%
+print(f'Score del modelo sobre held out con {mejor_criterio} hmax = {mejor_altura}: {score:.4f}')
+#%% Graficamos para analizar el modelo
+# Graficamos exactitud contra altura por criterio
 plt.plot(alturas,scores_promedio_entropia, label='Entropia', marker='o')
 plt.plot(alturas,scores_promedio_gini, label='Gini', marker='o')
 plt.xlabel("Altura")
@@ -435,12 +485,13 @@ plt.title("Altura de árbol contra exactitud (por criterio)")
 plt.legend()
 plt.show()
 
+# Graficamos exactitud contra altura en train y test (entropia)
 plt.plot(alturas,scores_promedio_entropia, label='Test', marker='o', color='#32CD32')
 plt.plot(alturas,scores_promedio_train_entropia, label='Train', marker='o',color='red')
 plt.xlabel("Altura")
 plt.xticks(alturas)
 plt.ylabel("Exactitud")
-plt.title("Altura de árbol contra exactitud en train y test")
+plt.title("Altura de árbol contra exactitud en train y test (entropia)")
 #plt.axvline(x=3, color='purple',linestyle='--',label='K elegido', zorder=2)
 plt.legend()
 plt.show()
