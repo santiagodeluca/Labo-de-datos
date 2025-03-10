@@ -46,6 +46,7 @@ data = pd.read_csv('mnist_c_fog_tp.csv', index_col=0)
 # Filtrado binario del dataset
 #=============================================================================
 binario = data[(data['labels'] == 0) | (data['labels'] == 1)].reset_index()
+X_train_bi, X_test_bi, y_train_bi, y_test_bi = train_test_split(binario.drop('labels', axis=1), binario['labels'], test_size=0.15, random_state=14)
 
 cantidad_0 = (binario['labels'] == 0).sum() # 6903
 cantidad_1 = (binario['labels'] == 1).sum() # 7877
@@ -75,15 +76,11 @@ for indice_trio, i in enumerate(alturas_importantes):
     pix3 = i * 28 + 14
     selected_pixels = [pix1, pix2, pix3]
 
-    X = binario[[str(pix1), str(pix2), str(pix3)]]
-    y = binario['labels']
-
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.15, random_state=14)
     modelo = KNeighborsClassifier(n_neighbors=3)
-    modelo.fit(X_train, y_train)
+    modelo.fit(X_train_bi[[str(pix1), str(pix2), str(pix3)]], y_train_bi)
 
-    y_pred = modelo.predict(X_test)
-    exactitud = accuracy_score(y_test, y_pred)
+    y_pred = modelo.predict(X_test_bi[[str(pix1), str(pix2), str(pix3)]])
+    exactitud = accuracy_score(y_test_bi, y_pred)
     print(f"Precisión del modelo con tres píxeles del centro de fila {i}: {exactitud * 100:.3f}%")
 
     exactitudes.append(f"Fila {i}: {exactitud * 100:.2f}%")
