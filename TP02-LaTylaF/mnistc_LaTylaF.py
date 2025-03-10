@@ -31,12 +31,101 @@ data = pd.read_csv('mnist_c_fog_tp.csv', index_col=0)
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
  # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+#%% Barras de aparición porcentual
+cantidad_digitos = dd.sql(""" SELECT labels, count(*) as Cantidad
+                   FROM data
+                   GROUP BY labels 
+                   ORDER BY  Cantidad desc""").df()
+x = cantidad_digitos['labels']
+y = cantidad_digitos['Cantidad']
+x_str = []
+y_porc = []
+for i in range(len(x)):
+    x_str.append(str(x[i]))
+    y_porc.append((y[i]*100)/sum(y))
+    
+y_porc=[np.round(v,1) for v in y_porc]
 
+colores = plt.cm.Grays_r(np.linspace(0, 0.5,len(y_porc)))
+fig, ax = plt.subplots()
+bars = ax.bar(x_str, y_porc, color=colores)
+
+for bar in bars:
+    yval = bar.get_height()
+    ax.text(bar.get_x() + bar.get_width() / 2, yval, str(yval)+'%',ha='center', va='bottom', fontsize=9)
+    
+plt.xticks(x_str)
+plt.yticks([])
+
+plt.title('Aparición porcentual de dígitos')
+plt.ylim(0,14)
+del(ax,bar,bars,colores,fig,i,x,x_str,y,y_porc,yval)
+#%% Ejemplo de 1 y 7 parecidos
+df_img = data.iloc[:, :-1]
+siete, uno = df_img.iloc[212], df_img.iloc[8464]
+graf = [(siete,'212','7'),(uno,'8464','1')]
+for j in range(len(graf)):
+    plt.figure()
+    img = np.array(graf[j][0]).reshape((28,28))
+    plt.imshow(img, cmap='gray')
+    plt.title("Clase : "+graf[j][2]+"\nID: "+str(graf[j][1])) 
+    plt.yticks([])
+    plt.xticks([])
+del( siete, uno, img, j, graf, df_img)
+#%% Casos indescifrables o raros de 0 y 2
+df_img = data.iloc[:, :-1]
+raro1, raro2, raro3 = df_img.iloc[26728], df_img.iloc[29345], df_img.iloc[5656] 
+graf = [(raro1,'26728','0'), (raro2,'29345','0'), (raro3,'5656','2') ]
+
+for j in range(len(graf)):
+    plt.figure()
+    img = np.array(graf[j][0]).reshape((28,28))
+    plt.imshow(img, cmap='gray')
+    plt.title("Clase : "+graf[j][2]+"\nID: "+str(graf[j][1])) 
+    plt.yticks([])
+    plt.xticks([])
+del(df_img,graf,img,j,raro1,raro2,raro3)
+#%% Gráficos de 0, 5 y 8 promedio 
+cero_solo = dd.sql(""" SELECT *
+               	FROM data
+               	WHERE labels='0'
+               	""").df()
+cinco_solo = dd.sql(""" SELECT *
+               	FROM data
+               	WHERE labels='5'
+               	""").df()
+ocho_solo = dd.sql(""" SELECT *
+               	FROM data
+               	WHERE labels='8'
+               	""").df()                   
+                   
+cero_solo, cinco_solo, ocho_solo = cero_solo.iloc[:, :-1], cinco_solo.iloc[:, :-1], ocho_solo.iloc[:, :-1]
+cero_solo_promedio, cinco_solo_promedio, ocho_solo_promedio = cero_solo.mean(), cinco_solo.mean(), ocho_solo.mean()
+
+graf0 = np.array(cero_solo_promedio).reshape((28,28))
+graf5 = np.array(cinco_solo_promedio).reshape((28,28))
+graf8 = np.array(ocho_solo_promedio).reshape((28,28))
+plt.figure()
+plt.imshow(graf0, cmap='gray')
+plt.title('0 promedio')
+plt.xticks([])
+plt.yticks([])
+plt.figure()
+plt.imshow(graf5, cmap='gray')
+plt.title('5 promedio')
+plt.xticks([])
+plt.yticks([])
+plt.figure()
+plt.imshow(graf8, cmap='gray')
+plt.title('8 promedio')
+plt.xticks([])
+plt.yticks([])
+del(cero_solo, cero_solo_promedio, cinco_solo, cinco_solo_promedio, graf0, graf5, graf8, ocho_solo, ocho_solo_promedio)
 #%% # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
  # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
  # #                                                                     # #
-# #                     CLASIFICACIÓN BINARIA                            # #
+# #                     CLASIFICACIÓN BINARIA                             # #
  # #                                                                     # # 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
  # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
@@ -46,6 +135,8 @@ data = pd.read_csv('mnist_c_fog_tp.csv', index_col=0)
 # Filtrado binario del dataset
 #=============================================================================
 binario = data[(data['labels'] == 0) | (data['labels'] == 1)].reset_index()
+
+# Separamos train y test
 X_train_bi, X_test_bi, y_train_bi, y_test_bi = train_test_split(binario.drop('labels', axis=1), binario['labels'], test_size=0.15, random_state=14)
 
 cantidad_0 = (binario['labels'] == 0).sum() # 6903
@@ -57,7 +148,6 @@ print(f"Porcentaje de ceros en el dataset binario: {proporcion}%")
 # Primeros acercamientos al modelo
 #=============================================================================
 #%% Probamos con tres píxeles del centro a diferentes alturas
-
 alturas_importantes = [7, 13, 19]
 tam_imagen = (28, 28, 3) 
 im = np.ones(tam_imagen, dtype=np.uint8) * 255  
@@ -90,7 +180,7 @@ for indice_trio, i in enumerate(alturas_importantes):
         y, x = divmod(index, 28)  
         im[y, x] = color  
 
-#%% Graficamos los píxeles elegidos
+#%% Graficamos los píxeles elegidos y su performance
 fig, ax = plt.subplots(figsize=(7, 7))
 ax.imshow(im, extent=[0, 28, 28, 0])
 
@@ -153,7 +243,7 @@ y_pred = modelo.predict(X_test_bi[centro_der])
 exactitud = accuracy_score(y_test_bi, y_pred)
 exactitudes.append(f"{exactitud * 100:.2f}%")
 print(f"Precisión del modelo con primeros píxeles de centro a la derecha: {exactitud * 100:.3f}%")
-#%% Graficamos los píxeles elegidos
+#%% Graficamos los píxeles elegidos y su performance
 tam_imagen = (28, 28, 3) 
 im = np.ones(tam_imagen, dtype=np.uint8) * 255  
 
@@ -216,7 +306,7 @@ exactitud = accuracy_score(y_test_bi, y_pred)
 exactitudes.append(f"{exactitud * 100:.2f}%")
 print(f"Precisión del modelo con todos los pixeles de la primera fila: {exactitud * 100:.3f}%")
 
-#%% Graficamos las filas elegidas
+#%% Graficamos las filas elegidas y su performance
 tam_imagen = (28, 28, 3) 
 im = np.ones(tam_imagen, dtype=np.uint8) * 255  
 
@@ -252,22 +342,22 @@ uno_solo = dd.sql(""" SELECT *
                	WHERE labels='1'
                	""").df()
 uno_solo = uno_solo.iloc[:, :-1] 	 
-uno_solo_porcentaje = uno_solo.mean()
-uno_porcentaje = pd.DataFrame([uno_solo_porcentaje], columns=uno_solo.columns)
+uno_solo_promedio = uno_solo.mean()
+uno_promedio = pd.DataFrame([uno_solo_promedio], columns=uno_solo.columns)
 
 cero_solo = dd.sql(""" SELECT *
                	FROM data
                	WHERE labels='0'
                	""").df()
 cero_solo = cero_solo.iloc[:, :-1] 	 
-cero_solo_porcentaje = cero_solo.mean()
-cero_porcentaje = pd.DataFrame([cero_solo_porcentaje], columns=cero_solo.columns)
+cero_solo_promedio = cero_solo.mean()
+cero_promedio = pd.DataFrame([cero_solo_promedio], columns=cero_solo.columns)
 
-diferencia_porcentajes = cero_porcentaje - uno_porcentaje
-diferencia_porcentajes = diferencia_porcentajes.abs()
+diferencia_promedios = cero_promedio - uno_promedio
+diferencia_promedios = diferencia_promedios.abs()
 
 #%% Evaluamos para diferentes K y diferentes cantidad de píxeles con más variación
-n_posibles = list(range(1,25))
+n_posibles = list(range(1,26))
 k_posibles = list(range(1,13))
 
 grid = pd.DataFrame(np.zeros((len(n_posibles), len(k_posibles)), dtype=float), index=n_posibles, columns=k_posibles)
@@ -275,7 +365,7 @@ grid_train = pd.DataFrame(np.zeros((len(n_posibles), len(k_posibles)), dtype=flo
 
 # El siguiente ciclo es muy costoso 
 for n in n_posibles:
-    n_mayor_diferencia = diferencia_porcentajes.iloc[0].nlargest(n).index.tolist()
+    n_mayor_diferencia = diferencia_promedios.iloc[0].nlargest(n).index.tolist()
     n_dif = []
     for x in n_mayor_diferencia:
         n_dif.append(str(x))  
@@ -301,7 +391,7 @@ print("Mejores (n, k):", (n_mejor, k_mejor)) # n = 20, k = 3
 
 #%%g Graficamos para analizar el modelo
 # Graficamos los píxeles elegidos
-veinte_mayor_dif = diferencia_porcentajes.iloc[0].nlargest(n_mejor).index.tolist()
+veinte_mayor_dif = diferencia_promedios.iloc[0].nlargest(n_mejor).index.tolist()
 tam_imagen = (28, 28, 3)  
 im = np.ones(tam_imagen, dtype=np.uint8) * 255  
 
@@ -336,7 +426,7 @@ cbar.set_ticklabels(["Mayor variación", "Menor variación"])
 plt.show()
 
 # Graficamos exactitud en función de pixeles
-grid[[1,3, 7, 12]].plot(kind="line", marker="o", 
+grid[[1, 3, 7, 12]].plot(kind="line", marker="o", 
                         figsize=(8, 5), grid=True, 
                         title="Cantidad de píxeles contra exactitud con diferentes valores de K",
                         color=["orange", "blue", "magenta", "purple"])
@@ -356,14 +446,14 @@ plt.axvline(x=20, color='purple',linestyle='--',linewidth=2,label='Cantidad eleg
 plt.legend()
 plt.show()
 
-# Graficamos performance en train y test dependiendo de cant de píxeles desde 15 hasta 30
+# Graficamos performance en train y test dependiendo de cant de píxeles desde 15 hasta 25 (mejora visualización)
 grid[3].plot(kind="line", marker="o", figsize=(7, 5), label='test', grid=True, zorder=3, color='#32CD32')
-grid_train[3].plot(kind="line", marker="o", figsize=(7, 5), label='train', grid=True, title="Cantidad de píxeles contra exactitud (de 15 a 30) con K = 3", zorder=3, color='red')
+grid_train[3].plot(kind="line", marker="o", figsize=(7, 5), label='train', grid=True, title="Cantidad de píxeles contra exactitud (de 15 a 25) con K = 3", zorder=3, color='red')
 plt.xlabel("Cantidad de píxeles")
 plt.ylabel("Exactitud")
 plt.xlim(15, 24)
 plt.ylim(0.994, 1)
-plt.xticks(range(15,25))
+plt.xticks(range(15,26))
 plt.axvline(x=20, color='purple',linestyle='--',linewidth=2,label='Cantidad elegida', zorder=2)
 plt.legend()
 plt.show()
@@ -478,7 +568,7 @@ mejor_altura = max((mejor_exact_gini, mejor_altura_gini),(mejor_exact_entropia, 
 mejor_exactitud = max((mejor_exact_gini, mejor_altura_gini),(mejor_exact_entropia, mejor_altura_entropia))[0]
 mejor_criterio = max((mejor_exact_gini, 'gini'),(mejor_exact_entropia, 'entropy'))[1]
 
-#%% Entrenamos el modelo sobre el held-out y reportamos performance
+#%% Entrenamos sobre el conjunto de desarrollo, testeamos el modelo sobre el held-out y reportamos performance
 arbol = tree.DecisionTreeClassifier(max_depth = mejor_altura, criterion=mejor_criterio, random_state=14)
 arbol.fit(X_dev, y_dev)
 pred = arbol.predict(X_held_out)
@@ -504,7 +594,7 @@ plt.title("Exactitud contra altura de árbol (por criterio)")
 plt.legend()
 plt.show()
 
-# Graficamos exactitud contra altura en train y test (entropia)
+# Graficamos exactitud contra altura en train y test (entropía)
 plt.plot(alturas,scores_promedio_entropia, label='Test', marker='o', color='#32CD32')
 plt.plot(alturas,scores_promedio_train_entropia, label='Train', marker='o',color='red')
 plt.xlabel("Altura")

@@ -1,4 +1,4 @@
-# Trabajo practico N2
+# Trabajo práctico 02
 
 ## Requisitos
 
@@ -10,7 +10,7 @@ Este código requiere Python y las siguientes librerías:
 - `seaborn`
 - `sklearn`
 
-Puedes instalarlas usando:
+Podes instalarlas usando:
 ```sh
 pip install pandas numpy matplotlib seaborn scikit-learn
 ```
@@ -19,13 +19,13 @@ Se incluyeron los módulos matplotlib.colors y matplotlib.cm no vistos en clase,
 
 ## Estructura del Proyecto
 
-- **Carga de datos**: Se carga el dataset y se filtran los dígitos 0 y 1.
-- **Preprocesamiento**: Se dividen los datos en conjuntos de entrenamiento y prueba.
-- **Entrenamiento con KNN**: Se entrena un modelo KNN sobre los datos.
-- **Evaluación de importancia de píxeles**: Se eliminan píxeles uno por uno y se mide el impacto en la precisión.
-
+- **Carga de datos**: Se carga el dataset a un dataframe.
+- **Análisis exploratorio**: Se observan algunos dígitos en particular y se generan gráficos.
+- **Clasificación binaria**: Se entrenan diferentes modelos de KNN sobre los datos en su versión binaria.
+- **Clasificación multiclase**: Se entrenan diferentes árboles de decisión sobre el dataset sin un conjunto held-out, que se separa antes de entrenarlos.
 
 ## Descripción
-Este proyecto implementa un modelo de **K-Nearest Neighbors (KNN)** para analizar la importancia de los píxeles en la clasificación de dígitos 0 y 1 en el dataset **MNIST con niebla** (`mnist_c_fog_tp.csv`).
+Este proyecto busca entrenar principalmente dos modelos: un modelo de **K-Nearest Neighbors (KNN)** para clasificar ceros y unos y un modelo de **Árboles de decisión**  para clasificar todo tipo de dígitos. Esto se hace sobre el dataset **MNIST con niebla** (`mnist_c_fog_tp.csv`).
 
-El objetivo principal es determinar cuáles son los píxeles más relevantes para la clasificación, utilizando la métrica de importancia basada en el impacto de la eliminación de cada píxel en la precisión del modelo.
+## Aviso
+Al entrenarse tantos modelos sobre tantos datos hay ciertos ciclos que tardan mucho en ejecutarse. Estos son los ciclos para decidir los modelos definitivos y tienen un comentario avisando que son muy costosos.
