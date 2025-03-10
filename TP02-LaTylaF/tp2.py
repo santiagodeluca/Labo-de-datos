@@ -2,25 +2,36 @@
 Materia: Laboratorio de datos - FCEyN - UBA
 Trabajo práctico 02
 Alumnos : Santiago De Luca, Federico Borruat, Lautaro Aguilar
-Fecha  : 2025-03-
-Descripcion : Este archivo está dividido en cuatro partes:
-              - Procesamientos de datos
-              - Análisis de datos (consultas y visualizaciones)
-              - Cálculo de métricas GQM
-              - Recorte de tablas para el informe
+Fecha  : 2025-03-10
+Descripcion : Este archivo está dividido en tres partes:
+              - Análisis exploratorio
+              - Clasificación binaria
+              - Clasificación multiclase
 """
 
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib.colors as mcolors 
+import matplotlib.cm as cm 
 import duckdb as dd
-#import seaborn as sns
+import seaborn as sns
 from sklearn import tree
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import train_test_split, KFold
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, confusion_matrix
 #%% Lectura de datos
 data = pd.read_csv('mnist_c_fog_tp.csv', index_col=0)
+#%% # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+ # #                                                                     # #
+# #                     ANÁLISIS EXPLORATORIO                             # #
+ # #                                                                     # # 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+ # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
 #%% # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
  # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -40,10 +51,7 @@ cantidad_0 = (binario['labels'] == 0).sum() # 6903
 cantidad_1 = (binario['labels'] == 1).sum() # 7877
 
 proporcion = cantidad_0 * 100 / len(binario) # 46,7% son 0 
-
-largo_test = int(len(binario) * 0.15) # Nuestro conjunto de test será el 15% del de desarrollo
-test = binario[:largo_test]
-train = binario[largo_test:].reset_index()
+print(f"Porcentaje de ceros en el dataset binario: {proporcion}%")
 #%%===========================================================================
 # Primeros acercamientos al modelo
 #=============================================================================
@@ -99,72 +107,67 @@ plt.grid(color="gray", linestyle="--", linewidth=0.5)
 for indice_trio, color in enumerate(colores):
     ax.scatter([], [], color=np.array(color) / 255, label=exactitudes[indice_trio])
 
-ax.legend(loc='upper right', fontsize=10, title="Exactitud", title_fontsize=12)
+ax.legend(loc='upper right', fontsize=13.5, title="Exactitud", title_fontsize=12)
 plt.title("Exactitud de KNN en valores del centro (binario, K=3)", fontsize=14)
 plt.show()
 #%% Probamos con tres píxeles en distintos bordes
+# Borde de arriba al centro
+exactitudes = []
+
 arriba_centro = ['13','14','15']
 X = binario[arriba_centro]  
 y = binario['labels']  
-
-exactitudes = []
-
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.15, random_state=14)
 
 modelo = KNeighborsClassifier(n_neighbors=3)
 modelo.fit(X_train, y_train)
-
 y_pred = modelo.predict(X_test)
 
 exactitud = accuracy_score(y_test, y_pred)
 exactitudes.append(f"{exactitud * 100:.2f}%")
 print(f"Precisión del modelo con valores del centro de la primera fila: {exactitud * 100:.3f}%")
 
+# Borde de arriba a la izquierda
 arriba_izq = ['0','1','2']
 X = binario[arriba_izq]  
 y = binario['labels']  
-
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.15, random_state=14)
 
 modelo = KNeighborsClassifier(n_neighbors=3)
 modelo.fit(X_train, y_train)
-
 y_pred = modelo.predict(X_test)
 
 exactitud = accuracy_score(y_test, y_pred)
 exactitudes.append(f"{exactitud * 100:.2f}%")
 print(f"Precisión del modelo con primeros píxeles de arriba a la izquierda: {exactitud * 100:.3f}%")
 
+# Borde de centro izquierda
 centro_izq = [str(28*12),str(28*13),str(28*14)]
 X = binario[centro_izq]  
 y = binario['labels']  
-
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.15, random_state=14)
 
 modelo = KNeighborsClassifier(n_neighbors=3)
 modelo.fit(X_train, y_train)
-
 y_pred = modelo.predict(X_test)
 
 exactitud = accuracy_score(y_test, y_pred)
 exactitudes.append(f"{exactitud * 100:.2f}%")
 print(f"Precisión del modelo con primeros píxeles del centro a la izquierda: {exactitud * 100:.3f}%")
 
+# Borde de centro derecha
 centro_der = [str((28*12) + 27),str((28*13)+27),str((28*14)+27)]
 X = binario[centro_der]  
 y = binario['labels']  
-
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.15, random_state=14)
 
 modelo = KNeighborsClassifier(n_neighbors=3)
 modelo.fit(X_train, y_train)
-
 y_pred = modelo.predict(X_test)
 
 exactitud = accuracy_score(y_test, y_pred)
 exactitudes.append(f"{exactitud * 100:.2f}%")
 print(f"Precisión del modelo con primeros píxeles de centro a la derecha: {exactitud * 100:.3f}%")
-
 #%% Graficamos los píxeles elegidos
 tam_imagen = (28, 28, 3) 
 im = np.ones(tam_imagen, dtype=np.uint8) * 255  
@@ -197,7 +200,7 @@ ax.scatter([], [], color=np.array([255,255,0]) / 255, label="Primera izquierda: 
 ax.scatter([], [], color=np.array([255,165,0]) / 255, label="Centro izquierda: " + exactitudes[2])
 ax.scatter([], [], color=np.array([165,42,42]) / 255, label="Centro derecha: " + exactitudes[3])
 
-ax.legend(loc='lower right', fontsize=10, title="Exactitud", title_fontsize=12)
+ax.legend(loc='lower right', fontsize=13.5, title="Exactitud", title_fontsize=12)
 plt.title("Exactitud de KNN en valores de bordes (binario, K=3)", fontsize=14)
 plt.show()
 
@@ -209,12 +212,10 @@ central = np.arange(13*28, 14*28)
 fila_central = central.astype(str)
 X = binario[fila_central]  
 y = binario['labels']  
-
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.15, random_state=14)
 
 modelo = KNeighborsClassifier(n_neighbors=3)
 modelo.fit(X_train, y_train)
-
 y_pred = modelo.predict(X_test)
 
 exactitud = accuracy_score(y_test, y_pred)
@@ -226,12 +227,10 @@ primera = np.arange(0, 28)
 primera_fila = primera.astype(str)
 X = binario[primera_fila]  
 y = binario['labels']  
-
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.15, random_state=14)
 
 modelo = KNeighborsClassifier(n_neighbors=3)
 modelo.fit(X_train, y_train)
-
 y_pred = modelo.predict(X_test)
 
 exactitud = accuracy_score(y_test, y_pred)
@@ -262,8 +261,8 @@ plt.grid(color="gray", linestyle="--", linewidth=0.5)
 ax.scatter([], [], color=np.array([128,0,128]) / 255, label="Fila central: " + exactitudes[0])
 ax.scatter([], [], color=np.array([255,165,0]) / 255, label="Primera fila: " + exactitudes[1])
 
-ax.legend(loc='lower right', fontsize=10, title="Exactitud", title_fontsize=12)
-plt.title("Exactitud de KNN en filas enteras (binario)", fontsize=14)
+ax.legend(loc='lower right', fontsize=14, title="Exactitud", title_fontsize=12)
+plt.title("Exactitud de KNN en filas enteras (binario, K=3)", fontsize=14)
 plt.show()
 #%%===========================================================================
 # Modelo definitivo
@@ -290,10 +289,10 @@ diferencia_porcentajes = diferencia_porcentajes.abs()
 
 #%% Evaluamos para diferentes K y diferentes cantidad de píxeles con más variación
 n_posibles = list(range(1,31))
-k_posibles = list(range(1,20))
+k_posibles = list(range(1,21))
 
-grid = pd.DataFrame(np.zeros((len(n_posibles), len(k_posibles)), dtype=int), index=n_posibles, columns=k_posibles)
-grid_train = pd.DataFrame(np.zeros((len(n_posibles), len(k_posibles)), dtype=int), index=n_posibles, columns=k_posibles)
+grid = pd.DataFrame(np.zeros((len(n_posibles), len(k_posibles)), dtype=float), index=n_posibles, columns=k_posibles)
+grid_train = pd.DataFrame(np.zeros((len(n_posibles), len(k_posibles)), dtype=float), index=n_posibles, columns=k_posibles)
 
 # El siguiente ciclo es muy costoso 
 for n in n_posibles:
@@ -329,26 +328,36 @@ print("Mejores (n, k):", (n_mejor, k_mejor)) # n = 20, k = 3
 #%%g Graficamos para analizar el modelo
 # Graficamos los píxeles elegidos
 veinte_mayor_dif = diferencia_porcentajes.iloc[0].nlargest(n_mejor).index.tolist()
-tam_imagen = (28, 28, 3) 
+tam_imagen = (28, 28, 3)  
 im = np.ones(tam_imagen, dtype=np.uint8) * 255  
 
-color_base = np.array([0, 206, 209])
+color_base = np.array([0, 206, 209])  
+
+n_pixels = len(veinte_mayor_dif)
+intensities = np.linspace(0.4, 1.0, n_pixels)  
 
 for i, indice in enumerate(np.array(veinte_mayor_dif, dtype=int)):
     f, c = divmod(indice, 28)  
-    intensidad = 0.3 + 0.7 * (1 - i / (n_mejor - 1))
-    im[f, c] = (color_base * intensidad).astype(np.uint8)
-    
+    im[f, c] = (color_base * intensities[i]).astype(np.uint8)
+
 fig, ax = plt.subplots(figsize=(7, 7))
 ax.imshow(im, extent=[0, 28, 28, 0])
-
 ax.set_xticks(np.arange(28))
 ax.set_yticks(np.arange(28))
 ax.set_xticklabels(np.arange(28), fontsize=6, rotation=90)  
 ax.set_yticklabels(np.arange(28), fontsize=6)
-
 plt.grid(color="gray", linestyle="--", linewidth=0.5)
 plt.title("20 píxeles de mayor variación entre 0 y 1", fontsize=14)
+
+# Agregamos al gráfico un label del degradé en los colores
+cmap = mcolors.LinearSegmentedColormap.from_list("custom_cmap", [color_base / 255 * 0.4, color_base / 255])
+norm = mcolors.Normalize(vmin=0.4, vmax=1.0)
+sm = cm.ScalarMappable(cmap=cmap, norm=norm)
+sm.set_array([])
+cbar = plt.colorbar(sm, ax=ax, fraction=0.046, pad=0.04)
+cbar.set_label("Variación de píxel", fontsize=12)
+cbar.set_ticks([0.4, 1.0])
+cbar.set_ticklabels(["Mayor variación", "Menor variación"])  
 
 plt.show()
 
@@ -365,8 +374,8 @@ plt.show()
 
 
 # Graficamos performance en train y test dependiendo de cantidad de píxeles (K = 3)
-grid[3].plot(kind="line", marker="o", figsize=(7, 5), label='test', grid=True, title="Cantidad de píxeles contra exactitud", zorder=3, color='#32CD32')
-grid_train[3].plot(kind="line", marker="o", figsize=(7, 5), label='train', grid=True, title="Cantidad de píxeles contra exactitud", zorder=3, color='red')
+grid[3].plot(kind="line", marker="o", figsize=(7, 5), label='test', grid=True, zorder=3, color='#32CD32')
+grid_train[3].plot(kind="line", marker="o", figsize=(7, 5), label='train', grid=True, title="Cantidad de píxeles contra exactitud con K = 3", zorder=3, color='red')
 plt.xlabel("Cantidad de píxeles")
 plt.ylabel("Exactitud")
 plt.axvline(x=20, color='purple',linestyle='--',linewidth=2,label='Cantidad elegida', zorder=2)
@@ -374,8 +383,8 @@ plt.legend()
 plt.show()
 
 # Graficamos performance en train y test dependiendo de cant de píxeles desde 15 hasta 30
-grid[3].plot(kind="line", marker="o", figsize=(7, 5), label='test', grid=True, title="Cantidad de píxeles contra exactitud", zorder=3, color='#32CD32')
-grid_train[3].plot(kind="line", marker="o", figsize=(7, 5), label='train', grid=True, title="Cantidad de píxeles contra exactitud (de 15 a 30)", zorder=3, color='red')
+grid[3].plot(kind="line", marker="o", figsize=(7, 5), label='test', grid=True, zorder=3, color='#32CD32')
+grid_train[3].plot(kind="line", marker="o", figsize=(7, 5), label='train', grid=True, title="Cantidad de píxeles contra exactitud (de 15 a 30) con K = 3", zorder=3, color='red')
 plt.xlabel("Cantidad de píxeles")
 plt.ylabel("Exactitud")
 plt.xlim(15, 30)
@@ -410,6 +419,33 @@ plt.show()
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 #%%===========================================================================
+# Primeros acercamientos al modelo
+#=============================================================================
+# Entrenamos dos árboles sin k-folding
+X = data.drop('labels', axis=1)
+y = data['labels']
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.15, random_state=14)
+
+# Árbol de máxima profundidad 2 con gini
+arbol_gini_2 = tree.DecisionTreeClassifier(criterion = "gini", max_depth=2)
+arbol_gini_2.fit(X_train, y_train)
+pred = arbol_gini_2.predict(X_test)
+exactitud = accuracy_score(y_test, pred)
+print(f'Score del modelo con gini hmax = 2: {exactitud:.4f}') #0.2043
+# Graficamos
+plt.figure(figsize= (26,10))
+tree.plot_tree(arbol_gini_2, feature_names=[f'Pixel {i}' for i in range(784)], filled=True, fontsize=14)
+plt.show()
+
+# Árbol de máxima profundidad 3 con entropia
+arbol_entropia_3 = tree.DecisionTreeClassifier(criterion = "entropy", max_depth=3)
+arbol_entropia_3.fit(X_train, y_train)
+pred = arbol_entropia_3.predict(X_test)
+exactitud = accuracy_score(y_test, pred)
+print(f'Score del modelo con entropia hmax = 3: {exactitud:.4f}') #0.29
+
+
+#%%===========================================================================
 # Separación de Held-out
 #=============================================================================
 
@@ -420,7 +456,7 @@ X_dev, X_held_out, y_dev, y_held_out = train_test_split(X,y,test_size=0.15, rand
 #%%===========================================================================
 # Elección del modelo
 #=============================================================================
-# Probamos con alturas de 2 a 10 con dos criterios distintos
+# Probamos con alturas de 2 a 10 con dos criterios distintos usando k-folding
 alturas = list(range(2,11))
 nsplits = 5
 kf = KFold(n_splits=nsplits)
@@ -459,33 +495,38 @@ for i,e in enumerate(alturas):
     print(f'Score promedio del modelo con entropia hmax = {e}: {scores_promedio_entropia[i]:.4f}')
 
 # Nos quedamos con la mejor combinación
-mejor_altura_gini = alturas[scores_promedio_gini.idmax()] 
-mejor_exact_gini = scores_promedio_gini.max()
-mejor_altura_entropia = alturas[scores_promedio_entropia.idmax()] 
-mejor_exact_entropia = scores_promedio_entropia.max()
+mejor_altura_gini = alturas[np.argmax(scores_promedio_gini)] 
+mejor_exact_gini = max(scores_promedio_gini)
+mejor_altura_entropia = alturas[np.argmax(scores_promedio_entropia)] 
+mejor_exact_entropia = max(scores_promedio_entropia)
 
 mejor_altura = max((mejor_exact_gini, mejor_altura_gini),(mejor_exact_entropia, mejor_altura_entropia))[1]
-mejor_criterio = max((mejor_exact_gini, mejor_altura_gini),(mejor_exact_entropia, mejor_altura_entropia))[0]
-"""
-Score promedio del modelo con entropia hmax = 9: 0.6491
-Score promedio del modelo con entropia hmax = 10: 0.6756
-"""
+mejor_exactitud = max((mejor_exact_gini, mejor_altura_gini),(mejor_exact_entropia, mejor_altura_entropia))[0]
+mejor_criterio = max((mejor_exact_gini, 'gini'),(mejor_exact_entropia, 'entropy'))[1]
+
 #%% Entrenamos el modelo sobre el held-out y reportamos performance
 arbol = tree.DecisionTreeClassifier(max_depth = mejor_altura, criterion=mejor_criterio, random_state=14)
 arbol.fit(X_dev, y_dev)
 pred = arbol.predict(X_held_out)
 score = accuracy_score(y_held_out,pred) # 0.6860
-
 print(f'Score del modelo sobre held out con {mejor_criterio} hmax = {mejor_altura}: {score:.4f}')
 #%% Graficamos para analizar el modelo
+# Graficamos la matriz de confusión
+matriz_confusion = confusion_matrix(y_held_out, pred)
+plt.figure(figsize=(9, 6)) 
+sns.heatmap(matriz_confusion, annot=True, fmt='d', cmap='Greens')
+plt.xlabel('Predicción')
+plt.ylabel('Real')
+plt.title('Matriz de confusión en el modelo final de clasificación multiclase')
+plt.show()
+
 # Graficamos exactitud contra altura por criterio
 plt.plot(alturas,scores_promedio_entropia, label='Entropia', marker='o')
 plt.plot(alturas,scores_promedio_gini, label='Gini', marker='o')
 plt.xlabel("Altura")
 plt.xticks(alturas)
 plt.ylabel("Exactitud")
-plt.title("Altura de árbol contra exactitud (por criterio)")
-#plt.axvline(x=3, color='purple',linestyle='--',label='K elegido', zorder=2)
+plt.title("Exactitud contra altura de árbol (por criterio)")
 plt.legend()
 plt.show()
 
@@ -495,7 +536,6 @@ plt.plot(alturas,scores_promedio_train_entropia, label='Train', marker='o',color
 plt.xlabel("Altura")
 plt.xticks(alturas)
 plt.ylabel("Exactitud")
-plt.title("Altura de árbol contra exactitud en train y test (entropia)")
-#plt.axvline(x=3, color='purple',linestyle='--',label='K elegido', zorder=2)
+plt.title("Exactitud contra altura de árbol en train y test (entropía)")
 plt.legend()
 plt.show()
